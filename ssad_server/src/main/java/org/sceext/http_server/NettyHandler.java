@@ -122,12 +122,12 @@ public class NettyHandler extends SimpleChannelInboundHandler<Object> {
 
         // get req info
         _info = Json.object();
-        _info.set("http_version", req.protocolVersion().toString());
-        _info.set("full_url", req.uri());
-        _info.set("method", req.method().name());
+        _info.set(OneReq.HTTP_VERSION, req.protocolVersion().toString());
+        _info.set(OneReq.FULL_URL, req.uri());
+        _info.set(OneReq.METHOD, req.method().name());
         // http headers
         Json header = Json.object();
-        _info.set("header", header);
+        _info.set(OneReq.HEADER, header);
         HttpHeaders headers = req.headers();
         if (! headers.isEmpty()) {
             for (Map.Entry<String, String> h: headers) {
@@ -137,7 +137,7 @@ public class NettyHandler extends SimpleChannelInboundHandler<Object> {
         }
         // decode query string
         Json query = Json.object();
-        _info.set("query", query);
+        _info.set(OneReq.QUERY, query);
         QueryStringDecoder qd = new QueryStringDecoder(req.uri());
         Map<String, List<String>> ps = qd.parameters();
         if (! ps.isEmpty()) {
