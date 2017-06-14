@@ -161,6 +161,16 @@ public class App {
         public IOnReq create_on_req() {
             return new OnReq();
         }
+
+        @Override
+        public void on_listen(String ip, int port) {
+            // TODO
+        }
+
+        @Override
+        public void on_close() {
+            // TODO
+        }
     }
 
     public static void main(String[] args) throws Exception {

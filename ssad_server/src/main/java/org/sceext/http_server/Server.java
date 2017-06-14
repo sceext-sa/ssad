@@ -11,7 +11,7 @@ import io.netty.handler.logging.LoggingHandler;
 
 
 public class Server {
-    public static final String VERSION = "netty http_server version 0.2.0-1 test20170614 2206";
+    public static final String VERSION = "netty http_server version 0.2.0-1 test20170614 2214";
 
     private int _port = 8080;
     private String _ip = "127.0.0.1";
@@ -38,15 +38,20 @@ public class Server {
              .handler(new LoggingHandler(LogLevel.DEBUG))
              .childHandler(new NettyInit(_callback));
             Channel ch = b.bind(_ip, _port).sync().channel();
-            // FIXME improve log
-            System.err.println("DEBUG: listen at " + _ip + ":" + _port);
+
+            // server on_listen callback
+            _callback.on_listen(_ip, _port);
 
             ch.closeFuture().sync();
         } finally {
             master_group.shutdownGracefully();
             slave_group.shutdownGracefully();
+
+            _callback.on_close();
         }
     }
 
-    // TODO support .close() method
+    public void close() throws Exception {
+        // TODO
+    }
 }
