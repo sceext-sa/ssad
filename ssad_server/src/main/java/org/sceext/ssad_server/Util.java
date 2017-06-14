@@ -63,5 +63,29 @@ public class Util {
         }
     }
 
+    public static void delete_file(String file_path) throws Exception {
+        // TODO
+    }
+
+    public static String merge_path(String a, String b) {
+        // TODO
+        return null;
+    }
+
+    public static String merge_path(String a, String b, String c) {
+        // TODO
+        return null;
+    }
+
+    public static boolean is_path_security(String root, String path) {
+        // TODO
+        return false;
+    }
+
+    public static Json list_dir(String file_path) throws Exception {
+        // TODO
+        return null;
+    }
+
     // TODO
 }

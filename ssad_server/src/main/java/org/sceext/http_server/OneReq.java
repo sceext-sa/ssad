@@ -109,27 +109,27 @@ public class OneReq {
 
     // for quick build res
 
-    public Json res_code(int code) {
+    public static Json res_code(int code) {
         Json o = Json.object();
         o.set(TYPE, CODE);
         o.set(CODE, code);
         return o;
     }
 
-    public Json res_text(String text) {
+    public static Json res_text(String text) {
         Json o = Json.object();
         o.set(TYPE, TEXT);
         o.set(TEXT, text);
         return o;
     }
 
-    public Json res_text(String text, Json header) {
+    public static Json res_text(String text, Json header) {
         Json o = res_text(text);
         o.set(HEADER, header);
         return o;
     }
 
-    public Json res_json(Json json, boolean pretty_print) {
+    public static Json res_json(Json json, boolean pretty_print) {
         Json o = Json.object();
         o.set(TYPE, JSON);
         o.set(JSON, json);
@@ -137,26 +137,26 @@ public class OneReq {
         return o;
     }
 
-    public Json res_json(Json json, boolean pretty_print, Json header) {
+    public static Json res_json(Json json, boolean pretty_print, Json header) {
         Json o = res_json(json, pretty_print);
         o.set(HEADER, header);
         return o;
     }
 
-    public Json res_redirect(String location) {
+    public static Json res_redirect(String location) {
         Json o = Json.object();
         o.set(TYPE, REDIRECT);
         o.set(REDIRECT, location);
         return o;
     }
 
-    public Json res_redirect(String location, int code) {
+    public static Json res_redirect(String location, int code) {
         Json o = res_redirect(location);
         o.set(CODE, code);
         return o;
     }
 
-    public Json res_static_file(String file_path, Json header) {
+    public static Json res_static_file(String file_path, Json header) {
         Json o = Json.object();
         o.set(TYPE, STATIC_FILE);
         o.set(PATH, file_path);
@@ -164,14 +164,14 @@ public class OneReq {
         return o;
     }
 
-    public Json res_upload_file(String file_path) {
+    public static Json res_upload_file(String file_path) {
         Json o = Json.object();
         o.set(TYPE, UPLOAD_FILE);
         o.set(PATH, file_path);
         return o;
     }
 
-    public Json get_post_data() {
+    public static Json get_post_data() {
         Json o = Json.object();
         o.set(TYPE, GET_POST_DATA);
         return o;

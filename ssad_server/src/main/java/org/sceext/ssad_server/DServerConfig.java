@@ -5,13 +5,13 @@ import mjson.Json;
 
 public class DServerConfig {
     // ssad_server version
-    public static final String VERSION = "ssad_server version 0.1.0-1 test20170614 2331";
+    public static final String VERSION = "ssad_server version 0.1.0-1 test20170615 0147";
 
     // ssad_server runtime (json) config
     private Json _config = null;
 
     // root_key (root ssad_key)
-    private String _root_key = "";
+    private String _root_key = null;
     // ROOT_APP
     private String _root_app = "root_app";
     // SSAD_CONFIG_ROOT
@@ -69,6 +69,17 @@ public class DServerConfig {
                             .set("allow", Json.object()
                                 .set("list", true)
                                 .set("ro", true)
+                            )
+                        )
+                        .set("app", Json.object()
+                            // /sdcard/ssad/app/root_app/
+                            .set("path", data_root() + "app/root_app/")
+                            .set("allow", Json.object()
+                                .set("list", true)
+                                .set("post", true)
+                                .set("delete", true)
+                                .set("replace", true)
+                                .set("ro", false)
                             )
                         )
                     )

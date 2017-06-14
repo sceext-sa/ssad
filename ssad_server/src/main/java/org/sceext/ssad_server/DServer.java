@@ -33,6 +33,15 @@ public class DServer {
         // TODO
     }
 
+    // ssad_server init process
+    private void init() throws Exception {
+        // TODO TODO clean tmp dir ?
+        // TODO make default config ?
+        // TODO load config files
+
+        // TODO start http_server ?
+    }
+
     static class Callback implements IReqCallback {
         private final DServer _server;
 
