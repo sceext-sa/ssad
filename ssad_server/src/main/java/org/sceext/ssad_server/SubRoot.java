@@ -15,6 +15,6 @@ public class SubRoot extends OnReqBase {
     protected Json _on_req(Json info, String path) throws Exception {
         // TODO
 
-        return OneReq.res_code(404);  // HTTP 404 Not Found
+        return OneReq.res_code(501);  // HTTP 501 Not Implemented
     }
 }

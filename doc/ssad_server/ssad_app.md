@@ -103,6 +103,11 @@
       }
     }
   },
+  // pub_root 文件后缀 -> MIME (Content-Type) 对照表
+  ext_to_mime: {
+    'EXT': 'MIME',
+    '': 'DEFAULT',  // 默认 MIME type
+  },
 
   // 以下 为 可选 项目
   license: '',
@@ -132,6 +137,10 @@
         "list": false
       }
     }
+  },
+  "ext_to_mime": {
+    "html": "text/html",
+    "": "application/octet-stream"
   },
 
   "license": "GNU GPL v3+",

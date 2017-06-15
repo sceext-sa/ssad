@@ -64,27 +64,68 @@ public class Util {
     }
 
     public static void delete_file(String file_path) throws Exception {
-        // TODO
+        File f = new File(file_path);
+        if (! f.delete()) {
+            throw new Exception("delete " + file_path);
+        }
     }
 
     public static String merge_path(String a, String b) {
-        // TODO
-        return null;
+        File f = new File(a);
+        f = new File(f, b);
+        return f.getPath();
     }
 
     public static String merge_path(String a, String b, String c) {
-        // TODO
-        return null;
+        File f = new File(a);
+        f = new File(f, b);
+        f = new File(f, c);
+        return f.getPath();
+    }
+
+    public static String norm_path(String path) throws Exception {
+        File f = new File(path);
+        return f.getCanonicalFile().getAbsolutePath();
     }
 
     public static boolean is_path_security(String root, String path) {
-        // TODO
+        try {
+            root = norm_path(root);
+            if (! root.endsWith("/")) {
+                root += "/";
+            }
+            path = norm_path(path);
+            if (! path.endsWith("/")) {
+                path += "/";
+            }
+            if (path.startsWith(root)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
     public static Json list_dir(String file_path) throws Exception {
-        // TODO
-        return null;
+        File f = new File(file_path);
+        File[] s = f.listFiles();
+        Json dir = Json.object();
+        for (File i: s) {
+            Json one = Json.object();
+            if (i.isFile()) {
+                one.set("type", "file");
+                one.set("size", i.length());
+            } else if (i.isDirectory()) {
+                one.set("type", "dir");
+            } else {
+                one.set("type", "unknow");
+            }
+            dir.set(i.getName(), one);
+        }
+        Json o = Json.object()
+            .set("dir", dir);
+        return o;
     }
 
     // TODO
