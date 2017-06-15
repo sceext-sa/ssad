@@ -5,7 +5,7 @@ import mjson.Json;
 
 public class DServerConfig {
     // ssad_server version
-    public static final String VERSION = "ssad_server version 0.1.0-1 test20170616 0206";
+    public static final String VERSION = "ssad_server version 0.1.0-1 test20170616 0214";
 
     // ssad_server runtime (json) config
     private Json _config = null;
@@ -97,47 +97,59 @@ public class DServerConfig {
         return _root_key;
     }
 
-    public void root_key(String k) {
+    public DServerConfig root_key(String k) {
         _root_key = k;
+
+        return this;
     }
 
     public String root_app() {
         return _root_app;
     }
 
-    public void root_app(String r) {
+    public DServerConfig root_app(String r) {
         _root_app = r;
+
+        return this;
     }
 
     public String config_root() {
         return _config_root;
     }
 
-    public void config_root(String c) {
+    public DServerConfig config_root(String c) {
         _config_root = c;
+
+        return this;
     }
 
     public String data_root() {
         return _data_root;
     }
 
-    public void data_root(String d) {
+    public DServerConfig data_root(String d) {
         _data_root = d;
+
+        return this;
     }
 
     public String sdcard_root() {
         return _sdcard_root;
     }
 
-    public void sdcard_root(String s) {
+    public DServerConfig sdcard_root(String s) {
         _sdcard_root = s;
+
+        return this;
     }
 
     public int port() {
         return _port;
     }
 
-    public void port(int p) {
+    public DServerConfig port(int p) {
         _port = p;
+
+        return this;
     }
 }
