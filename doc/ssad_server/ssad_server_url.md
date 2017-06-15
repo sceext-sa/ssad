@@ -65,7 +65,7 @@ ssad_server 会 进行 安全检查, 确保 不会访问 对应 本地目录 以
 
   + `HEAD`: (获取 文件信息)
   + `GET`: 下载文件
-  + `POST`: 上传 / 修改 (替换) 文件
+  + `PUT`: 上传 / 修改 (替换) 文件
   + `DELETE`: 删除文件
 
 + 对 目录, 支持的 操作 有:
@@ -77,7 +77,7 @@ ssad_server 会 进行 安全检查, 确保 不会访问 对应 本地目录 以
 
 如果 使用了 错误的 HTTP 方法, 将 返回 `HTTP 405 Method Not Allowed` 响应.
 
-(TODO) 支持 HTTP `MOVE` 方法 ?
+(TODO) 支持 HTTP `MOVE` / 'COPY' 方法
 
 
 ## 列出目录

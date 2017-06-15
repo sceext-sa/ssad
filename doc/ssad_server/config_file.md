@@ -22,7 +22,7 @@
           allow: {  // 访问 权限 控制  (以下 为 各项 默认值)
             // 默认 允许 read (下载 普通文件)
             list: true,      // 允许 列出 目录内容 ( GET )
-            post: false,     // 允许 上传文件 ( POST )
+            put: false,     // 允许 上传文件 ( PUT )
             delete: false,   // 允许 删除 文件 ( DELETE )
             replace: false,  // 允许 替换 (更新) 文件 ( POST )
                              // 仅当 post: true 时 有效

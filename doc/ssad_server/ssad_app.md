@@ -46,7 +46,7 @@
 {
   "allow": {
     "list": true,
-    "post": true,
+    "put": true,
     "delete": true,
     "replace": true,
     "ro": false
@@ -65,7 +65,7 @@
 {
   "allow": {
     "list": true,
-    "post": false,
+    "put": false,
     "delete": false,
     "replace": false,
     "ro": true
@@ -75,7 +75,7 @@
 
 用户 可 根据需要, 为 应用 设置 更多 权限.
 
-(TODO) 应用 `GET /ssad201706/key/SSAD_APP_ID/` 可以 `list` 出来,
+应用 `GET /ssad201706/key/SSAD_APP_ID/` 可以 `list` 出来,
 本应用 具有 哪些 sub_root.
 
 
