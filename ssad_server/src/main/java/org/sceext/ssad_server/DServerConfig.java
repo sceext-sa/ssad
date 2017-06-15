@@ -5,7 +5,7 @@ import mjson.Json;
 
 public class DServerConfig {
     // ssad_server version
-    public static final String VERSION = "ssad_server version 0.1.0-1 test20170616 0142";
+    public static final String VERSION = "ssad_server version 0.1.0-1 test20170616 0206";
 
     // ssad_server runtime (json) config
     private Json _config = null;
@@ -22,7 +22,7 @@ public class DServerConfig {
     private String _sdcard_root = "/sdcard/";
 
     // port to listen (server)
-    private int _port;
+    private int _port = 8421;
 
     // get / set
 
