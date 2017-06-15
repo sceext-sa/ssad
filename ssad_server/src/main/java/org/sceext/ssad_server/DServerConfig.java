@@ -5,7 +5,7 @@ import mjson.Json;
 
 public class DServerConfig {
     // ssad_server version
-    public static final String VERSION = "ssad_server version 0.1.0-1 test20170615 2350";
+    public static final String VERSION = "ssad_server version 0.1.0-1 test20170616 0053";
 
     // ssad_server runtime (json) config
     private Json _config = null;

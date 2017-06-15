@@ -21,7 +21,7 @@ public class BuiltinPub extends OnReqBase {
 
         // TODO
 
-        return OneReq.res_code(404);
+        return OneReq.res_code(501);
     }
 
     @Override

@@ -38,9 +38,16 @@ import org.sceext.json.JsonPretty;
 
 public class OneReq {
     // static string
+    public static final String COPY = "COPY";
+    public static final String DELETE = "DELETE";
+    public static final String GET = "GET";
+    public static final String HEAD_ = "HEAD";
+    public static final String MOVE = "MOVE";
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+
     public static final String CODE = "code";
     public static final String FULL_URL = "full_url";
-    public static final String GET = "GET";
     public static final String GET_POST_DATA = "get_post_data";
     public static final String HEAD = "head";
     public static final String HEADER = "header";

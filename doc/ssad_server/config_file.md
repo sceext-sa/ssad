@@ -24,10 +24,10 @@
             list: true,      // 允许 列出 目录内容 ( GET )
             put: false,     // 允许 上传文件 ( PUT )
             delete: false,   // 允许 删除 文件 ( DELETE )
-            replace: false,  // 允许 替换 (更新) 文件 ( POST )
+            replace: false,  // 允许 替换 (更新) 文件 ( PUT )
                              // 仅当 post: true 时 有效
             ro: true,  // 只读 标志 (优先级 高)
-                       // 此项 为 true 时, post / delete / replace 都 无效
+                       // 此项 为 true 时, put / delete / replace 都 无效
           }
         }
       }
