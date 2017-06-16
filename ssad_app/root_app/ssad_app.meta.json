@@ -1,0 +1,24 @@
+{
+  "ssad_app_spec": "0.1.0",
+
+  "id": "root_app",
+  "name": "ssad APP 管理器 (root_app)",
+  "version": "0.1.0-1",
+
+  "main": "static/main.html",
+  "pub_root": {
+    "static": {
+      "sub_root": "app",
+      "path": "/",
+      "allow": {
+        "list": false
+      }
+    }
+  },
+
+  "license": "GNU GPL v3+",
+  "author": "sceext <sceext@foxmail.com>",
+  "home": "https://github.com/sceext-sa/ssad",
+
+  "_mark": "root_app"
+}

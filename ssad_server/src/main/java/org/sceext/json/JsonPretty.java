@@ -4,7 +4,6 @@ package org.sceext.json;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Iterator;
 
 import mjson.Json;
 
@@ -51,7 +50,7 @@ public class JsonPretty {
 
             boolean first = true;  // print first item
             // print each item in array
-            for (Iterator<Json> i = l.iterator(); i.hasNext();) {
+            for (Json i: l) {
                 // check first item
                 if (first) {
                     first = false;
@@ -59,9 +58,11 @@ public class JsonPretty {
                     _o.append(",\n");
                 }
                 _add_indent();
-                _print(i.next());
+                _print(i);
             }
-            _o.append("\n");
+            if (l.size() > 0) {
+                _o.append("\n");
+            }
             _level -= 1;
 
             _add_indent();
@@ -78,7 +79,7 @@ public class JsonPretty {
 
             boolean first = true;
             // print each item in object
-            for (Iterator<String> i = key.iterator(); i.hasNext();) {
+            for (String k: key) {
                 // check first item
                 if (first) {
                     first = false;
@@ -87,12 +88,13 @@ public class JsonPretty {
                 }
                 _add_indent();
                 // print object name
-                String k = i.next();
                 _o.append(Json.make(k).toString() + ": ");
 
                 _print(m.get(k));
             }
-            _o.append("\n");
+            if (key.size() > 0) {
+                _o.append("\n");
+            }
             _level -= 1;
 
             _add_indent();

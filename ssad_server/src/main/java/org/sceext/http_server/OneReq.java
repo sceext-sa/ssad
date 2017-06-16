@@ -37,6 +37,35 @@ import org.sceext.json.JsonPretty;
 
 
 public class OneReq {
+    // static string
+    public static final String COPY = "COPY";
+    public static final String DELETE = "DELETE";
+    public static final String GET = "GET";
+    public static final String HEAD_ = "HEAD";
+    public static final String MOVE = "MOVE";
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+
+    public static final String CODE = "code";
+    public static final String FULL_URL = "full_url";
+    public static final String GET_POST_DATA = "get_post_data";
+    public static final String HEAD = "head";
+    public static final String HEADER = "header";
+    public static final String HTTP_VERSION = "http_version";
+    public static final String JSON = "json";
+    public static final String LOCATION = "location";
+    public static final String METHOD = "method";
+    public static final String PATH = "path";
+    public static final String PRETTY_PRINT = "pretty_print";
+    public static final String QUERY = "query";
+    public static final String REDIRECT = "redirect";
+    public static final String STATIC_FILE = "static_file";
+    public static final String TEXT = "text";
+    public static final String TYPE = "type";
+    public static final String UPLOAD_FILE = "upload_file";
+
+    public static final String QM = "?";  // question mark
+
     // HTTP 301 Moved Permanently
     // HTTP 302 Found
     // HTTP 307 Temporary Redirect
@@ -84,6 +113,78 @@ public class OneReq {
     }
 
     // public methods used by IOnReq
+
+    // for quick build res
+
+    public static Json res_code(int code) {
+        Json o = Json.object();
+        o.set(TYPE, CODE);
+        o.set(CODE, code);
+        return o;
+    }
+
+    public static Json res_text(String text) {
+        Json o = Json.object();
+        o.set(TYPE, TEXT);
+        o.set(TEXT, text);
+        return o;
+    }
+
+    public static Json res_text(String text, Json header) {
+        Json o = res_text(text);
+        o.set(HEADER, header);
+        return o;
+    }
+
+    public static Json res_json(Json json, boolean pretty_print) {
+        Json o = Json.object();
+        o.set(TYPE, JSON);
+        o.set(JSON, json);
+        o.set(PRETTY_PRINT, pretty_print);
+        return o;
+    }
+
+    public static Json res_json(Json json, boolean pretty_print, Json header) {
+        Json o = res_json(json, pretty_print);
+        o.set(HEADER, header);
+        return o;
+    }
+
+    public static Json res_redirect(String location) {
+        Json o = Json.object();
+        o.set(TYPE, REDIRECT);
+        o.set(REDIRECT, location);
+        return o;
+    }
+
+    public static Json res_redirect(String location, int code) {
+        Json o = res_redirect(location);
+        o.set(CODE, code);
+        return o;
+    }
+
+    public static Json res_static_file(String file_path, Json header) {
+        Json o = Json.object();
+        o.set(TYPE, STATIC_FILE);
+        o.set(PATH, file_path);
+        if (header != null) {
+            o.set(HEADER, header);
+        }
+        return o;
+    }
+
+    public static Json res_upload_file(String file_path) {
+        Json o = Json.object();
+        o.set(TYPE, UPLOAD_FILE);
+        o.set(PATH, file_path);
+        return o;
+    }
+
+    public static Json get_post_data() {
+        Json o = Json.object();
+        o.set(TYPE, GET_POST_DATA);
+        return o;
+    }
 
     // public methods used by NettyHandler
 
@@ -133,57 +234,57 @@ public class OneReq {
 
     // add `.path` from _req_info.full_url
     private void _add_path() {
-        String full = _req_info.at("full_url").asString();
-        int i = full.indexOf("?");
+        String full = _req_info.at(FULL_URL).asString();
+        int i = full.indexOf(QM);
         if (i != -1) {
-            _req_info.set("path", full.substring(0, i));
+            _req_info.set(PATH, full.substring(0, i));
         } else {
-            _req_info.set("path", full);
+            _req_info.set(PATH, full);
         }
     }
 
     // res Json info return by `_on_req.on_req()`
     private void _req_res(Json res, boolean post_worker) throws Exception {
-        String type = res.at("type").asString();
+        String type = res.at(TYPE).asString();
         // check res type
-        if (type.equals("code")) {
-            int code = res.at("code").asInteger();
+        if (type.equals(CODE)) {
+            int code = res.at(CODE).asInteger();
             _res_code(code);
-        } else if (type.equals("text")) {
-            String text = res.at("text").asString();
-            _res_text(text, res.at("header"));
-        } else if (type.equals("json")) {
-            Json json = res.at("json");
+        } else if (type.equals(TEXT)) {
+            String text = res.at(TEXT).asString();
+            _res_text(text, res.at(HEADER));
+        } else if (type.equals(JSON)) {
+            Json json = res.at(JSON);
             String text = "";
-            if (res.has("pretty_print") && res.at("pretty_print").asBoolean()) {
+            if (res.has(PRETTY_PRINT) && res.at(PRETTY_PRINT).asBoolean()) {
                 text = JsonPretty.print(json);
             } else {
                 text = json.toString();
             }
-            if (! res.has("header")) {
-                res.set("header", Json.object());
+            if (! res.has(HEADER)) {
+                res.set(HEADER, Json.object());
             }
             // set `Content-Type: application/json`
-            res.at("header").set(HttpHeaderNames.CONTENT_TYPE.toString(), HttpHeaderValues.APPLICATION_JSON.toString());
-            _res_text(text, res.at("header"));
-        } else if (type.equals("redirect")) {
-            String location = res.at("location").asString();
+            res.at(HEADER).set(HttpHeaderNames.CONTENT_TYPE.toString(), HttpHeaderValues.APPLICATION_JSON.toString());
+            _res_text(text, res.at(HEADER));
+        } else if (type.equals(REDIRECT)) {
+            String location = res.at(REDIRECT).asString();
             int code = DEFAULT_REDIRECT_CODE;
-            if (res.has("code")) {
-                code = res.at("code").asInteger();
+            if (res.has(CODE)) {
+                code = res.at(CODE).asInteger();
             }
             _res_redirect(location, code);
-        } else if (type.equals("static_file")) {
-            String file_path = res.at("path").asString();
-            _res_static_file(file_path, res.at("header"));
-        } else if (type.equals("upload_file")) {
+        } else if (type.equals(STATIC_FILE)) {
+            String file_path = res.at(PATH).asString();
+            _res_static_file(file_path, res.at(HEADER));
+        } else if (type.equals(UPLOAD_FILE)) {
             // can not use in `post_worker`
             if (post_worker) {
                 throw new Exception("`upload_file` can not use in post worker");
             }
-            String file_path = res.at("path").asString();
+            String file_path = res.at(PATH).asString();
             _upload_file(file_path, UPLOAD_FILE_TMP_SUFFIX);
-        } else if (type.equals("get_post_data")) {
+        } else if (type.equals(GET_POST_DATA)) {
             // can not use in `post_worker`
             if (post_worker) {
                 throw new Exception("`get_post_data` can not use in post worker");
@@ -196,7 +297,10 @@ public class OneReq {
 
     private void _res_code(int code) {
         String text = "HTTP " + code + " " + HttpResponseStatus.valueOf(code).reasonPhrase() + "\n";
-        _send_res(code, text, null);
+        // set content-type
+        Json header = Json.object()
+            .set(HttpHeaderNames.CONTENT_TYPE.toString(), HttpHeaderValues.TEXT_PLAIN.toString());
+        _send_res(code, text, header);
     }
 
     // HTTP 200 OK
@@ -204,7 +308,7 @@ public class OneReq {
         if (null == header) {
             header = Json.object();
         }
-        // check and set "Content-Type"
+        // check and set `Content-Type`
         if (! header.has(HttpHeaderNames.CONTENT_TYPE.toString())) {
             header.set(HttpHeaderNames.CONTENT_TYPE.toString(), HttpHeaderValues.TEXT_PLAIN.toString());
         }
@@ -221,8 +325,11 @@ public class OneReq {
     }
 
     private void _check_keep_alive() {
-        if (_h.is_keep_alive()) {
+        if (! _h.is_keep_alive()) {
             _h.ctx().writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+        } else {
+            // resume recv next request (for keep-alive)
+            _h.resume();
         }
     }
 
@@ -277,8 +384,8 @@ public class OneReq {
     // TODO support `Range:` header
     private void _res_static_file(String file_path, Json header) throws Exception {
         // check request method
-        String method = _req_info.at("method").asString();
-        if ((! method.equals("GET")) && (! method.equals("HEAD"))) {
+        String method = _req_info.at(METHOD).asString();
+        if ((! method.equals(GET)) && (! method.equals(HEAD))) {
             _res_code(405);  // HTTP 405 Method Not Allowed
             return;
         }
@@ -292,8 +399,8 @@ public class OneReq {
         String last_modified = _make_last_modified(f);
         // check `if-modified-since`
         String if_modified_since = null;
-        if (_req_info.at("header").has(HttpHeaderNames.IF_MODIFIED_SINCE.toString())) {
-            if_modified_since = _req_info.at("header").at(HttpHeaderNames.IF_MODIFIED_SINCE.toString()).asString();
+        if (_req_info.at(HEADER).has(HttpHeaderNames.IF_MODIFIED_SINCE.toString())) {
+            if_modified_since = _req_info.at(HEADER).at(HttpHeaderNames.IF_MODIFIED_SINCE.toString()).asString();
         }
         if ((if_modified_since != null) && if_modified_since.equals(last_modified)) {
             _res_code(304);  // HTTP 304 Not Modified
@@ -310,7 +417,7 @@ public class OneReq {
 
         int code = 200;  // HTTP 200 OK
         // check HEAD method
-        if (method.equals("HEAD")) {
+        if (method.equals(HEAD)) {
             FullHttpResponse res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.valueOf(code));
             _set_headers(res.headers(), header);
             // send res
@@ -333,6 +440,9 @@ public class OneReq {
         // check keep_alive
         if (! _h.is_keep_alive()) {
             last_content.addListener(ChannelFutureListener.CLOSE);
+        } else {
+            // resume recv next request (for keep-alive)
+            _h.resume();
         }
     }
 
@@ -382,7 +492,7 @@ public class OneReq {
         File tmp_f = new File(_upload_tmp_file_path);
         File f = new File(_upload_file_path);
         if (! tmp_f.renameTo(f)) {
-            // FIXME improve this
+            // FIXME improve log
             // DEBUG rename error
             System.err.println("ERROR: upload file: rename " + _upload_tmp_file_path + " -> " + _upload_file_path);
 
