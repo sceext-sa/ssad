@@ -130,7 +130,7 @@ ssad_server 的 内置功能 (java 代码) 由 以下 URL 提供:
 + **`config`** <br />
   ( `/ssad201706/key/.ssad/config` )
 
-  + `GET` 方法: 获取 ssad_server 当前相关 配置 ( `?type=XXX` ) (具体 TODO)
+  + `GET` 方法: 获取 ssad_server 当前 (runtime) 配置
   + `POST` 方法: 动态 修改 / 重新载入 ssad_server 配置 (json 格式)
 
 

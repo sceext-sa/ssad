@@ -139,6 +139,15 @@ public class SubRoot extends OnReqBase {
                 if (f.exists() && ((! allow.has("replace")) || (! allow.at("replace").asBoolean()))) {
                     return OneReq.res_code(403);  // NOT allow replace file
                 }
+                // check parent dir
+                File parent = f.getParentFile();
+                if (! parent.isDirectory()) {
+                    // try to create dir
+                    if (! parent.mkdirs()) {
+                        // just error
+                        throw new Exception("create parent dir " + parent.getPath());
+                    }
+                }
                 // upload file
                 return OneReq.res_upload_file(file_path);
             } else if (method.equals(OneReq.DELETE)) {
