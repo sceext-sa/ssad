@@ -52,16 +52,6 @@ public class DServer {
         System.err.println("DEBUG:    SDCARD_ROOT = " + _config.sdcard_root());
         System.err.println("DEBUG:    ROOT_APP = " + _config.root_app());
 
-        // make root_key
-        if (_config.root_key() == null) {
-            _config.root_key(MakeSsadKey.make());
-        }
-        System.err.println("DEBUG:    ROOT_KEY = " + _config.root_key());
-
-        // make default config
-        System.err.println("DEBUG: load default config ");
-        _config.config(_config.default_config());
-        // load config files
         // CONFIG_ROOT = /sdcard/.config/
         final String pub_root = "ssad_server/pub_root.json";
         final String sub_root = "ssad_server/sub_root.json";
@@ -73,7 +63,24 @@ public class DServer {
         String sr = Util.merge_path(cr, sub_root);
         String r3 = Util.merge_path(cr, root_302);
         String rk = Util.merge_path(cr, root_key);
+        // try load root_key
+        String t = Util.read_text_file(rk);
+        if (null == t) {
+            // ignore error
+        } else {
+            _config.root_key(t.trim());  // trim root_key
+            System.err.println("DEBUG: load " + rk);
+        }
+        // make root_key
+        if (_config.root_key() == null) {
+            _config.root_key(MakeSsadKey.make());
+            System.err.println("DEBUG:    ROOT_KEY = " + _config.root_key());
+        }
 
+        // make default config
+        System.err.println("DEBUG: load default config ");
+        _config.config(_config.default_config());
+        // load config files
         Json config = _config.config();  // read out
         Json j = null;
 
@@ -91,14 +98,13 @@ public class DServer {
             config.set("sub_root", j);
             System.err.println("DEBUG: load " + sr);
         }
-        String t = Util.read_text_file(r3);
+        t = Util.read_text_file(r3);
         if (null == t) {
             System.err.println("ERROR: load " + r3);
         } else {
             config.set("root_302", t.trim());
             System.err.println("DEBUG: load " + r3);
         }
-        // TODO load new root_key ?
 
         _config.config(config);  // set back
     }

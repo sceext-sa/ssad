@@ -167,7 +167,9 @@ public class OneReq {
         Json o = Json.object();
         o.set(TYPE, STATIC_FILE);
         o.set(PATH, file_path);
-        o.set(HEADER, header);
+        if (header != null) {
+            o.set(HEADER, header);
+        }
         return o;
     }
 
@@ -295,7 +297,10 @@ public class OneReq {
 
     private void _res_code(int code) {
         String text = "HTTP " + code + " " + HttpResponseStatus.valueOf(code).reasonPhrase() + "\n";
-        _send_res(code, text, null);
+        // set content-type
+        Json header = Json.object()
+            .set(HttpHeaderNames.CONTENT_TYPE.toString(), HttpHeaderValues.TEXT_PLAIN.toString());
+        _send_res(code, text, header);
     }
 
     // HTTP 200 OK
@@ -320,8 +325,11 @@ public class OneReq {
     }
 
     private void _check_keep_alive() {
-        if (_h.is_keep_alive()) {
+        if (! _h.is_keep_alive()) {
             _h.ctx().writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+        } else {
+            // resume recv next request (for keep-alive)
+            _h.resume();
         }
     }
 
@@ -432,6 +440,9 @@ public class OneReq {
         // check keep_alive
         if (! _h.is_keep_alive()) {
             last_content.addListener(ChannelFutureListener.CLOSE);
+        } else {
+            // resume recv next request (for keep-alive)
+            _h.resume();
         }
     }
 

@@ -5,7 +5,7 @@ import mjson.Json;
 
 public class DServerConfig {
     // ssad_server version
-    public static final String VERSION = "ssad_server version 0.1.0-1 test20170617 0044";
+    public static final String VERSION = "ssad_server version 0.1.0-1 test20170617 0115";
 
     // ssad_server runtime (json) config
     private Json _config = null;
@@ -77,7 +77,7 @@ public class DServerConfig {
                             .set("path", data_root() + "app/root_app/")
                             .set("allow", Json.object()
                                 .set("list", true)
-                                .set("post", true)
+                                .set("put", true)
                                 .set("delete", true)
                                 .set("replace", true)
                                 .set("ro", false)

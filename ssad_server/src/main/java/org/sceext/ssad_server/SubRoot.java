@@ -88,7 +88,7 @@ public class SubRoot extends OnReqBase {
             return OneReq.res_code(404);
         }
         Json sub_root = sub.at(sr);
-        Json allow = sub.at("allow");
+        Json allow = sub_root.at("allow");
         // check read-only
         Boolean ro = false;
         if ((allow.has("ro")) && allow.at("ro").asBoolean()) {
