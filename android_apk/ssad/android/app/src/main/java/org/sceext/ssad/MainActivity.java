@@ -1,5 +1,8 @@
 package org.sceext.ssad;
 
+import android.os.Bundle;
+import android.graphics.Color;
+
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -11,5 +14,13 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "ssad";
+    }
+
+    @Override
+    public void onCreate(Bundle saved) {
+        super.onCreate(saved);
+
+        // set window background-color
+        getWindow().setStatusBarColor(Color.BLACK);
     }
 }
