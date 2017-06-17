@@ -1,3 +1,8 @@
+
+const m = require('./dist/main');
+
+// TODO
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
