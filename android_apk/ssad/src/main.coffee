@@ -3,9 +3,7 @@
 { createStore } = require 'redux'
 Immutable = require 'immutable'
 
-
 # TODO
-
 React = require 'react'
 {
   createClass: cC
@@ -13,50 +11,22 @@ React = require 'react'
   createElement: cE
 } = React
 
-{
-  AppRegistry
-  StyleSheet
-  Text
-  View
-} = require 'react-native'
+{ AppRegistry } = require 'react-native'
+{ StackNavigator } = require 'react-navigation'
 
-Main = cC {
-  render: ->
-    (cE View, {
-      style: ss.container
-      },
-      (cE Text, {
-        style: ss.title
-        },
-        'SSA Daemon'
-      )
-      (cE Text, {
-        style: ss.text
-        },
-        'hello, test ! '
-      )
-    )
+PageMain = require './page/main'
+PageAbout = require './page/about'
+PageServer = require './page/server'
+PageSetting = require './page/setting'
+
+# use react-navigation
+Main = StackNavigator {
+  page_main: { screen: PageMain }
+  page_about: { screen: PageAbout }
+  page_server: { screen: PageServer }
+  page_setting: { screen: PageSetting }
 }
 
-ss = StyleSheet.create {
-  container: {
-    flex: 1
-    justifyContent: 'center'
-    alignItems: 'center'
-    backgroundColor: '#050c00'
-  }
-  title: {
-    fontSize: 20
-    color: '#ffffff'
-    textAlign: 'center'
-    margin: 10
-  }
-  text: {
-    textAlign: 'center'
-    color: '#aaaaaa'
-    marginBottom: 5
-  }
-}
 
 AppRegistry.registerComponent 'ssad', () ->
   Main
