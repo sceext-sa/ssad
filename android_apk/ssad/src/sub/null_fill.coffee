@@ -11,14 +11,12 @@ React = require 'react'
   View
 } = require 'react-native'
 
-
 NullFill = cC {
   render: ->
     (cE View, {
       style: {
         flex: 1
-      }
-    }
+      } }
     )
 }
 

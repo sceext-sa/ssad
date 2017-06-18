@@ -9,21 +9,23 @@ ss = StyleSheet.create {
   # button styles
   btn: {  # common button style
     fontWeight: 'bold'
+    fontSize: 20
+    textAlign: 'center'
   }
   btn_n: {  # normal button
-    backgroundColor: co.bg_btn
+    #backgroundColor: co.bg_btn
     color: co.text_btn
   }
   btn_p: {  # primary button
-    backgroundColor: co.bg_btn_p
+    #backgroundColor: co.bg_btn_p
     color: co.text_btn
   }
   btn_disabled: {  # disabled button
-    backgroundColor: co.bg_btn
+    #backgroundColor: co.bg_btn
     color: co.text_btn_disabled
   }
   btn_danger: {  # danger button
-    backgroundColor: co.bg_btn_danger
+    #backgroundColor: co.bg_btn_danger
     color: co.text_btn_danger
   }
 
@@ -48,9 +50,17 @@ ss = StyleSheet.create {
   # title and text
   title: {
     color: co.title
+    fontWeight: 'bold'
+  }
+  title_size: {
+    fontSize: 20
   }
   text: {
     color: co.text
+  }
+  # defalut text size
+  text_size: {
+    fontSize: 15
   }
 
   # navigation title

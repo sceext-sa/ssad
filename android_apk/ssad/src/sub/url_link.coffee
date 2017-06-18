@@ -34,11 +34,10 @@ UrlLink = cC {
           padding: 5
         } },
         (cE Text, {
-          style: {
-            color: co.text_sec
+          style: [ ss.text_sec, ss.text_size, {
             textDecorationLine: 'underline'
-            fontSize: 15
-          } },
+          } ]
+          },
           @props.url
         )
       )

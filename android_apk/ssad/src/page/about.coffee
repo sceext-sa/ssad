@@ -49,7 +49,6 @@ PageAbout = cC {
       (cE TextArea, {
         text: 'TODO'
         })
-      # TODO
     )
 }
 PageAbout.navigationOptions = {

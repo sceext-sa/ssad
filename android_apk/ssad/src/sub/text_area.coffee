@@ -27,10 +27,9 @@ TextArea = cC {
       } },
       # TODO text line-wrap ?
       (cE Text, {
-        style: {
-          color: co.text_sec
-          fontSize: 15
-        } },
+        style: [ ss.text_size, ss.text_sec ]
+        selectable: @props.selectable
+        },
         @props.text
       )
     )

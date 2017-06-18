@@ -21,15 +21,12 @@ Title = cC {
     (cE View, {
       style: {
         alignSelf: 'stretch'
-        marginTop: 20
+        marginTop: 10
         marginBottom: 10
       } },
       (cE Text, {
-        style: {
-          color: co.title
-          fontWeight: 'bold'
-          fontSize: 20
-        } },
+        style: [ ss.title, ss.title_size ]
+        },
         @props.text
       )
     )

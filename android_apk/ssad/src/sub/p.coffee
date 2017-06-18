@@ -25,10 +25,8 @@ P = cC {
       } },
       # TODO text line-wrap ?
       (cE Text, {
-        style: {
-          color: co.text
-          fontSize: 15
-        } },
+        style: [ ss.text, ss.text_size ]
+        },
         @props.text
       )
     )
