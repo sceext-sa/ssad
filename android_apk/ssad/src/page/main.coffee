@@ -11,9 +11,11 @@ React = require 'react'
   StyleSheet
   View
   ScrollView
+  Image
 } = require 'react-native'
 
 ss = require '../style/ss'
+co = require '../style/color'
 
 SubPageItem = require '../sub/sub_page_item'
 NullFill = require '../sub/null_fill'
@@ -33,28 +35,39 @@ PageMain = cC {
       style: {
         flex: 1
       }
-      contentContainerStyle: {
-        flex: 1
-      } },
+      contentContainerStyle: [ ss.box, {
+        flexGrow: 1
+      } ]
+      },
+      (cE SubPageItem, {
+        text: 'ssad_server'
+        on_click: @_on_page_server
+        })
+      # ssad logo
       (cE View, {
-        style: [ ss.box, {
+        style: {
+          justifyContent: 'center'
+          alignItems: 'center'
+          backgroundColor: co.bg
+          minHeight: 320
           flex: 1
-        } ]
-        },
-        (cE SubPageItem, {
-          text: 'ssad_server'
-          on_click: @_on_page_server
-          })
-        (cE NullFill)
-        (cE SubPageItem, {
-          text: 'About'
-          on_click: @_on_page_about
-          })
-        (cE SubPageItem, {
-          text: 'Settings'
-          on_click: @_on_page_setting
+        } },
+        (cE Image, {
+          style: {
+            width: 256
+            height: 256
+          }
+          source: require './ssad-1024.png'
           })
       )
+      (cE SubPageItem, {
+        text: 'About'
+        on_click: @_on_page_about
+        })
+      (cE SubPageItem, {
+        text: 'Settings'
+        on_click: @_on_page_setting
+        })
     )
 }
 PageMain.navigationOptions = {
