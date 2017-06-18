@@ -14,6 +14,8 @@ React = require 'react'
 { AppRegistry } = require 'react-native'
 { StackNavigator } = require 'react-navigation'
 
+ss = require './style/ss'
+
 PageMain = require './page/main'
 PageAbout = require './page/about'
 PageServer = require './page/server'
@@ -25,6 +27,9 @@ Main = StackNavigator {
   page_about: { screen: PageAbout }
   page_server: { screen: PageServer }
   page_setting: { screen: PageSetting }
+}, {
+  headerMode: 'screen'  # 'float', 'screen'
+  cardStyle: ss.box
 }
 
 
