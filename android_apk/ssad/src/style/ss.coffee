@@ -67,6 +67,20 @@ ss = StyleSheet.create {
   nav_main: {
     alignSelf: 'center'
   }
+
+  # ScrollView style
+  scroll: {
+    flex: 1
+  }
+  # ScrollView.contentContainerStyle
+  scroll_in: {
+    flexGrow: 1
+  }
+  # page in-scroll padding
+  scroll_pad: {
+    paddingLeft: 5
+    paddingRight: 5
+  }
 }
 
 module.exports = ss

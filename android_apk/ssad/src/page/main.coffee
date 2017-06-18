@@ -32,12 +32,8 @@ PageMain = cC {
 
   render: ->
     (cE ScrollView, {
-      style: {
-        flex: 1
-      }
-      contentContainerStyle: [ ss.box, {
-        flexGrow: 1
-      } ]
+      style: ss.scroll
+      contentContainerStyle: [ ss.box, ss.scroll_in ]
       },
       (cE SubPageItem, {
         text: 'ssad_server'

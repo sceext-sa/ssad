@@ -1,4 +1,4 @@
-# text_area.coffee, ssad/android_apk/ssad/src/sub/
+# p.coffee, ssad/android_apk/ssad/src/sub/
 
 React = require 'react'
 {
@@ -16,19 +16,17 @@ React = require 'react'
 ss = require '../style/ss'
 co = require '../style/color'
 
-TextArea = cC {
+P = cC {
   render: ->
     (cE View, {
       style: {
         alignSelf: 'stretch'
-        margin: 5
-        padding: 5
-        backgroundColor: co.bg_sec
+        margin: 10
       } },
       # TODO text line-wrap ?
       (cE Text, {
         style: {
-          color: co.text_sec
+          color: co.text
           fontSize: 15
         } },
         @props.text
@@ -36,4 +34,4 @@ TextArea = cC {
     )
 }
 
-module.exports = TextArea
+module.exports = P
