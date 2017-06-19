@@ -12,6 +12,8 @@ import android.os.IBinder;
 
 import android.support.v4.app.NotificationCompat;
 
+import mjson.Json;
+
 import org.sceext.ssad.ssad_native.Config;
 import org.sceext.ssad.ssad_native.ClipLog;
 
@@ -48,7 +50,14 @@ public class ClipService extends Service {
         // show notification
         show_notification();
 
+        _mi().service_running_clip(true);
         _running = true;  // set running flag
+        // emit event
+        Json event = Json.object()
+            .set("type", "service_started")
+            .set("name", "clip_service");
+        _mi().put_event(event);
+
         return START_NOT_STICKY;
     }
 
@@ -62,7 +71,13 @@ public class ClipService extends Service {
         // stop watch clip
         _stop_watch();
 
+        _mi().service_running_clip(false);
         remove_notification();
+        // emit event
+        Json event = Json.object()
+            .set("type", "service_stopped")
+            .set("name", "clip_service");
+        _mi().put_event(event);
     }
 
     // show notification (run service in foreground)
@@ -119,5 +134,9 @@ public class ClipService extends Service {
 
         _update_notification();
         // TODO update clip activity ?
+    }
+
+    private MainApplication _mi() {
+        return MainApplication.instance();
     }
 }

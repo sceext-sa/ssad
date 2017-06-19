@@ -6,6 +6,7 @@
 		"build": "coffee -o dist/ src/"
 	},
 	"dependencies": {
+		"events": "^1.1.1",
 		"immutable": "^3.8.1",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",

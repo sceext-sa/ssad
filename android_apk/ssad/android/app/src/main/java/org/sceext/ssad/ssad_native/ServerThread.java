@@ -15,7 +15,7 @@ public class ServerThread implements Runnable {
     @Override
     public void run() {
         // TODO FIXME fake server
-        _service.show_notification();
+        _service.server_started();
         // TODO
         while (! _exit) {
             try {
@@ -24,6 +24,7 @@ public class ServerThread implements Runnable {
                 break;
             }
         }
+        // TODO server stoped ?
     }
 
     // close server

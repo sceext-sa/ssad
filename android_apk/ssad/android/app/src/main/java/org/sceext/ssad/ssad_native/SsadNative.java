@@ -22,6 +22,8 @@ import org.sceext.http_server.Server;
 import org.sceext.ssad_server.DServerConfig;
 import org.sceext.ssad.MainApplication;
 import org.sceext.ssad.WebviewActivity;
+import org.sceext.ssad.ServerService;
+import org.sceext.ssad.ClipService;
 
 
 public class SsadNative extends ReactContextBaseJavaModule {
@@ -34,6 +36,8 @@ public class SsadNative extends ReactContextBaseJavaModule {
         super(context);
 
         _event_cache = new LinkedList<>();
+        // save this to MainApplication
+        _mi().set_ssad_native(this);
     }
 
     @Override
@@ -92,17 +96,31 @@ public class SsadNative extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void status(Promise promise) {
-        // TODO
+        Json o = Json.object()
+            .set("service_running_server", _mi().service_running_server())
+            .set("service_running_clip", _mi().service_running_clip())
+            .set("server_port", _mi().server_port());
+        promise.resolve(o.toString());
     }
 
     @ReactMethod
     public void start_service(String opt, Promise promise) {
-        // TODO
+        try {
+            _start_stop_service(opt, true);
+            promise.resolve(null);
+        } catch (Exception e) {
+            promise.reject("error", e);
+        }
     }
 
     @ReactMethod
     public void stop_service(String opt, Promise promise) {
-        // TODO
+        try {
+            _start_stop_service(opt, false);
+            promise.resolve(null);
+        } catch (Exception e) {
+            promise.reject("error", e);
+        }
     }
 
     private String _version_info() {
@@ -129,5 +147,28 @@ public class SsadNative extends ReactContextBaseJavaModule {
         Intent intent = new Intent(c, WebviewActivity.class)
             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         c.startActivity(intent);
+    }
+
+    private void _start_stop_service(String opts, boolean start_true_or_stop) throws Exception {
+        Json opt = Json.read(opts);
+        String name = opt.at("name").asString();
+
+        Context c = getReactApplicationContext();
+        Intent intent = null;
+        // check service name
+        if (name.equals("server_service")) {
+            intent = new Intent(c, ServerService.class);
+        } else if (name.equals("clip_service")) {
+            intent = new Intent(c, ClipService.class);
+        } else {
+            throw new Exception("unknow service_name " + name);
+        }
+        if (start_true_or_stop) {
+            // start service
+            c.startService(intent);
+        } else {
+            // stop service
+            c.stopService(intent);
+        }
     }
 }

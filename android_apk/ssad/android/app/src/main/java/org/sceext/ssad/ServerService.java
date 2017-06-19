@@ -8,6 +8,8 @@ import android.os.IBinder;
 
 import android.support.v4.app.NotificationCompat;
 
+import mjson.Json;
+
 import org.sceext.ssad.ssad_native.Config;
 import org.sceext.ssad.ssad_native.ServerThread;
 
@@ -54,7 +56,13 @@ public class ServerService extends Service {
         } catch (Exception e) {
             e.printStackTrace();  // ignore error
         }
+        _mi().service_running_server(false);
         remove_notification();
+        // emit event
+        Json event = Json.object()
+            .set("type", "service_stopped")
+            .set("name", "server_service");
+        _mi().put_event(event);
     }
 
     // show notification (run service in foreground)
@@ -75,5 +83,19 @@ public class ServerService extends Service {
     // remove notification
     public void remove_notification() {
         stopForeground(true);
+    }
+
+    public void server_started() {
+        show_notification();
+        _mi().service_running_server(true);
+        // emit event
+        Json event = Json.object()
+            .set("type", "service_started")
+            .set("name", "server_service");
+        _mi().put_event(event);
+    }
+
+    private MainApplication _mi() {
+        return MainApplication.instance();
     }
 }
