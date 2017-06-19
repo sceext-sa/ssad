@@ -1,0 +1,3 @@
+rootProject.name = 'ssad'
+
+include ':app'
