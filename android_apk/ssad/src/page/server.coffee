@@ -67,7 +67,7 @@ PageServer = cC {
     ssad_native.event_listener().on 'service_started', @_update_status
     ssad_native.event_listener().on 'service_stopped', @_update_status
 
-  componentWillUmount: ->
+  componentWillUnmount: ->
     # remove event listeners
     ssad_native.event_listener().removeListener 'service_started', @_update_status
     ssad_native.event_listener().removeListener 'service_stopped', @_update_status
@@ -83,14 +83,13 @@ PageServer = cC {
     (cE View, {
       style: {
         flex: 1
-      }
-      },
+      } },
       (cE ScrollView, {
         style: ss.scroll
         contentContainerStyle: [ ss.box, ss.scroll_in ]
         },
         (cE View, {
-          style: [ss.scroll_pad, {
+          style: [ ss.scroll_pad, {
             flex: 1
           } ]
           },
