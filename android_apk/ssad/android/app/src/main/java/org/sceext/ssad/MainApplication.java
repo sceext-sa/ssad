@@ -37,5 +37,25 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+
+    // save instance
+    _instance = this;
   }
+
+    // global data
+    private static MainApplication _instance = null;
+
+    public static MainApplication instance() {
+        return _instance;
+    }
+
+    private String _webview_url;
+    // get / set
+    public String webview_url() {
+        return _webview_url;
+    }
+    public MainApplication webview_url(String url) {
+        _webview_url = url;
+        return this;
+    }
 }

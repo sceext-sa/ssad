@@ -3,13 +3,22 @@
 {
   NativeModules
 } = require 'react-native'
+_n = NativeModules.ssad_native
 
 
 version = ->
-  JSON.parse NativeModules.ssad_native.VERSION_INFO
+  JSON.parse _n.VERSION_INFO
+
+start_webview = (url) ->
+  opt = {
+    url: url
+  }
+  await _n.start_webview JSON.stringify(opt)
 
 # TODO
 
 module.exports = {
   version
+
+  start_webview  # async
 }

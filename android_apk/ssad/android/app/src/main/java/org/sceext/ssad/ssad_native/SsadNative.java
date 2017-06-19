@@ -4,6 +4,9 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
@@ -17,6 +20,8 @@ import mjson.Json;
 import org.sceext.json.JsonPretty;
 import org.sceext.http_server.Server;
 import org.sceext.ssad_server.DServerConfig;
+import org.sceext.ssad.MainApplication;
+import org.sceext.ssad.WebviewActivity;
 
 
 public class SsadNative extends ReactContextBaseJavaModule {
@@ -56,6 +61,7 @@ public class SsadNative extends ReactContextBaseJavaModule {
         }
     }
 
+    // export methods
     @ReactMethod
     public synchronized void pull_events(Promise promise) {
         if (_event_cache.size() > 0) {
@@ -68,7 +74,22 @@ public class SsadNative extends ReactContextBaseJavaModule {
         }
     }
 
-    // exports methods
+    @ReactMethod
+    public void start_webview(String opt, Promise promise) {
+        try {
+            _start_webview(opt);
+            promise.resolve(null);
+        } catch (Exception e) {
+            promise.reject("error", e);
+        }
+    }
+
+    @ReactMethod
+    public void get_webview_url(Promise promise) {
+        String url = _mi().webview_url();
+        promise.resolve(url);
+    }
+
     @ReactMethod
     public void status(Promise promise) {
         // TODO
@@ -90,5 +111,24 @@ public class SsadNative extends ReactContextBaseJavaModule {
             .set("ssad_server", DServerConfig.VERSION)
             .set("http_server", Server.VERSION);
         return o.toString();
+    }
+
+    private MainApplication _mi() {
+        return MainApplication.instance();
+    }
+
+    private void _start_webview(String opts) throws Exception {
+        Json opt = Json.read(opts);
+        String url = opt.at("url").asString();
+        // save webview_url
+        _mi().webview_url(url);
+
+        Context c = getReactApplicationContext();
+
+        // start WebviewActivity
+        Intent intent = new Intent(c, WebviewActivity.class)
+            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            //.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        c.startActivity(intent);
     }
 }

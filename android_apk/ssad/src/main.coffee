@@ -14,11 +14,14 @@ React = require 'react'
 { AppRegistry } = require 'react-native'
 { StackNavigator } = require 'react-navigation'
 
+SsadWebview = require './ssad_webview'
+
 ss = require './style/ss'
 
 PageMain = require './page/main'
 PageServer = require './page/server'
 PageClip = require './page/clip'
+PageWebview = require './page/webview'
 PageAbout = require './page/about'
 PageSetting = require './page/setting'
 
@@ -27,6 +30,7 @@ Main = StackNavigator {
   page_main: { screen: PageMain }
   page_server: { screen: PageServer }
   page_clip: { screen: PageClip }
+  page_webview: { screen: PageWebview }
   page_about: { screen: PageAbout }
   page_setting: { screen: PageSetting }
 }, {
@@ -37,4 +41,6 @@ Main = StackNavigator {
 
 AppRegistry.registerComponent 'ssad', () ->
   Main
+AppRegistry.registerComponent 'ssad_webview', () ->
+  SsadWebview
 module.exports = Main
