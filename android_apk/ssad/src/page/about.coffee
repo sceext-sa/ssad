@@ -22,9 +22,16 @@ TextArea = require '../sub/text_area'
 UrlLink = require '../sub/url_link'
 
 config = require '../config'
+ssad_native = require '../ssad_native'
 
 PageAbout = cC {
   render: ->
+    version_info = ssad_native.version()
+    v = config.P_VERSION + '\n'
+    v += version_info.ssad_native + '\n'
+    v += version_info.ssad_server + '\n'
+    v += version_info.http_server + '\n'
+
     (cE ScrollView, {
       style: ss.scroll
       contentContainerStyle: [ ss.box, ss.scroll_in, ss.scroll_pad ]
@@ -34,9 +41,8 @@ PageAbout = cC {
         text: 'SSA Daemon'
         })
       (cE P, {
-        text: config.P_VERSION
+        text: v
         })
-      # TODO add ssad_server, netty http_server version ?
       # homepage of ssad
       (cE UrlLink, {
         url: 'https://github.com/sceext-sa/ssad'
