@@ -36,25 +36,39 @@ PageAbout = cC {
       style: ss.scroll
       contentContainerStyle: [ ss.box, ss.scroll_in, ss.scroll_pad ]
       },
-      # ssad version
-      (cE Title, {
-        text: 'SSA Daemon'
-        })
-      (cE P, {
-        text: v
-        })
-      # homepage of ssad
-      (cE UrlLink, {
-        url: 'https://github.com/sceext-sa/ssad'
-        })
-      # technologies (library/framework) used in this program
-      (cE Title, {
-        text: 'Technologies'
-        })
-      # TODO
-      (cE TextArea, {
-        text: 'TODO'
-        })
+      (cE View, {
+        style: {
+          flex: 0
+        } },
+        # ssad version
+        (cE Title, {
+          text: 'SSA Daemon'
+          })
+        (cE ScrollView, {
+          horizontal: true
+          },
+          (cE P, {
+            text: v
+            })
+        )
+        # homepage of ssad
+        (cE UrlLink, {
+          url: 'https://github.com/sceext-sa/ssad'
+          })
+      )
+      (cE View, {
+        style: {
+          flex: 1
+        } },
+        # technologies (library/framework) used in this program
+        (cE Title, {
+          text: 'Technologies'
+          })
+        # TODO
+        (cE TextArea, {
+          text: 'TODO'
+          })
+      )
     )
 }
 PageAbout.navigationOptions = {

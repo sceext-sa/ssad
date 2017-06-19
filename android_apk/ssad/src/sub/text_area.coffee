@@ -18,6 +18,10 @@ co = require '../style/color'
 
 TextArea = cC {
   render: ->
+    ts = ss.text
+    if @props.sec
+      ts = ss.text_sec
+
     (cE View, {
       style: {
         alignSelf: 'stretch'
@@ -25,9 +29,8 @@ TextArea = cC {
         padding: 5
         backgroundColor: co.bg_sec
       } },
-      # TODO text line-wrap ?
       (cE Text, {
-        style: [ ss.text_size, ss.text_sec ]
+        style: [ ss.text_size, ts ]
         selectable: @props.selectable
         },
         @props.text

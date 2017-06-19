@@ -17,15 +17,17 @@ React = require 'react'
 ss = require './style/ss'
 
 PageMain = require './page/main'
-PageAbout = require './page/about'
 PageServer = require './page/server'
+PageClip = require './page/clip'
+PageAbout = require './page/about'
 PageSetting = require './page/setting'
 
 # use react-navigation
 Main = StackNavigator {
   page_main: { screen: PageMain }
-  page_about: { screen: PageAbout }
   page_server: { screen: PageServer }
+  page_clip: { screen: PageClip }
+  page_about: { screen: PageAbout }
   page_setting: { screen: PageSetting }
 }, {
   headerMode: 'screen'  # 'float', 'screen'

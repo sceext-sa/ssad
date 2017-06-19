@@ -35,6 +35,9 @@ Input = cC {
         padding: 5
         textAlign: ta
         fontSize: 15
+        borderWidth: 1
+        borderColor: co.text_sec
+        borderRadius: 5
       } ]
       underlineColorAndroid: 'transparent'
       onChangeText: @_on_change

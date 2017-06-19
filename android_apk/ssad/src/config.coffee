@@ -1,7 +1,7 @@
 # config.coffee, ssad/android_apk/ssad/src/
 
 
-P_VERSION = 'ssad version 0.1.0-1 test20170619 1659'
+P_VERSION = 'ssad version 0.1.0-1 test20170619 1818'
 
 
 # TODO

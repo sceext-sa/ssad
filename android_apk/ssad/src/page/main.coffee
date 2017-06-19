@@ -25,6 +25,8 @@ NavHeader = require '../sub/nav_header'
 PageMain = cC {
   _on_page_server: ->
     @props.navigation.navigate 'page_server'
+  _on_page_clip: ->
+    @props.navigation.navigate 'page_clip'
   _on_page_about: ->
     @props.navigation.navigate 'page_about'
   _on_page_setting: ->
@@ -38,6 +40,10 @@ PageMain = cC {
       (cE SubPageItem, {
         text: 'ssad_server'
         on_click: @_on_page_server
+        })
+      (cE SubPageItem, {
+        text: 'SSAD Clip'
+        on_click: @_on_page_clip
         })
       # ssad logo
       (cE View, {

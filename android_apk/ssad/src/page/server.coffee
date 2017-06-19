@@ -123,6 +123,7 @@ PageServer = cC {
           # TODO support copy ?
           (cE TextArea, {
             selectable: true
+            sec: true
             text: 'root_key% .. . ? (TODO)'
             })
           # ---
@@ -138,8 +139,6 @@ PageServer = cC {
               value: '/sdcard/ssad/app/root_app/'
               })
           )
-          # ---
-          (cE Hr)
           # TODO init config files ?
         )
         # TODO start/stop server button

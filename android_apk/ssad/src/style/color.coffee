@@ -1,39 +1,36 @@
 # color.coffee, ssad/android_apk/ssad/src/style/
 
 
-# default background color
-BACKGROUND = '#151c10'
-# default text color (foreground)
-TEXT = '#aaaaaa'
-
-# title (text) color
-TITLE = '#ffffff'
-# second text (not important)
-TEXT_SECOND = '#888888'
-# second background (area)
-BACKGROUND_SECOND = '#222222'
-
-# text input
-BACKGROUND_INPUT = '#000000'
-TEXT_INPUT = '#cccccc'
-
+# button touch highlight
+BACKGROUND_BUTTON_TOUCH = '#dddddd'
+# navigation style
+BACKGROUND_NAVIGATION = '#101010'
 # normal button
 BACKGROUND_BUTTON = '#333333'
-TEXT_BUTTON = '#cccccc'
-# button touch highlight
-BACKGROUND_BUTTON_TOUCH = '#999999'
-# disabled button
-TEXT_BUTTON_DISABLED = '#777777'
+# second background (area)
+BACKGROUND_SECOND = '#212121'
+# default background color
+BACKGROUND = '#030303'
+# text inpu
+BACKGROUND_INPUT = '#000000'
 
 # primary button
-BACKGROUND_BUTTON_PRIMARY = '#0000ee'
-
+BACKGROUND_BUTTON_PRIMARY = '#303088'
 # danger button
-BACKGROUND_BUTTON_DANGER = '#ff0000'
-TEXT_BUTTON_DANGER = '#ffffff'
+BACKGROUND_BUTTON_DANGER = '#993030'
 
-# navigation style
-BACKGROUND_NAVIGATION = '#444444'
+
+TEXT_BUTTON = '#efefef'
+TEXT_INPUT = '#efefef'
+# title (text) color
+TITLE = '#aaaaaa'
+# default text color (foreground)
+TEXT = '#e0e0e0'
+# second text (not important)
+TEXT_SECOND = '#555555'
+# disabled button
+TEXT_BUTTON_DISABLED = '#151515'
+TEXT_BUTTON_DANGER = '#ffffff'
 
 
 module.exports = {
