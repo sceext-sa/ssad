@@ -18,13 +18,23 @@ co = require '../style/color'
 
 Input = cC {
   _on_change: (text) ->
-    # TODO
+    @setState {
+      value: text
+    }
+    @props.on_change?(text)
+
+  getInitialState: ->
+    {
+      value: null
+    }
 
   render: ->
-    if (@state?) && @state.value?
-      v = @state.value
-    else
+    v = @state.value
+    if ! v?
+      v = @props.default_value
+    if @props.value?
       v = @props.value
+
     ta = 'left'
     if @props.right
       ta = 'right'

@@ -6,13 +6,44 @@ React = require 'react'
   createElement: cE
 } = React
 
-# TODO
-NotImplemented = require './sub/not_implemented'
+{
+  View
+  WebView
+} = require 'react-native'
+
+ss = require './style/ss'
+ssad_native = require './ssad_native'
 
 
 SsadWebview = cC {
+  getInitialState: ->
+    {
+      url: null
+    }
+
+  componentDidMount: ->
+    url = await ssad_native.get_webview_url()
+    if url?
+      @setState {
+        url
+      }
+
   render: ->
-    (cE NotImplemented)
+    if @state.url?
+      (cE WebView, {
+        style: {
+          flex: 1
+          }
+        source: {
+          uri: @state.url
+          }
+        })
+    else
+      (cE View, {
+        style: [ ss.box, {
+          flex: 1
+        } ]
+        })
 }
 
 module.exports = SsadWebview

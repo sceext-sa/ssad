@@ -128,7 +128,6 @@ public class SsadNative extends ReactContextBaseJavaModule {
         // start WebviewActivity
         Intent intent = new Intent(c, WebviewActivity.class)
             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            //.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         c.startActivity(intent);
     }
 }

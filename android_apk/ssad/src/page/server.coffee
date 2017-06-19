@@ -97,7 +97,7 @@ PageServer = cC {
                 width: 64
               } },
               (cE Input, {
-                value: '65536'  # TODO
+                default_value: '65536'  # TODO
                 right: true
                 })
             )
@@ -136,7 +136,7 @@ PageServer = cC {
               flexDirection: 'row'
             } },
             (cE Input, {
-              value: '/sdcard/ssad/app/root_app/'
+              default_value: '/sdcard/ssad/app/root_app/'
               })
           )
           # TODO init config files ?

@@ -15,10 +15,13 @@ start_webview = (url) ->
   }
   await _n.start_webview JSON.stringify(opt)
 
-# TODO
+get_webview_url = ->
+  await _n.get_webview_url()
+
 
 module.exports = {
   version
 
   start_webview  # async
+  get_webview_url  # async
 }
