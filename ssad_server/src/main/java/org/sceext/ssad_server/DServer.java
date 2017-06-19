@@ -12,9 +12,11 @@ public class DServer {
     private final DServerConfig _config;
 
     private Server _s;
+    private final DCallback _cb;
 
-    public DServer() {
+    public DServer(DCallback cb) {
         _config = new DServerConfig();
+        _cb = cb;
     }
 
     // get DServerConfig
@@ -23,22 +25,16 @@ public class DServer {
     }
 
     public void run() throws Exception {
-        // TODO replace this with start() and close() ?
-
         // create server
-        _s = new Server(new Callback(this), _config.port());
+        _s = new Server(new Callback(this, _cb), _config.port());
         // init
         init();
         // run server
         _s.run();
     }
 
-    public void start() throws Exception {
-        // TODO
-    }
-
     public void close() throws Exception {
-        // TODO
+        _s.close();
     }
 
     // ssad_server init process
@@ -109,11 +105,18 @@ public class DServer {
         _config.config(config);  // set back
     }
 
-    static class Callback implements IReqCallback {
-        private final DServer _server;
+    public static interface DCallback {
+        public void on_start(String ip, int port);
+        public void on_close();
+    }
 
-        public Callback(DServer server) {
+    private static class Callback implements IReqCallback {
+        private final DServer _server;
+        private final DCallback _cb;
+
+        public Callback(DServer server, DCallback cb) {
             _server = server;
+            _cb = cb;
         }
 
         @Override
@@ -123,14 +126,12 @@ public class DServer {
 
         @Override
         public void on_listen(String ip, int port) {
-            // TODO
-            System.err.println("DEBUG: server listen at " + ip + ":" + port);
+            _cb.on_start(ip, port);
         }
 
         @Override
         public void on_close() {
-            // TODO
-            System.err.println("DEBUG: server closed");
+            _cb.on_close();
         }
     }
 }

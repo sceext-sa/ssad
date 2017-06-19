@@ -1,4 +1,3 @@
-// TODO
 package org.sceext.http_server;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -11,12 +10,15 @@ import io.netty.handler.logging.LoggingHandler;
 
 
 public class Server {
-    public static final String VERSION = "netty http_server version 0.2.0-1 test20170617 0135";
+    public static final String VERSION = "netty http_server version 0.2.0-1 test20170620 0200";
 
     private int _port = 8080;
     private String _ip = "127.0.0.1";
 
     private final IReqCallback _callback;
+
+    private EventLoopGroup _master_group;
+    private EventLoopGroup _slave_group;
 
     public Server(IReqCallback callback) {
         _callback = callback;
@@ -29,11 +31,11 @@ public class Server {
     }
 
     public void run() throws Exception {
-        EventLoopGroup master_group = new OioEventLoopGroup(1);
-        EventLoopGroup slave_group = new OioEventLoopGroup();
+        _master_group = new OioEventLoopGroup(1);
+        _slave_group = new OioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
-            b.group(master_group, slave_group)
+            b.group(_master_group, _slave_group)
              .channel(OioServerSocketChannel.class)
              .handler(new LoggingHandler(LogLevel.DEBUG))
              .childHandler(new NettyInit(_callback));
@@ -44,14 +46,16 @@ public class Server {
 
             ch.closeFuture().sync();
         } finally {
-            master_group.shutdownGracefully();
-            slave_group.shutdownGracefully();
+            _master_group.shutdownGracefully();
+            _slave_group.shutdownGracefully();
 
             _callback.on_close();
         }
     }
 
     public void close() throws Exception {
-        // TODO
+        // TODO try to close server
+        _master_group.shutdownGracefully();
+        _slave_group.shutdownGracefully();
     }
 }
