@@ -47,24 +47,22 @@ PageClip = cC {
     @setState {
       disable_main_button: true
     }
-    await ssad_native.start_service 'clip_service'
+    await ssad_native.start_clip()
 
   _on_stop_service: ->
     @setState {
       disable_main_button: true
     }
-    await ssad_native.stop_service 'clip_service'
+    await ssad_native.stop_clip()
 
   componentDidMount: ->
     await @_update_status()
     # add event listeners
-    ssad_native.event_listener().on 'service_started', @_update_status
-    ssad_native.event_listener().on 'service_stopped', @_update_status
+    ssad_native.event_listener().on ssad_native.SERVICE_CHANGED, @_update_status
 
   componentWillUnmount: ->
     # remove event listeners
-    ssad_native.event_listener().removeListener 'service_started', @_update_status
-    ssad_native.event_listener().removeListener 'service_stopped', @_update_status
+    ssad_native.event_listener().removeListener ssad_native.SERVICE_CHANGED, @_update_status
 
   render: ->
     service_status = '(unknow)'

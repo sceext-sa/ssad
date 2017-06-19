@@ -73,7 +73,7 @@ public class ServerService extends Service {
         NotificationCompat.Builder b = new NotificationCompat.Builder(this)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("ssad_server is running")
-            .setContentText("TODO (only for test)")
+            .setContentText(_s.get_info())
             .setContentIntent(p);
         Notification n = b.build();
 
@@ -93,6 +93,14 @@ public class ServerService extends Service {
             .set("type", "service_started")
             .set("name", "server_service");
         _mi().put_event(event);
+    }
+
+    public void server_closed() {
+        // TODO
+    }
+
+    public void thread_exit() {
+        // TODO
     }
 
     private MainApplication _mi() {

@@ -26,24 +26,47 @@ start_webview = (url) ->
 get_webview_url = ->
   await _n.get_webview_url()
 
-# TODO support start service args ?
-start_service = (name) ->
+start_server = (port) ->
   opt = {
-    name
+    name: 'server_service'
+    port
   }
   await _n.start_service JSON.stringify(opt)
 
-stop_service = (name) ->
+stop_server = ->
   opt = {
-    name
+    name: 'server_service'
   }
   await _n.stop_service JSON.stringify(opt)
+
+start_clip = ->
+  opt = {
+    name: 'clip_service'
+  }
+  await _n.start_service JSON.stringify(opt)
+
+stop_clip = ->
+  opt = {
+    name: 'clip_service'
+  }
+  await _n.start_service JSON.stringify(opt)
 
 pull_events = ->
   raw = await _n.pull_events()
   JSON.parse raw
 
+# get/set root_key
+root_key = (key) ->
+  if key?
+    await _n.set_root_key key
+  else
+    await _n.get_root_key()
 
+make_root_key = ->
+  await _n.make_root_key()
+
+
+SERVICE_CHANGED = 'service_changed'
 # auto pull_events loop
 _auto_pull_loop = ->
   while true
@@ -52,6 +75,10 @@ _auto_pull_loop = ->
     if events?
       for i in events
         _listener.emit i.type, i.data
+        # check for 'service_changed' event
+        switch i.type
+          when 'service_started', 'service_stopped'
+            _listener.emit SERVICE_CHANGED, i.data
 
 # create global event-listener, and start auto pull
 _listener = new EventEmitter()
@@ -69,8 +96,14 @@ module.exports = {
   start_webview  # async
   get_webview_url  # async
 
-  start_service  # async
-  stop_service  # async
+  start_server  # async
+  stop_server  # async
+  start_clip  # async
+  stop_clip  # async
+
+  root_key  # async
+  make_root_key  # async
 
   event_listener
+  SERVICE_CHANGED
 }

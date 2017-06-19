@@ -47,6 +47,8 @@ public class MainApplication extends Application implements ReactApplication {
     _instance = this;
   }
 
+    // TODO FIXME improve following code (clean)
+
     // global data
     private static MainApplication _instance = null;
 
@@ -87,6 +89,15 @@ public class MainApplication extends Application implements ReactApplication {
     }
     public MainApplication server_port(int port) {
         _server_port = port;
+        return this;
+    }
+
+    private String _root_key = null;
+    public String root_key() {
+        return _root_key;
+    }
+    public MainApplication root_key(String key) {
+        _root_key = key;
         return this;
     }
 

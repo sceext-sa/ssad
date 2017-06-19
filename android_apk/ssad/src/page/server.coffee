@@ -34,6 +34,8 @@ PageServer = cC {
     {
       status: null
       disable_main_button: false
+      port: 4444
+      root_key: null
     }
 
   _update_status: ->
@@ -52,33 +54,54 @@ PageServer = cC {
     @setState {
       disable_main_button: true
     }
-    await ssad_native.start_service 'server_service'
-    # TODO
+    await ssad_native.start_server @state.port
 
   _on_stop_server: ->
     @setState {
       disable_main_button: true
     }
-    await ssad_native.stop_service 'server_service'
+    await ssad_native.stop_server()
+
+  _on_port_change: (port) ->
+    p = Number.parseInt port
+    if Number.isNaN p
+      p = port  # not parse it  FIXME
+    @setState {
+      p
+    }
+
+  _on_make_root_key: ->
+    root_key = await ssad_native.make_root_key()
+    # set root_key
+    await ssad_native.root_key root_key
+    @setState {
+      root_key
+    }
 
   componentDidMount: ->
     await @_update_status()
     # add event listeners
-    ssad_native.event_listener().on 'service_started', @_update_status
-    ssad_native.event_listener().on 'service_stopped', @_update_status
+    ssad_native.event_listener().on ssad_native.SERVICE_CHANGED, @_update_status
+    # TODO load root_key ?  (save root_key after program exit)
+    root_key = await ssad_native.root_key()
+    @setState {
+      root_key
+    }
 
   componentWillUnmount: ->
     # remove event listeners
-    ssad_native.event_listener().removeListener 'service_started', @_update_status
-    ssad_native.event_listener().removeListener 'service_stopped', @_update_status
+    ssad_native.event_listener().removeListener ssad_native.SERVICE_CHANGED, @_update_status
 
   render: ->
     server_status = '(unknow)'
     if @state.status?
       if @state.status.service_running_server
-        server_status = 'Server service is running'  # TODO port ?
+        server_status = 'Server service is running'
       else
         server_status = 'Server service NOT running'
+    root_key = @state.root_key
+    if ! root_key?
+      root_key = '(null)'
 
     (cE View, {
       style: {
@@ -100,10 +123,12 @@ PageServer = cC {
           (cE TextArea, {
             text: server_status
             })
-          # open browser
-          (cE UrlLink, {
-            url: 'http://127.0.0.1:4444/(TODO)'  # TODO
-            })
+          (if @state.status? && @state.status.service_running_server
+            # open browser
+            (cE UrlLink, {
+              url: "http://127.0.0.1:#{@state.status.server_port}/"
+              })
+          )
           # config
           (cE Hr, {
             marginTop: 20
@@ -146,8 +171,9 @@ PageServer = cC {
                 width: 64
               } },
               (cE Input, {
-                default_value: '65536'  # TODO
+                value: @state.port.toString()
                 right: true
+                on_change: @_on_port_change
                 })
             )
           )
@@ -167,13 +193,14 @@ PageServer = cC {
             # re-generate root-key button
             (cE btn.Button, {
               text: 'make'
+              on_click: @_on_make_root_key
               })
           )
-          # TODO support copy ?
           (cE TextArea, {
             selectable: true
             sec: true
-            text: 'root_key% .. . ? (TODO)'
+            # TODO improve format ?
+            text: root_key
             })
           # ---
           (cE Hr)

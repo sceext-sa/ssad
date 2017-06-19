@@ -104,6 +104,22 @@ public class SsadNative extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void set_root_key(String key, Promise promise) {
+        _mi().root_key(key);
+        promise.resolve(null);
+    }
+
+    @ReactMethod
+    public void get_root_key(Promise promise) {
+        promise.resolve(_mi().root_key());
+    }
+
+    @ReactMethod
+    public void make_root_key(Promise promise) {
+        promise.resolve(Util.make_root_key());
+    }
+
+    @ReactMethod
     public void start_service(String opt, Promise promise) {
         try {
             _start_stop_service(opt, true);
@@ -158,6 +174,11 @@ public class SsadNative extends ReactContextBaseJavaModule {
         // check service name
         if (name.equals("server_service")) {
             intent = new Intent(c, ServerService.class);
+            // check set port
+            if (opt.has("port")) {
+                int port = opt.at("port").asInteger();
+                _mi().server_port(port);
+            }
         } else if (name.equals("clip_service")) {
             intent = new Intent(c, ClipService.class);
         } else {
