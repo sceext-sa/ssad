@@ -64,7 +64,7 @@ PageClip = cC {
   componentWillUnmount: ->
     # remove event listeners
     ssad_native.event_listener().removeListener 'service_started', @_update_status
-    ssad_native.event_listener().removeListener 'sevice_stopped', @_update_status
+    ssad_native.event_listener().removeListener 'service_stopped', @_update_status
 
   render: ->
     service_status = '(unknow)'
