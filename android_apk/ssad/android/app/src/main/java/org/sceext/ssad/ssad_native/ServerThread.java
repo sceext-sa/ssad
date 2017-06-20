@@ -1,9 +1,9 @@
 package org.sceext.ssad.ssad_native;
 
-import org.sceext.ssad_server.DServer;
+import mjson.Json;
 
+import org.sceext.ssad_server.DServer;
 import org.sceext.ssad.ServerService;
-import org.sceext.ssad.MainApplication;
 
 
 public class ServerThread implements Runnable {
@@ -47,8 +47,10 @@ public class ServerThread implements Runnable {
 
     private void _run() throws Exception {
         // get port and root_key
-        int port = _mi().server_port();
-        String root_key = _mi().root_key();
+        Json c = Config.i().server_start_config();
+        int port = c.at("port").asInteger();
+        String root_key = c.at("root_key").asString();
+
         // create server, and set config
         _s = new DServer(new Callback(this));
         _s.config()
@@ -60,7 +62,7 @@ public class ServerThread implements Runnable {
 
     public void on_start(String ip, int port) {
         _port = port;
-        _service.server_started();
+        _service.server_started(ip, port);
     }
 
     public void on_close() {
@@ -76,12 +78,11 @@ public class ServerThread implements Runnable {
         }
     }
 
-    // server running info to show
-    public String get_info() {
-        return "127.0.0.1:" + _port;
+    // get / set root_key
+    public String root_key() {
+        return _s.config().root_key();
     }
-
-    private MainApplication _mi() {
-        return MainApplication.instance();
+    public void root_key(String key) {
+        _s.config().root_key(key);
     }
 }

@@ -16,6 +16,7 @@ import org.sceext.ssad.ssad_native.ServerThread;
 
 public class ServerService extends Service {
     private boolean _running = false;
+    private int _port;
 
     private Thread _t;
     private ServerThread _s;
@@ -25,6 +26,9 @@ public class ServerService extends Service {
         // create thread
         _s = new ServerThread(this);
         _t = new Thread(_s);
+
+        // save this in config
+        Config.i().server_service(this);
     }
 
     @Override
@@ -56,13 +60,17 @@ public class ServerService extends Service {
         } catch (Exception e) {
             e.printStackTrace();  // ignore error
         }
-        _mi().service_running_server(false);
+        // remove this from config
+        Config.i().server_service(null);
+
         remove_notification();
         // emit event
         Json event = Json.object()
-            .set("type", "service_stopped")
-            .set("name", "server_service");
-        _mi().put_event(event);
+            .set(Config.TYPE, Config.SERVICE_STOPPED)
+            .set(Config.DATA, Json.object()
+                .set(Config.NAME, Config.SERVER_SERVICE)
+            );
+        Config.put_event(event);
     }
 
     // show notification (run service in foreground)
@@ -73,7 +81,7 @@ public class ServerService extends Service {
         NotificationCompat.Builder b = new NotificationCompat.Builder(this)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("ssad_server is running")
-            .setContentText(_s.get_info())
+            .setContentText("127.0.0.1:" + _port)
             .setContentIntent(p);
         Notification n = b.build();
 
@@ -85,25 +93,40 @@ public class ServerService extends Service {
         stopForeground(true);
     }
 
-    public void server_started() {
+    public void server_started(String ip, int port) {
+        // save port
+        _port = port;
+
         show_notification();
-        _mi().service_running_server(true);
         // emit event
         Json event = Json.object()
-            .set("type", "service_started")
-            .set("name", "server_service");
-        _mi().put_event(event);
+            .set(Config.TYPE, Config.SERVICE_STARTED)
+            .set(Config.DATA, Json.object()
+                .set(Config.NAME, Config.SERVER_SERVICE)
+            );
+        Config.put_event(event);
     }
 
     public void server_closed() {
+        System.err.println("DEBUG: ServerService: server closed");
         // TODO
     }
 
     public void thread_exit() {
+        System.err.println("DEBUG: ServerService: thread exit");
         // TODO
     }
 
-    private MainApplication _mi() {
-        return MainApplication.instance();
+    // get / set root_key
+    public String root_key() {
+        return _s.root_key();
+    }
+    public void root_key(String key) {
+        _s.root_key(key);
+    }
+
+    // get server port
+    public int port() {
+        return _port;
     }
 }

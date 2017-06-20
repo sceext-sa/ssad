@@ -10,8 +10,6 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 
-import org.sceext.ssad.ssad_native.SsadNative;
-
 
 public class SsadPackage implements ReactPackage {
 
