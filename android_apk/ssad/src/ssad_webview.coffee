@@ -1,11 +1,9 @@
 # ssad_webview.coffee, ssad/android_apk/ssad/src/
 
-React = require 'react'
 {
   createClass: cC
   createElement: cE
-} = React
-
+} = require 'react'
 {
   View
   WebView

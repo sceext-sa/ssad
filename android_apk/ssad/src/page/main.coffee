@@ -1,90 +1,82 @@
 # main.coffee, ssad/android_apk/ssad/src/page/
 
-React = require 'react'
 {
   createClass: cC
-  createFactory: cF
   createElement: cE
-} = React
+} = require 'react'
 
 {
-  StyleSheet
   View
-  ScrollView
   Image
 } = require 'react-native'
 
 ss = require '../style/ss'
 co = require '../style/color'
 
-SubPageItem = require '../sub/sub_page_item'
-NullFill = require '../sub/null_fill'
 NavHeader = require '../sub/nav_header'
+FullScroll = require '../sub/full_scroll'
+SubPageItem = require '../sub/sub_page_item'
 
 
 PageMain = cC {
-  _on_page_server: ->
-    @props.navigation.navigate 'page_server'
-  _on_page_clip: ->
-    @props.navigation.navigate 'page_clip'
-  _on_page_webview: ->
-    @props.navigation.navigate 'page_webview'
-  _on_page_about: ->
-    @props.navigation.navigate 'page_about'
-  _on_page_setting: ->
-    @props.navigation.navigate 'page_setting'
+  _on_page: (page_name) ->
+    @props.navigation.navigate page_name
 
   render: ->
-    (cE ScrollView, {
-      style: ss.scroll
-      contentContainerStyle: [ ss.box, ss.scroll_in ]
-      },
-      (cE SubPageItem, {
-        text: 'ssad_server'
-        on_click: @_on_page_server
+    _p = @_on_page
+
+    (cE View, {
+      style: {
+        flex: 1
+      } },
+      (cE NavHeader, {
+        title: 'SSA Daemon'
+        main: true
+        navigation: @props.navigation
         })
-      (cE SubPageItem, {
-        text: 'SSAD Clip'
-        on_click: @_on_page_clip
-        })
-      (cE SubPageItem, {
-        text: 'SSAD WebView'
-        on_click: @_on_page_webview
-        })
-      # ssad logo
-      (cE View, {
-        style: {
-          justifyContent: 'center'
-          alignItems: 'center'
-          backgroundColor: co.bg
-          minHeight: 320
-          flex: 1
-        } },
-        (cE Image, {
+      (cE FullScroll, null,
+        (cE SubPageItem, {
+          text: 'Services'
+          on_click: ->
+            _p 'page_service'
+          })
+        (cE SubPageItem, {
+          text: 'Tools'
+          on_click: ->
+            _p 'page_tools'
+          })
+        # ssad logo
+        (cE View, {
           style: {
-            width: 256
-            height: 256
-          }
-          source: require './ssad-1024.png'
+            justifyContent: 'center'
+            alignItems: 'center'
+            backgroundColor: co.bg
+            minHeight: 320
+            flex: 1
+          } },
+          (cE Image, {
+            style: {
+              width: 256
+              height: 256
+            }
+            source: require './ssad-1024.png'
+            })
+        )
+        (cE SubPageItem, {
+          text: 'About'
+          on_click: ->
+            _p 'page_about'
+          })
+        (cE SubPageItem, {
+          text: 'Settings'
+          on_click: ->
+            _p 'page_setting'
           })
       )
-      (cE SubPageItem, {
-        text: 'About'
-        on_click: @_on_page_about
-        })
-      (cE SubPageItem, {
-        text: 'Settings'
-        on_click: @_on_page_setting
-        })
     )
 }
 PageMain.navigationOptions = {
-  header: (props) ->
-    (cE NavHeader, {
-      title: 'SSA Daemon'
-      header_props: props
-      main: true
-      })
+  header: null
 }
 
 module.exports = PageMain

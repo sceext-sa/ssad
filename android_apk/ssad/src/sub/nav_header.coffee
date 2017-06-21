@@ -1,12 +1,9 @@
 # nav_header.coffee, ssad/android_apk/ssad/src/sub/
 
-React = require 'react'
 {
   createClass: cC
-  createFactory: cF
   createElement: cE
-} = React
-
+} = require 'react'
 {
   StyleSheet
   View
@@ -16,6 +13,7 @@ React = require 'react'
 
 ss = require '../style/ss'
 co = require '../style/color'
+btn = require './btn'
 
 s = StyleSheet.create {
   # container
@@ -48,7 +46,7 @@ s = StyleSheet.create {
 
 NavHeader = cC {
   _on_goback: ->
-    @props.header_props.navigation.goBack()
+    @props.navigation.goBack()
 
   render: ->
     if @props.main
@@ -87,6 +85,19 @@ NavHeader = cC {
           },
           @props.title
         )
+        @_render_right()
+      )
+
+  _render_right: ->
+    if @props.right?
+      (cE View, {
+        style: {
+          # TODO
+        } },
+        (cE btn.Button, {
+          text: @props.right
+          on_click: @props.on_click_right
+          })
       )
 }
 

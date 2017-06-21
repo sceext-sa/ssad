@@ -34,6 +34,8 @@ public class ClipService extends Service {
                 _log_clip();
             }
         };
+        // save service in config
+        Config.i().clip_service(this);
     }
 
     @Override
@@ -50,13 +52,14 @@ public class ClipService extends Service {
         // show notification
         show_notification();
 
-        _mi().service_running_clip(true);
         _running = true;  // set running flag
         // emit event
         Json event = Json.object()
-            .set("type", "service_started")
-            .set("name", "clip_service");
-        _mi().put_event(event);
+            .set(Config.TYPE, Config.SERVICE_STARTED)
+            .set(Config.DATA, Json.object()
+                .set(Config.NAME, Config.CLIP_SERVICE)
+            );
+        Config.put_event(event);
 
         return START_NOT_STICKY;
     }
@@ -71,13 +74,17 @@ public class ClipService extends Service {
         // stop watch clip
         _stop_watch();
 
-        _mi().service_running_clip(false);
+        // remove this from config
+        Config.i().clip_service(null);
+
         remove_notification();
         // emit event
         Json event = Json.object()
-            .set("type", "service_stopped")
-            .set("name", "clip_service");
-        _mi().put_event(event);
+            .set(Config.TYPE, Config.SERVICE_STOPPED)
+            .set(Config.DATA, Json.object()
+                .set(Config.NAME, Config.CLIP_SERVICE)
+            );
+        Config.put_event(event);
     }
 
     // show notification (run service in foreground)
@@ -86,7 +93,7 @@ public class ClipService extends Service {
     }
 
     private Notification _create_notification() {
-        Intent intent = new Intent(this, MainActivity.class);  // TODO clip activity ?
+        Intent intent = new Intent(this, ClipActivity.class);
         PendingIntent p = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder b = new NotificationCompat.Builder(this)
             .setSmallIcon(R.mipmap.ic_launcher)
@@ -133,10 +140,9 @@ public class ClipService extends Service {
         ClipLog.log(_clip_text, is_text);
 
         _update_notification();
-        // TODO update clip activity ?
-    }
-
-    private MainApplication _mi() {
-        return MainApplication.instance();
+        // clip changed event
+        Json event = Json.object()
+            .set(Config.TYPE, Config.CLIP_CHANGED);
+        Config.put_event(event);
     }
 }

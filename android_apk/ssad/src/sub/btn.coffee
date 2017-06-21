@@ -38,6 +38,7 @@ s = StyleSheet.create {
     paddingLeft: 15
     paddingRight: 15
     margin: 5
+    borderRadius: 5
   }
 }
 
