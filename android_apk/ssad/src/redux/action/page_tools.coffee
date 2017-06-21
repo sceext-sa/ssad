@@ -7,13 +7,13 @@ ssad_native = require '../../ssad_native'
 PAGE_TOOLS_CHANGE_URL = 'page_tools_change_url'
 PAGE_TOOLS_START_WEBVIEW = 'page_tools_start_webview'
 
-change_url: (text) ->
+change_url = (text) ->
   {
     type: PAGE_TOOLS_CHANGE_URL
     payload: text
   }
 
-start_webview: ->
+start_webview = ->
   (dispatch, getState) ->
     dispatch {
       type: PAGE_TOOLS_START_WEBVIEW

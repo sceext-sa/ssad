@@ -23,6 +23,8 @@ PageMain = cC {
     @props.navigation.navigate page_name
 
   render: ->
+    _p = @_on_page
+
     (cE View, {
       style: {
         flex: 1
@@ -36,12 +38,12 @@ PageMain = cC {
         (cE SubPageItem, {
           text: 'Services'
           on_click: ->
-            @_on_page 'page_service'
+            _p 'page_service'
           })
         (cE SubPageItem, {
           text: 'Tools'
           on_click: ->
-            @_on_page 'page_tools'
+            _p 'page_tools'
           })
         # ssad logo
         (cE View, {
@@ -63,12 +65,12 @@ PageMain = cC {
         (cE SubPageItem, {
           text: 'About'
           on_click: ->
-            @_on_page 'page_about'
+            _p 'page_about'
           })
         (cE SubPageItem, {
           text: 'Settings'
           on_click: ->
-            @_on_page 'page_setting'
+            _p 'page_setting'
           })
       )
     )

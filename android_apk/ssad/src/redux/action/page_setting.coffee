@@ -10,24 +10,24 @@ PAGE_SETTING_MAKE_ROOT_KEY = 'page_setting_make_root_key'
 PAGE_SETTING_SAVE = 'page_setting_save'
 PAGE_SETTING_RESET = 'page_setting_reset'
 
-change_port: (text) ->
+change_port = (text) ->
   {
     type: PAGE_SETTING_CHANGE_PORT
     payload: text
   }
 
-change_root_app: (text) ->
+change_root_app = (text) ->
   {
     type: PAGE_SETTING_CHANGE_ROOT_APP
     payload: text
   }
 
-reset: ->
+reset = ->
   {
     type: PAGE_SETTING_RESET
   }
 
-make_root_key: ->
+make_root_key = ->
   (dispatch, getState) ->
     root_key = await ssad_native.make_root_key()
 
@@ -36,7 +36,7 @@ make_root_key: ->
       payload: root_key
     }
 
-save: ->
+save = ->
   (dispatch, getState) ->
     dispatch {
       type: PAGE_SETTING_SAVE

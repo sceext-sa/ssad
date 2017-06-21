@@ -9,7 +9,7 @@ MAIN_INIT = 'main_init'
 MAIN_SERVICE_CHANGED = 'main_service_changed'
 
 
-init: ->
+init = ->
   (dispatch, getState) ->
     dispatch {
       type: MAIN_INIT
@@ -18,7 +18,7 @@ init: ->
     dispatch service_changed()
     await return
 
-service_changed: ->
+service_changed = ->
   (dispatch, getState) ->
     # get new service status
     status = await ssad_native.status()

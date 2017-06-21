@@ -12,7 +12,7 @@ mapStateToProps = (state, props) ->
   if ! port?
     port = '(unknow)'
   {
-    is_server_runnig: $$state.get 'is_server_running'
+    is_server_running: $$state.get 'is_server_running'
     is_clip_running: $$state.get 'is_clip_running'
     disable_server_button: $$state.get 'disable_server_button'
     disable_clip_button: $$state.get 'disable_clip_button'

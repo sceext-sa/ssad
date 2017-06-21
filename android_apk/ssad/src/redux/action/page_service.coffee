@@ -11,7 +11,7 @@ PAGE_SERVICE_STOP_CLIP = 'page_service_stop_clip'
 PAGE_SERVICE_CHANGED = 'page_service_changed'
 
 
-start_server: ->
+start_server = ->
   (dispatch, getState) ->
     dispatch {
       type: PAGE_SERVICE_START_SERVER
@@ -22,28 +22,28 @@ start_server: ->
 
     await ssad_native.start_server port, root_key
 
-start_clip: ->
+start_clip = ->
   (dispatch, getState) ->
     dispatch {
       type: PAGE_SERVICE_START_CLIP
     }
     await ssad_native.start_clip()
 
-stop_server: ->
+stop_server = ->
   (dispatch, getState) ->
     dispatch {
       type: PAGE_SERVICE_STOP_SERVER
     }
     await ssad_native.stop_server()
 
-stop_clip: ->
+stop_clip = ->
   (dispatch, getState) ->
     dispatch {
       type: PAGE_SERVICE_STOP_CLIP
     }
     await ssad_native.stop_clip()
 
-service_changed: (status) ->
+service_changed = (status) ->
   {
     type: PAGE_SERVICE_CHANGED
     payload: status

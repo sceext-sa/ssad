@@ -30,7 +30,8 @@ start_server = (port, root_key) ->
   await _n.start_server JSON.stringify(opt)
 
 start_clip = ->
-  await _n.start_clip()
+  opt = {}
+  await _n.start_clip JSON.stringify(opt)
 
 stop_server = ->
   opt = {

@@ -10,7 +10,7 @@ SsadClip = require './clip/ssad_clip'
 AppRegistry.registerComponent 'ssad', () ->
   Main
 AppRegistry.registerComponent 'ssad_webview', () ->
-  SsadVewview
+  SsadWebview
 AppRegistry.registerComponent 'ssad_clip', () ->
   SsadClip
 module.exports = Main

@@ -1,17 +1,18 @@
 # page_setting.coffee, ssad/android_apk/ssad/src/redux/
 
 { connect } = require 'react-redux'
+Immutable = require 'immutable'
 
 PageSetting = require '../page/setting'
 action = require './action/page_setting'
 
 
-_is_config_new: ($$state) ->
+_is_config_new = ($$state) ->
   $$old = $$state.get 'config'
   $$new = $$state.get 'new_config'
   # translate port
-  $$old = $$old.set $$old.get('port').toString()
-  ($$old.is $$new)
+  $$old = $$old.set 'port', $$old.get('port').toString()
+  ! (Immutable.is $$old, $$new)
 
 mapStateToProps = (state, props) ->
   $$state = state.page_setting

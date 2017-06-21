@@ -10,6 +10,7 @@ ss = require '../style/ss'
 
 NavHeader = require '../sub/nav_header'
 FullScroll = require '../sub/full_scroll'
+NullFill = require '../sub/null_fill'
 Title = require '../sub/title'
 Hr = require '../sub/hr'
 P = require '../sub/p'
@@ -20,14 +21,19 @@ btn = require '../sub/btn'
 
 PageSetting = cC {
   render: ->
+    reset = 'reset'
+    if ! @props.show_save_button
+      reset = null
+
     (cE View, {
       style: {
         flex: 1
       } },
-      # TODO support header right button ?
       (cE NavHeader, {
         title: 'Settings'
         navigation: @props.navigation
+        right: reset
+        on_click_right: @props.on_reset
         })
       (cE FullScroll, null,
         # ssad_server config
@@ -100,6 +106,7 @@ PageSetting = cC {
         (cE View, {
           style: [ ss.scroll_pad, {
             flex: 0
+            paddingBottom: 10
           } ]
           },
           (cE P, {
@@ -116,6 +123,7 @@ PageSetting = cC {
           )
           # TODO init config files for ssad_server ?  (in /sdcard/ )
         )
+        (cE NullFill)
         # save config (main button)
         @_render_save_button()
       )
