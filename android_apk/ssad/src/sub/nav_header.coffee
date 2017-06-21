@@ -48,7 +48,7 @@ s = StyleSheet.create {
 
 NavHeader = cC {
   _on_goback: ->
-    @props.header_props.navigation.goBack()
+    @props.navigation.goBack()
 
   render: ->
     if @props.main
