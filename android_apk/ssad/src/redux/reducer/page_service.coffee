@@ -39,6 +39,8 @@ reducer = ($$state, action) ->
         $$o = $$o.set 'server_port', status.server_port
       else
         $$o = $$o.set 'server_port', null
+    when ac.PAGE_SERVICE_ENABLE_SERVER_BUTTON
+      $$o = $$o.set 'disable_server_button', false
   $$o
 
 module.exports = reducer

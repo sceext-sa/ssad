@@ -45,6 +45,9 @@ reducer = ($$state, action) ->
     when ac.PAGE_SETTING_RESET
       # reset new config
       $$o = $$o.set 'new_config', _to_new_config($$o.get('config'))
+    when ac.PAGE_SETTING_LOAD_CONFIG
+      $$o = $$o.set 'config', Immutable.fromJS action.payload
+      $$o = $$o.set 'new_config', _to_new_config($$o.get('config'))
   $$o
 
 module.exports = reducer
