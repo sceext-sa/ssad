@@ -46,7 +46,8 @@ s = StyleSheet.create {
 
 NavHeader = cC {
   _on_goback: ->
-    @props.navigation.goBack()
+    if @props.navigation?
+      @props.navigation.goBack()
 
   render: ->
     if @props.main
@@ -63,23 +64,7 @@ NavHeader = cC {
       (cE View, {
         style: s.box
         },
-        (cE TouchableNativeFeedback, {
-          onPress: @_on_goback
-          background: TouchableNativeFeedback.Ripple co.bg_btn_touch
-          },
-          (cE View, {
-            style: {
-              alignSelf: 'stretch'
-              flexDirection: 'row'
-              alignItems: 'center'
-            } },
-            (cE Text, {
-              style: s.back
-              },
-              '<'
-            )
-          )
-        )
+        @_render_left()
         (cE Text, {
           style: s.title
           },
@@ -88,11 +73,35 @@ NavHeader = cC {
         @_render_right()
       )
 
+  _render_left: ->
+    if @props.no_left
+      (cE View, {
+        style: {
+          width: 5
+        } })
+    else
+      (cE TouchableNativeFeedback, {
+        onPress: @_on_goback
+        background: TouchableNativeFeedback.Ripple co.bg_btn_touch
+        },
+        (cE View, {
+          style: {
+            alignSelf: 'stretch'
+            flexDirection: 'row'
+            alignItems: 'center'
+          } },
+          (cE Text, {
+            style: s.back
+            },
+            '<'
+          )
+        )
+      )
+
   _render_right: ->
     if @props.right?
       (cE View, {
         style: {
-          # TODO
         } },
         (cE btn.Button, {
           text: @props.right

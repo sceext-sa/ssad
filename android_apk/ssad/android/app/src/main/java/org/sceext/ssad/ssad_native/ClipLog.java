@@ -75,7 +75,7 @@ public class ClipLog {
         return df.format(new Date()) + ".log";
     }
 
-    public static final String TIME_ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss:SSS'Z'";
+    public static final String TIME_ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     private static String _print_time() {
         TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -104,6 +104,8 @@ public class ClipLog {
         _check_clip_json_struct(data);
         // update it
         _clip = data;
+
+        _save_clip_file();
     }
 
     private void _update_clip(String text, boolean is_text) throws Exception {

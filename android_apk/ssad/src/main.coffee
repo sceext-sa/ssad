@@ -46,12 +46,14 @@ O = cC {
     store.dispatch action.service_changed()
 
   componentDidMount: ->
+    # TODO
     # add event listeners
     ssad_native.listener().on ssad_native.SERVICE_CHANGED, @_on_service_changed
     # start main init
     store.dispatch action.init()
 
   componentWillUnmount: ->
+    # TODO
     # remove event listeners
     ssad_native.listener().removeListener ssad_native.SERVICE_CHANGED, @_on_service_changed
 
