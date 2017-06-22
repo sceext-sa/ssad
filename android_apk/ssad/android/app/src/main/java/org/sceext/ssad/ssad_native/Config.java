@@ -8,7 +8,7 @@ import org.sceext.ssad.ClipService;
 
 
 public class Config {
-    public static final String VERSION = "ssad_native version 0.2.0-2 test20170622 1343";
+    public static final String VERSION = "ssad_native version 0.2.0-2 test20170622 1540";
 
     public static final String SERVICE_STARTED = "service_started";
     public static final String SERVICE_STOPPED = "service_stopped";

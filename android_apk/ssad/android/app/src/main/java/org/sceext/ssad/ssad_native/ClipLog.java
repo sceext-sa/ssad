@@ -115,7 +115,7 @@ public class ClipLog {
             if (one.at("text").asString().equals(text)) {
                 index = i;
                 // check is_text
-                if (is_text && (one.has("is_not_text") || one.at("is_not_text").asBoolean())) {
+                if (is_text && (one.has("is_not_text") && one.at("is_not_text").asBoolean())) {
                     one.set("is_not_text", false);
                 }
                 break;
