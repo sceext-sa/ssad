@@ -109,12 +109,18 @@ public class ServerService extends Service {
 
     public void server_closed() {
         System.err.println("DEBUG: ServerService: server closed");
-        // TODO
+        // emit event
+        Json event = Json.object()
+            .set(Config.TYPE, Config.SERVER_EXIT);
+        Config.put_event(event);
     }
 
     public void thread_exit() {
         System.err.println("DEBUG: ServerService: thread exit");
-        // TODO
+        // emit event
+        Json event = Json.object()
+            .set(Config.TYPE, Config.SERVER_EXIT);
+        Config.put_event(event);
     }
 
     // get / set root_key

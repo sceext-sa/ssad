@@ -8,7 +8,7 @@ import org.sceext.ssad.ClipService;
 
 
 public class Config {
-    public static final String VERSION = "ssad_native version 0.2.0-1 test20170620 2215";
+    public static final String VERSION = "ssad_native version 0.2.0-2 test20170622 2300";
 
     public static final String SERVICE_STARTED = "service_started";
     public static final String SERVICE_STOPPED = "service_stopped";
@@ -18,12 +18,19 @@ public class Config {
     public static final String TYPE = "type";
     public static final String DATA = "data";
     public static final String NAME = "name";
+    public static final String SERVER_EXIT = "server_exit";
 
     public static final int SERVER_SERVICE_ID = 1;
     public static final int CLIP_SERVICE_ID = 2;
 
     public static String CLIP_LOG_DIR = "/sdcard/ssad/ssad_clip/log/";
     public static String CLIP_LIST_FILE = "/sdcard/ssad/ssad_clip/clip_list.json";
+
+    private final ClipLog _clip_log;
+
+    public Config() {
+        _clip_log = new ClipLog();
+    }
 
     // get single instance
     public static Config i() {
@@ -83,8 +90,15 @@ public class Config {
         _ssad_native_core = s;
         return this;
     }
+    public ClipLog clip_log() {
+        return _clip_log;
+    }
 
     public static void put_event(Json data) {
         i().ssad_native_core().put_event(data);
+    }
+
+    public static void put_event_clip(Json data) {
+        i().ssad_native_core().put_event_clip(data);
     }
 }

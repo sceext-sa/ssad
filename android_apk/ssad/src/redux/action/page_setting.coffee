@@ -1,6 +1,7 @@
 # page_setting.coffee, ssad/android_apk/ssad/src/redux/action/
 
 ssad_native = require '../../ssad_native'
+util = require '../../util'
 
 # action types
 
@@ -9,6 +10,7 @@ PAGE_SETTING_CHANGE_ROOT_APP = 'page_setting_change_root_app'
 PAGE_SETTING_MAKE_ROOT_KEY = 'page_setting_make_root_key'
 PAGE_SETTING_SAVE = 'page_setting_save'
 PAGE_SETTING_RESET = 'page_setting_reset'
+PAGE_SETTING_LOAD_CONFIG = 'page_setting_load_config'
 
 change_port = (text) ->
   {
@@ -41,8 +43,16 @@ save = ->
     dispatch {
       type: PAGE_SETTING_SAVE
     }
-    # TODO
-    await return
+    # save config
+    $$state = getState().page_setting
+    config = $$state.get('config').toJS()
+    await util.save_config config
+
+load_config = (config) ->
+  {
+    type: PAGE_SETTING_LOAD_CONFIG
+    payload: config
+  }
 
 module.exports = {
   PAGE_SETTING_CHANGE_PORT
@@ -50,10 +60,12 @@ module.exports = {
   PAGE_SETTING_MAKE_ROOT_KEY
   PAGE_SETTING_SAVE
   PAGE_SETTING_RESET
+  PAGE_SETTING_LOAD_CONFIG
 
   change_port
   change_root_app
   make_root_key  # thunk
   save  # thunk
   reset
+  load_config
 }

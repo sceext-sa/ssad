@@ -1,7 +1,9 @@
 # main.coffee, ssad/android_apk/ssad/src/redux/action/
 
 ssad_native = require '../../ssad_native'
+util = require '../../util'
 action_page_service = require './page_service'
+action_page_setting = require './page_setting'
 
 # action types
 
@@ -16,7 +18,10 @@ init = ->
     }
     # get service status
     dispatch service_changed()
-    await return
+    # load config
+    config = await util.load_config()
+    if config?
+      dispatch action_page_setting.load_config config
 
 service_changed = ->
   (dispatch, getState) ->

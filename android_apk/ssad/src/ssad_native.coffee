@@ -59,27 +59,43 @@ root_key = (key) ->
 make_root_key = ->
   await _n.make_root_key()
 
+# for SSAD clip
+set_primary_clip = (text) ->
+  await _n.set_primary_clip text
 
-# auto pull events and global event listener
-SERVICE_CHANGED = 'service_changed'
+get_clip = ->
+  raw = await _n.get_clip()
+  JSON.parse raw
 
-_auto_pull_loop = ->
-  while true
-    events = await pull_events()
-    if events?
-      for i in events
-        _listener.emit i.type, i.data
-        # check for service_changed
-        switch i.type
-          when 'service_started', 'service_stopped'
-            _listener.emit SERVICE_CHANGED, i.data
-# create listener start auto pull
-_listener = new EventEmitter()
-setTimeout _auto_pull_loop, 0
+set_clip = (data) ->
+  await _n.set_clip JSON.stringify(data)
 
-# get
-listener = ->
-  _listener
+pull_events_clip = ->
+  raw = await _n.pull_events_clip()
+  JSON.parse raw
+
+load_clip_file = ->
+  await _n.load_clip_file()
+
+
+# auto pull events
+class EventPuller extends EventEmitter
+  constructor: (fn_pull_events) ->
+    super()
+    @_pull_events = fn_pull_events
+
+  start_pull: ->
+    that = this
+    callback = ->
+      that._auto_pull_loop()
+    setTimeout callback, 0
+
+  _auto_pull_loop: ->
+    while true  # exit on error
+      events = await @_pull_events()
+      if events?
+        for i in events
+          @emit i.type, i.data
 
 
 module.exports = {
@@ -97,6 +113,12 @@ module.exports = {
   root_key  # async
   make_root_key  # async
 
-  SERVICE_CHANGED
-  listener
+  # SSAD clip
+  set_primary_clip  # async
+  get_clip  # async
+  set_clip  # async
+  pull_events_clip  # async
+  load_clip_file  # async
+
+  EventPuller  # class
 }

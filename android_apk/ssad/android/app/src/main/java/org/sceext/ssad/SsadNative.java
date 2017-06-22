@@ -38,9 +38,15 @@ public class SsadNative extends ReactContextBaseJavaModule {
         final Map<String, Object> c = new HashMap<>();
         // static version info
         c.put("VERSION_INFO", _c.version_info());
+        // const strings
+        c.put("EVENT_SERVICE_STARTED", Config.SERVICE_STARTED);
+        c.put("EVENT_SERVICE_STOPPED", Config.SERVICE_STOPPED);
+        c.put("EVENT_SERVER_EXIT", Config.SERVER_EXIT);
+        c.put("EVENT_CLIP_CHANGED", Config.CLIP_CHANGED);
+        c.put("SERVER_SERVICE", Config.SERVER_SERVICE);
+        c.put("CLIP_SERVICE", Config.CLIP_SERVICE);
         return c;
     }
-
 
     // export methods
     @ReactMethod
@@ -119,6 +125,47 @@ public class SsadNative extends ReactContextBaseJavaModule {
             promise.resolve(null);
         } catch (Exception e) {
             promise.reject("stop_service error", e);
+        }
+    }
+
+    // for SSAD clip
+    @ReactMethod
+    public void set_primary_clip(String text, Promise promise) {
+        try {
+            _c.set_primary_clip(text);
+            promise.resolve(null);
+        } catch (Exception e) {
+            promise.reject("set_primary_clip error", e);
+        }
+    }
+
+    @ReactMethod
+    public void get_clip(Promise promise) {
+        promise.resolve(_c.get_clip());
+    }
+
+    @ReactMethod
+    public void set_clip(String data, Promise promise) {
+        try {
+            _c.set_clip(data);
+            promise.resolve(null);
+        } catch (Exception e) {
+            promise.reject("set_clip error", e);
+        }
+    }
+
+    @ReactMethod
+    public void pull_events_clip(Promise promise) {
+        _c.pull_events_clip(promise);
+    }
+
+    @ReactMethod
+    public void load_clip_file(Promise promise) {
+        try {
+            _c.load_clip_file();
+            promise.resolve(null);
+        } catch (Exception e) {
+            promise.reject("load_clip_file error", e);
         }
     }
 
