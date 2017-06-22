@@ -137,12 +137,17 @@ public class ClipService extends Service {
         }
         _clip_text = s.toString();
         // log it
-        ClipLog.log(_clip_text, is_text);
+        Config.i().clip_log().log(_clip_text, is_text);
 
         _update_notification();
         // clip changed event
         Json event = Json.object()
             .set(Config.TYPE, Config.CLIP_CHANGED);
-        Config.put_event(event);
+        Config.put_event_clip(event);
+    }
+
+    public void set_clip(String text) {
+        ClipData d = ClipData.newPlainText(text, text);
+        _m.setPrimaryClip(d);
     }
 }

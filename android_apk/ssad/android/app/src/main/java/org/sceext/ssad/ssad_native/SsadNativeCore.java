@@ -1,7 +1,5 @@
 package org.sceext.ssad.ssad_native;
 
-import java.util.LinkedList;
-
 import android.content.Context;
 import android.content.Intent;
 
@@ -21,15 +19,16 @@ import org.sceext.ssad.ClipService;
 
 
 public class SsadNativeCore {
-    private final LinkedList<Json> _event_cache;
     private final SsadNative _ssad_native;
 
-    private Promise _event_promise = null;
+    private final EventCache _event_cache;
+    private final EventCache _event_cache_clip;
 
     public SsadNativeCore(SsadNative s) {
         _ssad_native = s;
 
-        _event_cache = new LinkedList<>();
+        _event_cache = new EventCache();
+        _event_cache_clip = new EventCache();
     }
 
     public String version_info() {
@@ -41,27 +40,23 @@ public class SsadNativeCore {
     }
 
     // put / pull events
-    public synchronized void put_event(Json data) {
-        if (_event_promise != null) {
-            Json events = Json.array()
-                .add(data);
-            _event_promise.resolve(events.toString());
-            _event_promise = null;  // reset promise
-        } else {
-            _event_cache.add(data);  // put event in cache
-        }
+    public void put_event(Json data) {
+        _event_cache.put_event(data);
     }
 
-    public synchronized void pull_events(Promise promise) {
-        if (_event_cache.size() > 0) {
-            Json events = Json.make(_event_cache.toArray(new Json[0]));
-            // clear cache
-            _event_cache.clear();
-            promise.resolve(events.toString());
-        } else {
-            _event_promise = promise;
-        }
+    public void pull_events(Promise promise) {
+        _event_cache.pull_events(promise);
     }
+
+    // clip events
+    public void put_event_clip(Json data) {
+        _event_cache_clip.put_event(data);
+    }
+
+    public void pull_events_clip(Promise promise) {
+        _event_cache_clip.pull_events(promise);
+    }
+
 
     public String status() {
         ServerService ss = Config.i().server_service();
@@ -141,5 +136,30 @@ public class SsadNativeCore {
         } else {
             throw new Exception("unknow service name " + name);
         }
+    }
+
+    // SSAD clip
+    public SsadNativeCore set_primary_clip(String text) throws Exception {
+        ClipService s = Config.i().clip_service();
+        if (s != null) {
+            s.set_clip(text);
+        } else {
+            throw new Exception("ClipService not running");
+        }
+        return this;
+    }
+
+    public String get_clip() {
+        Json data = Config.i().clip_log().get_clip();
+        return data.toString();
+    }
+
+    public void set_clip(String raw) throws Exception {
+        Json data = Json.read(raw);
+        Config.i().clip_log().set_clip(data);
+    }
+
+    public void load_clip_file() throws Exception {
+        Config.i().clip_log().load_clip_file();
     }
 }
