@@ -13,6 +13,8 @@ init_state = {  # with Immutable
     ]
     index: -1  # current index
     refresh: false  # doing refresh
+    # raw data (used to set_clip)
+    raw_data: null
   }
 }
 

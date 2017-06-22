@@ -15,13 +15,16 @@ _cancel_all_select = ($$state) ->
   $$o
 
 _clip_changed = ($$state, data) ->
+  # save raw data
+  $$o = $$state.set 'raw_data', Immutable.fromJS(data)
+
   list = []
   for i in data.list
     list.push {
       text: i.text
       time: i.time
     }
-  $$o = $$state.set 'data', Immutable.fromJS(list)
+  $$o = $$o.set 'data', Immutable.fromJS(list)
   $$o = $$o.set 'index', data.index
   $$o
 
@@ -41,7 +44,7 @@ reducer = ($$state, action) ->
       $$o = $$o.set 'edit_mode', false
       $$o = _cancel_all_select $$o
     when ac.CLIP_SELECT_ITEM
-      $$o.updateIn ['data', action.payload, 'selected'], (selected) ->
+      $$o = $$o.updateIn ['data', action.payload, 'selected'], (selected) ->
         ! selected
     #when ac.CLIP_REMOVE
     #when ac.CLIP_SET_CLIP
@@ -49,6 +52,8 @@ reducer = ($$state, action) ->
     when ac.CLIP_CHANGED
       $$o = _clip_changed $$o, action.payload
       $$o = $$o.set 'refresh', false
+      # exit edit_mode
+      $$o = $$o.set 'edit_mode', false
     when ac.CLIP_REFRESH
       $$o = $$o.set 'refresh', true
   $$o

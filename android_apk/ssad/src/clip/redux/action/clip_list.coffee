@@ -16,14 +16,34 @@ CLIP_CHANGED = 'clip_changed'
 CLIP_REFRESH = 'clip_refresh'
 
 
+_get_clip_list = (dispatch) ->
+  data = await ssad_native.get_clip()
+  dispatch changed(data)
+
+_make_save_data = ($$state) ->
+  raw = $$state.get('raw_data').toJS()
+  data = $$state.get('data').toJS()
+  index = $$state.get 'index'
+
+  raw.index = -1
+  list = []
+  for i in [0... data.length]
+    # current clip item can not be removed
+    if (! data[i].selected) || (i == index)
+      list.push raw.list[i]
+    # check current clip item
+    if i == index
+      # update index
+      raw.index = raw.list.length - 1
+  raw.list = list
+  raw
+
 init = ->
   (dispatch, getState) ->
     dispatch {
       type: CLIP_INIT
     }
-    # get clip list
-    data = await ssad_native.get_clip()
-    dispatch changed(data)
+    await _get_clip_list dispatch
 
 changed = (data) ->
   {
@@ -36,17 +56,16 @@ refresh = ->
     dispatch {
       type: CLIP_REFRESH
     }
-    # TODO
-    await return
+    await _get_clip_list dispatch
 
 enter_edit_mode = ->
   {
-    type: CLIP_ENTER_CLIP_MODE
+    type: CLIP_ENTER_EDIT_MODE
   }
 
 exit_edit_mode = ->
   {
-    type: CLIP_EXIT_CLIP_MODE
+    type: CLIP_EXIT_EDIT_MODE
   }
 
 select_item = (index) ->
@@ -60,8 +79,10 @@ remove = ->
     dispatch {
       type: CLIP_REMOVE
     }
-    # TODO save in java ?
-    await return
+    $$state = getState().clip_list
+    data = _make_save_data $$state
+    # save to java side
+    await ssad_native.set_clip data
 
 set_clip = (index) ->
   (dispatch, getState) ->
@@ -69,8 +90,12 @@ set_clip = (index) ->
       type: CLIP_SET_CLIP
       payload: index
     }
-    # TODO set clip ?
-    # TODO finish activity ?
+    # get text
+    $$state = getState().clip_list
+    text = $$state.getIn ['data', index, 'text']
+    # TODO maybe just use react-native API ? (not java)
+    # set to primary clip
+    await ssad_native.set_primary_clip text
 
 module.exports = {
   CLIP_ENTER_EDIT_MODE

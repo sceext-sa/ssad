@@ -83,9 +83,14 @@ ClipList = cC {
 
   # render list item
   _render_item: (opt) ->
-    _on_click = @props.on_set_clip
+    props_on_set_clip = @props.on_set_clip
+    props_on_select_item = @props.on_select_item
+    index = opt.item.key
+    _on_click = ->
+      props_on_set_clip index
     if @props.edit_mode
-      _on_click = @props.on_select_item
+      _on_click = ->
+        props_on_select_item index
 
     (cE ClipItem, {
       data: opt.item

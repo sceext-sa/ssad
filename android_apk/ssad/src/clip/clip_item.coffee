@@ -20,25 +20,26 @@ s = StyleSheet.create {
     flexDirection: 'row'
     alignItems: 'center'
     padding: 0
-    paddingTop: 10
-    paddingBottom: 10
+    paddingTop: 16
+    paddingBottom: 16
     borderWidth: 0
     borderBottomWidth: 1
     borderColor: co.bg_sec
   }
   left_box: {
-    justifyContent: 'center'
+    justifyContent: 'flex-start'
     alignItems: 'center'
     width: 28
     paddingRight: 2
-    alignSelf: 'start'
+    alignSelf: 'flex-start'
+    height: 25
   }
   right_box: {
     justifyContent: 'center'
     alignItems: 'center'
     width: 34
     paddingRight: 4
-    alignSelf: 'end'
+    alignSelf: 'flex-end'
   }
 
   box: {
@@ -65,6 +66,7 @@ s = StyleSheet.create {
     height: 16
     borderRadius: 8
     fontSize: 9
+    marginTop: 3
   }
   # current clip content
   left_current: {
@@ -74,8 +76,9 @@ s = StyleSheet.create {
   # edit mode
   left_selected: {
     color: co.bg_btn_danger
-    fontSize: 64
+    fontSize: 25
     fontWeight: 'bold'
+    top: -10
   }
 
   # clip text (content)
@@ -93,18 +96,21 @@ s = StyleSheet.create {
 
 
 _make_time_label = (time) ->
-  d = new Date time
   now = new Date()
+  offset = - 60 * 1e3 * now.getTimezoneOffset()
+  # support local time
+  d = new Date(new Date(time).getTime() + offset)
+  now = new Date(now.getTime() + offset)
+  time = d.toISOString()
+
   # check year
   if now.getYear() != d.getYear()
     # -> 2017
     return time.split('-')[0]
   # check month / day
   if (now.getMonth() != d.getMonth()) || (now.getDate() != d.getDate())
-    # TODO support local time ?
     # -> 06-22
     return time.split('T')[0].split('-')[1..].join('-')
-  # TODO support local time ?
   # -> 02:33
   time.split('T')[1].split(':')[0...2].join(':')
 
