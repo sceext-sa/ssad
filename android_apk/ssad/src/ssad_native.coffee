@@ -78,28 +78,24 @@ load_clip_file = ->
   await _n.load_clip_file()
 
 
-# auto pull events and global event listener
-SERVICE_CHANGED = 'service_changed'
+# auto pull events
+class EventPuller extends EventEmitter
+  constructor: (fn_pull_events) ->
+    super()
+    @_pull_events = fn_pull_events
 
-# TODO pulls event class ?
+  start_pull: ->
+    that = this
+    callback = ->
+      that._auto_pull_loop()
+    setTimeout callback, 0
 
-_auto_pull_loop = ->
-  while true
-    events = await pull_events()
-    if events?
-      for i in events
-        _listener.emit i.type, i.data
-        # check for service_changed
-        switch i.type
-          when 'service_started', 'service_stopped'
-            _listener.emit SERVICE_CHANGED, i.data
-# create listener start auto pull
-_listener = new EventEmitter()
-setTimeout _auto_pull_loop, 0
-
-# get
-listener = ->
-  _listener
+  _auto_pull_loop: ->
+    while true  # exit on error
+      events = await @_pull_events()
+      if events?
+        for i in events
+          @emit i.type, i.data
 
 
 module.exports = {
@@ -124,6 +120,5 @@ module.exports = {
   pull_events_clip  # async
   load_clip_file  # async
 
-  SERVICE_CHANGED
-  listener
+  EventPuller  # class
 }

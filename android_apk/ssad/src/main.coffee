@@ -45,17 +45,26 @@ O = cC {
   _on_service_changed: ->
     store.dispatch action.service_changed()
 
-  componentDidMount: ->
+  _on_server_exit: ->
     # TODO
+
+  componentDidMount: ->
+    # create event puller
+    @_puller = new ssad_native.EventPuller ssad_native.pull_events
     # add event listeners
-    ssad_native.listener().on ssad_native.SERVICE_CHANGED, @_on_service_changed
+    @_puller.on 'service_started', @_on_service_changed
+    @_puller.on 'service_stopped', @_on_service_changed
+    @_puller.on 'server_exit', @_on_server_exit
     # start main init
     store.dispatch action.init()
+    # start pull
+    @_puller.start_pull()
 
   componentWillUnmount: ->
-    # TODO
     # remove event listeners
-    ssad_native.listener().removeListener ssad_native.SERVICE_CHANGED, @_on_service_changed
+    @_puller.removeListener 'service_started', @_on_service_changed
+    @_puller.removeListener 'service_stopped', @_on_service_changed
+    @_puller.on 'server_exit', @_on_server_exit
 
   render: ->
     (cE Provider, {

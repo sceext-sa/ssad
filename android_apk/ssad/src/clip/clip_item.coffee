@@ -72,6 +72,7 @@ s = StyleSheet.create {
   left_current: {
     color: co.bg_btn_p
     fontSize: 20
+    top: -5
   }
   # edit mode
   left_selected: {

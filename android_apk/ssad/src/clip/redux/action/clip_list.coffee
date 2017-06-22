@@ -83,6 +83,8 @@ remove = ->
     data = _make_save_data $$state
     # save to java side
     await ssad_native.set_clip data
+    # update after remove
+    await _get_clip_list dispatch
 
 set_clip = (index) ->
   (dispatch, getState) ->

@@ -26,14 +26,22 @@ store = createStore root_reducer, applyMiddleware(thunk)
 
 O = cC {
   _on_clip_changed: ->
-    # TODO
+    # get new clip data
+    data = await ssad_native.get_clip()
+    store.dispatch action.changed(data)
 
   componentDidMount: ->
+    # create event puller
+    @_puller = new ssad_native.EventPuller ssad_native.pull_events_clip
+    # add event listeners
+    @_puller.on 'clip_changed', @_on_clip_changed
     store.dispatch action.init()
-    # TODO add event listeners
+    # start pull
+    @_puller.start_pull()
 
   componentWillUnmount: ->
-    # TODO remove event listeners
+    # remove event listeners
+    @_puller.removeListener 'clip_changed', @_on_clip_changed
 
   render: ->
     (cE Provider, {
