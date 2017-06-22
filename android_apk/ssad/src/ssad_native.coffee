@@ -59,9 +59,29 @@ root_key = (key) ->
 make_root_key = ->
   await _n.make_root_key()
 
+# for SSAD clip
+set_primary_clip = (text) ->
+  await _n.set_primary_clip text
+
+get_clip = ->
+  raw = await _n.get_clip()
+  JSON.parse raw
+
+set_clip = (data) ->
+  await _n.set_clip JSON.stringify(data)
+
+pull_events_clip = ->
+  raw = await _n.pull_events_clip()
+  JSON.parse raw
+
+load_clip_file = ->
+  await _n.load_clip_file()
+
 
 # auto pull events and global event listener
 SERVICE_CHANGED = 'service_changed'
+
+# TODO pulls event class ?
 
 _auto_pull_loop = ->
   while true
@@ -96,6 +116,13 @@ module.exports = {
   pull_events  # async
   root_key  # async
   make_root_key  # async
+
+  # SSAD clip
+  set_primary_clip  # async
+  get_clip  # async
+  set_clip  # async
+  pull_events_clip  # async
+  load_clip_file  # async
 
   SERVICE_CHANGED
   listener

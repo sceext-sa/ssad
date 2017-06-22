@@ -35,6 +35,13 @@ start_clip = ->
     dispatch {
       type: PAGE_SERVICE_START_CLIP
     }
+    # load clip (list) file first
+    try
+      await ssad_native.load_clip_file()
+    catch e
+      # TODO
+      util.toast "(Error: load_clip_file)"
+    # start clip service
     await ssad_native.start_clip()
 
 stop_server = ->
