@@ -69,6 +69,15 @@ enable_server_button = ->
     type: PAGE_SERVICE_ENABLE_SERVER_BUTTON
   }
 
+server_exit = ->
+  (dispatch, getState) ->
+    # check enable server button
+    $$state = getState().page_service
+    if $$state.get 'disable_server_button'
+      dispatch enable_server_button()
+      util.toast "ssad_server exit !"
+    await return
+
 
 module.exports = {
   PAGE_SERVICE_START_SERVER
@@ -85,4 +94,5 @@ module.exports = {
 
   service_changed
   enable_server_button
+  server_exit  # thunk
 }

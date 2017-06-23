@@ -17,6 +17,7 @@ thunk = require('redux-thunk').default
 ss = require './style/ss'
 root_reducer = require './redux/root_reducer'
 action = require './redux/action/main'
+action_service = require './redux/action/page_service'
 ssad_native = require './ssad_native'
 
 # use with redux
@@ -46,7 +47,7 @@ O = cC {
     store.dispatch action.service_changed()
 
   _on_server_exit: ->
-    # TODO
+    store.dispatch action_service.server_exit()
 
   componentDidMount: ->
     # create event puller
