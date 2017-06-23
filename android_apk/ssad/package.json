@@ -1,6 +1,7 @@
 {
 	"name": "ssad",
-	"version": "0.2.0-1",
+	"version": "0.2.0-2",
+	"license": "GPL-3.0+",
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"build": "coffee -o dist/ src/"
