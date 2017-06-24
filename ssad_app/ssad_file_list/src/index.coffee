@@ -1,7 +1,10 @@
 # index.coffee, ssad/ssad_app/ssad_file_list/src/
 #
 # use global:
-#   $
+#   $, document
+
+url = require 'url'
+querystring = require 'querystring'
 
 {
   createStore
@@ -31,17 +34,28 @@ FileList = require './redux/file_list'
 # redux store
 store = createStore reducer, composeWithDevTools(applyMiddleware(thunk))
 
+
+_get_args = ->
+  u = document.URL
+  querystring.parse url.parse(u).query
+
 O = cC {
   displayName: 'O'
-  # TODO
 
   componentDidMount: ->
+    # get args from document.URL
+    a = _get_args()
+    if a.app_id?
+      store.dispatch action.set_app_id(a.app_id)
+    if a.ssad_key?
+      store.dispatch action.set_ssad_key(a.ssad_key)
+    # TODO support more args
+
     # init try-load
     store.dispatch action.load('.')
     console.log "DEBUG: init try-load"
 
   componentWillUnmount: ->
-    # TODO
     console.log "DEBUG: root component will unmount"
 
   render: ->
@@ -63,7 +77,6 @@ init = ->
   # DEBUG ssad_server version
   v = await async_.get_json config.SERVER_VERSION
   console.log "DEBUG: ssad_server version #{JSON.stringify v}"
-  # TODO maybe init try-load here ?
 
 _start_init = ->
   init().then( () ->

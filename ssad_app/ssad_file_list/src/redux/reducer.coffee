@@ -32,6 +32,12 @@ reducer = ($$state, action) ->
       $$o = $$o.set 'sub_root', action.payload.sub_root
       # also set path
       $$o = $$o.set 'path', action.payload.root_path
+    when ac.FL_SET_APP_ID
+      $$o = $$o.set 'app_id', action.payload
+      # copy to input
+      $$o = $$o.setIn ['input', 'id'], action.payload
+    when ac.FL_SET_SSAD_KEY
+      $$o = $$o.set 'ssad_key', action.payload
     when ac.FL_CHANGE_ID
       $$o = $$o.setIn ['input', 'id'], action.payload
     when ac.FL_CHANGE_KEY

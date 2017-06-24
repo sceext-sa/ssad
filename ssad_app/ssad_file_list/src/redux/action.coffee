@@ -17,6 +17,8 @@ FL_LOAD_ERR = 'fl_load_err'
 
 FL_SET_PATH = 'fl_set_path'
 FL_SET_ROOT_PATH = 'fl_set_root_path'
+FL_SET_APP_ID = 'fl_set_app_id'
+FL_SET_SSAD_KEY = 'fl_set_ssad_key'
 
 FL_CHANGE_ID = 'fl_change_id'
 FL_CHANGE_KEY = 'fl_change_key'
@@ -97,6 +99,18 @@ set_root_path = (sub_root, root_path) ->
     }
   }
 
+set_app_id = (id) ->
+  {
+    type: FL_SET_APP_ID
+    payload: id
+  }
+
+set_ssad_key = (key) ->
+  {
+    type: FL_SET_SSAD_KEY
+    payload: key
+  }
+
 change_id = (id) ->
   {
     type: FL_CHANGE_ID
@@ -114,7 +128,7 @@ save_config = ->
     dispatch {
       type: FL_SAVE_CONFIG
     }
-    # TODO try to load
+    # try to load
     dispatch load('.')
 
 select_file = (name) ->
@@ -133,6 +147,8 @@ module.exports = {
   FL_LOAD_ERR
   FL_SET_PATH
   FL_SET_ROOT_PATH
+  FL_SET_APP_ID
+  FL_SET_SSAD_KEY
   FL_CHANGE_ID
   FL_CHANGE_KEY
   FL_SAVE_CONFIG
@@ -143,6 +159,8 @@ module.exports = {
   load_err
   set_path
   set_root_path
+  set_app_id
+  set_ssad_key
   change_id
   change_key
   save_config  # thunk
