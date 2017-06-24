@@ -1,4 +1,40 @@
 # file_item.coffee, ssad/ssad_app/ssad_file_list/src/sub/
+# css class: sub_file_item
+
+{ createElement: cE } = require 'react'
+cC = require 'create-react-class'
 
 
-# TODO
+FileItem = cC {
+  displayName: 'FileItem'
+
+  _on_click: ->
+    # check type
+    switch @props.type
+      when 'dir'
+        @props.on_load_dir?(@props.id)
+      when 'file'
+        @props.on_select_file(@props.id)
+      # else: ignore click
+
+  _render_size: ->
+    if @props.size?
+      (cE 'span', {
+        className: 'size'
+        },
+        # TODO improve style
+        @props.size.toString()
+      )
+
+  render: ->
+    (cE 'li', {
+      # item type: 'dir', 'file', 'unknow'
+      className: [ 'sub_file_item', @props.type ]
+      onClick: @_on_click
+      },
+      @props.text
+      @_render_size()
+    )
+}
+
+module.exports = FileItem
