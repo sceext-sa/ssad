@@ -12,7 +12,13 @@ querystring = require 'querystring'
 } = require 'redux'
 thunk = require('redux-thunk').default
 # DEBUG redux in browser
-{ composeWithDevTools } = require 'redux-devtools-extension'
+# FIXME
+#{ composeWithDevTools } = require 'redux-devtools-extension'
+{ composeWithDevTools } = require 'remote-redux-devtools'
+# FIXME
+composeWithDevTools = composeWithDevTools({ realtime: true })
+
+
 
 { Provider } = require 'react-redux'
 { createElement: cE } = require 'react'

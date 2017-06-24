@@ -25,6 +25,7 @@ reducer = ($$state, action) ->
       $$o = $$o.set 'error', null
     when ac.FL_LOAD_ERR
       $$o = $$o.set 'error', action.payload
+
     when ac.FL_SET_PATH
       $$o = $$o.set 'path', action.payload
     when ac.FL_SET_ROOT_PATH
@@ -40,6 +41,10 @@ reducer = ($$state, action) ->
       $$o = $$o.set 'ssad_key', action.payload
     when ac.FL_SET_SHOW_PATH
       $$o = $$o.set 'show_path', action.payload
+    when ac.FL_UPDATE_ROOT_PATH
+      # just copy current path to root_path
+      $$o = $$o.set 'root_path', $$o.get('path')
+
     when ac.FL_CHANGE_ID
       $$o = $$o.setIn ['input', 'id'], action.payload
     when ac.FL_CHANGE_KEY

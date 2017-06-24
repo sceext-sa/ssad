@@ -1,6 +1,6 @@
 
-JS_LIB_R= -r react -r react-dom -r create-react-class -r react-redux -r immutable -r redux -r redux-thunk -r redux-devtools-extension -r path -r url -r querystring
-JS_LIB_X= -x react -x react-dom -x create-react-class -x react-redux -x immutable -x redux -x redux-thunk -x redux-devtools-extension -x path -x url -x querystring
+JS_LIB_R= -r react -r react-dom -r create-react-class -r react-redux -r immutable -r redux -r redux-thunk -r redux-devtools-extension -r remote-redux-devtools -r path -r url -r querystring
+JS_LIB_X= -x react -x react-dom -x create-react-class -x react-redux -x immutable -x redux -x redux-thunk -x redux-devtools-extension -x remote-redux-devtools -x path -x url -x querystring
 
 
 dist_dev: bundle css

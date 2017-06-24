@@ -20,6 +20,7 @@ FL_SET_ROOT_PATH = 'fl_set_root_path'
 FL_SET_APP_ID = 'fl_set_app_id'
 FL_SET_SSAD_KEY = 'fl_set_ssad_key'
 FL_SET_SHOW_PATH = 'fl_set_show_path'
+FL_UPDATE_ROOT_PATH = 'fl_update_root_path'
 
 FL_CHANGE_ID = 'fl_change_id'
 FL_CHANGE_KEY = 'fl_change_key'
@@ -42,7 +43,7 @@ load = (name) ->
       data = $$state.get('data').toJS()
       root_path = data.dir[name].path
       dispatch set_root_path(name, root_path)
-      dispatch _do_load('.')
+      dispatch _do_load('.', true)
       return
 
     _is_path_equal = (a, b) ->
@@ -60,7 +61,7 @@ load = (name) ->
     dispatch _do_load(name)
     await return
 
-_do_load = (name) ->
+_do_load = (name, is_load_sub_root) ->
   (dispatch, getState) ->
     $$state = getState()
     path_ = name
@@ -75,6 +76,9 @@ _do_load = (name) ->
     try
       data = await ssad_server_api.load_dir path_, opts
       dispatch load_ok(data)
+      if is_load_sub_root
+        # this is load sub_root, so update root_path
+        dispatch update_root_path()
     catch e
       dispatch load_err(e)
 
@@ -125,6 +129,12 @@ set_show_path = (show) ->
     payload: show
   }
 
+update_root_path = ->
+  {
+    type: FL_UPDATE_ROOT_PATH
+  }
+
+
 change_id = (id) ->
   {
     type: FL_CHANGE_ID
@@ -164,6 +174,8 @@ module.exports = {
   FL_SET_APP_ID
   FL_SET_SSAD_KEY
   FL_SET_SHOW_PATH
+  FL_UPDATE_ROOT_PATH
+
   FL_CHANGE_ID
   FL_CHANGE_KEY
   FL_SAVE_CONFIG
@@ -177,6 +189,8 @@ module.exports = {
   set_app_id
   set_ssad_key
   set_show_path
+  update_root_path
+
   change_id
   change_key
   save_config  # thunk
