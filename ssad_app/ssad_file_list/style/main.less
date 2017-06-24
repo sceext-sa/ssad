@@ -11,12 +11,16 @@
 
 // global
 html {
-  // TODO
+  background-color: @co_bg_default;
+  color: @co_text_default;
 }
 
 body {
-  font-size: 16px;
-  // TODO
+  font-size: @rem_size;
+  font-family: @font_default;
+
+  background-color: @co_bg_default;
+  color: @co_text_default;
 }
 
 
@@ -28,8 +32,5 @@ body {
   height: 100%;
   right: 0;
   bottom: 0;
-
-  display: flex;
-  flex-direction: column;
-  // TODO
+  box-sizing: border-box;
 }
