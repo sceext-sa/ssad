@@ -17,7 +17,7 @@ FileList = cC {
       o.push (cE FileItem, {
         key: i.name
         id: i.name
-        text: i.name
+        name: i.name
         type: i.type
         size: i.size
         on_load_dir: @props.on_load_dir

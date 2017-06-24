@@ -26,14 +26,27 @@ FileItem = cC {
         @props.size.toString()
       )
 
+  _render_name: ->
+    text = @props.name
+    if 'dir' == @props.type
+      text += '/'
+
+    (cE 'span', {
+      className: 'name'
+      },
+      text
+    )
+
   render: ->
     (cE 'li', {
       # item type: 'dir', 'file', 'unknow'
-      className: [ 'sub_file_item', @props.type ]
+      className: "sub_file_item #{@props.type}"
       onClick: @_on_click
       },
-      @props.text
-      @_render_size()
+      (cE 'div', null,
+        @_render_name()
+        @_render_size()
+      )
     )
 }
 
