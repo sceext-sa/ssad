@@ -54,6 +54,8 @@ _should_show_input_key = ($$state) ->
 mapStateToProps = ($$state, props) ->
   {
     list: _make_list_data $$state
+    show_path: $$state.get 'show_path'
+    path: $$state.get 'path'
 
     input: $$state.get('input').toJS()
     error: _make_error_info $$state
@@ -72,6 +74,8 @@ mapDispatchToProps = (dispatch, props) ->
       dispatch action.change_key(text)
     on_save_config: ->
       dispatch action.save_config()
+      # reset path
+      dispatch action.set_path(null)
   }
 
 O = connect(mapStateToProps, mapDispatchToProps)(FileList)

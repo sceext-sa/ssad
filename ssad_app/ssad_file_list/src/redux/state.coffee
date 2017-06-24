@@ -7,6 +7,8 @@ init_state = {  # with Immutable
   path: null  # current path
   data: null  # raw data from ssad_server's res
 
+  show_path: false  # show current path
+
   # app ID / key
   app_id: null
   ssad_key: null

@@ -49,7 +49,12 @@ O = cC {
       store.dispatch action.set_app_id(a.app_id)
     if a.ssad_key?
       store.dispatch action.set_ssad_key(a.ssad_key)
-    # TODO support more args
+    if a.sub_root? && a.root_path?
+      store.dispatch action.set_root_path(a.sub_root, a.root_path)
+    if a.path?
+      store.dispatch action.set_path(a.path)
+    if a.show_path == 'true'
+      store.dispatch action.set_show_path(true)
 
     # init try-load
     store.dispatch action.load('.')

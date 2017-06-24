@@ -38,6 +38,8 @@ reducer = ($$state, action) ->
       $$o = $$o.setIn ['input', 'id'], action.payload
     when ac.FL_SET_SSAD_KEY
       $$o = $$o.set 'ssad_key', action.payload
+    when ac.FL_SET_SHOW_PATH
+      $$o = $$o.set 'show_path', action.payload
     when ac.FL_CHANGE_ID
       $$o = $$o.setIn ['input', 'id'], action.payload
     when ac.FL_CHANGE_KEY

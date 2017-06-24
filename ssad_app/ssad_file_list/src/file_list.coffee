@@ -35,10 +35,19 @@ FileList = cC {
         on_save_config: @props.on_save_config
         })
 
+  _render_show_path: ->
+    if @props.show_path && @props.path?
+      (cE 'p', {
+        className: 'path'
+        },
+        @props.path
+      )
+
   render: ->
     (cE 'div', {
       className: 'file_list'
       },
+      @_render_show_path()
       (cE 'ul', null,
         @_render_list()
       )

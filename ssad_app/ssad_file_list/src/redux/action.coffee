@@ -19,6 +19,7 @@ FL_SET_PATH = 'fl_set_path'
 FL_SET_ROOT_PATH = 'fl_set_root_path'
 FL_SET_APP_ID = 'fl_set_app_id'
 FL_SET_SSAD_KEY = 'fl_set_ssad_key'
+FL_SET_SHOW_PATH = 'fl_set_show_path'
 
 FL_CHANGE_ID = 'fl_change_id'
 FL_CHANGE_KEY = 'fl_change_key'
@@ -43,8 +44,15 @@ load = (name) ->
       dispatch set_root_path(name, root_path)
       dispatch _do_load('.')
       return
+
+    _is_path_equal = (a, b) ->
+      if ! a.endsWith('/')
+        a += '/'
+      if ! b.endsWith('/')
+        b += '/'
+      (a == b)
     # check exit to sub_root
-    if ('..' == name) && ($$state.get('path') == $$state.get('root_path'))
+    if ('..' == name) && _is_path_equal($$state.get('path'), $$state.get('root_path'))
       dispatch set_root_path(null, null)
       dispatch _do_load(name)
       return
@@ -111,6 +119,12 @@ set_ssad_key = (key) ->
     payload: key
   }
 
+set_show_path = (show) ->
+  {
+    type: FL_SET_SHOW_PATH
+    payload: show
+  }
+
 change_id = (id) ->
   {
     type: FL_CHANGE_ID
@@ -149,6 +163,7 @@ module.exports = {
   FL_SET_ROOT_PATH
   FL_SET_APP_ID
   FL_SET_SSAD_KEY
+  FL_SET_SHOW_PATH
   FL_CHANGE_ID
   FL_CHANGE_KEY
   FL_SAVE_CONFIG
@@ -161,6 +176,7 @@ module.exports = {
   set_root_path
   set_app_id
   set_ssad_key
+  set_show_path
   change_id
   change_key
   save_config  # thunk
