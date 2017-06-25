@@ -12,10 +12,9 @@ querystring = require 'querystring'
 } = require 'redux'
 thunk = require('redux-thunk').default
 # DEBUG redux in browser (redux remote)
-# FIXME
-#{ composeWithDevTools } = require 'redux-devtools-extension'
-{ composeWithDevTools } = require 'remote-redux-devtools'
-composeWithDevTools = composeWithDevTools({ realtime: true })
+{ composeWithDevTools } = require 'redux-devtools-extension'
+#{ composeWithDevTools } = require 'remote-redux-devtools'
+#composeWithDevTools = composeWithDevTools({ realtime: true })
 
 
 { Provider } = require 'react-redux'
@@ -32,7 +31,10 @@ async_ = require './async'
 # use with redux
 FileList = require './redux/file_list'
 # redux store
-store = createStore reducer, composeWithDevTools(applyMiddleware(thunk))
+middleware = applyMiddleware(thunk)
+if composeWithDevTools?
+  middleware = composeWithDevTools(middleware)
+store = createStore reducer, middleware
 
 
 _get_args = ->

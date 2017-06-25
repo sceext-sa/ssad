@@ -9,11 +9,14 @@ EVENT_LOAD_DIR = 'load_dir'  # load dir  OK
 EVENT_SELECT_FILE = 'select_file'
 
 
-_post = (type, data) ->
-  util.post_msg {
+_post = (type, data, is_err) ->
+  o = {
     type
     payload: data
   }
+  if is_err? && is_err
+    o.error = true
+  util.post_msg o
 
 _get_common_data = ($$state) ->
   {
@@ -26,7 +29,7 @@ _get_common_data = ($$state) ->
 on_error = ($$state, err) ->
   data = _get_common_data $$state
   data.error = err
-  _post EVENT_ERROR, data
+  _post EVENT_ERROR, data, true
 
 on_load_dir = ($$state) ->
   data = _get_common_data $$state
