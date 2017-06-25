@@ -14,6 +14,8 @@
 ss = require '../style/ss'
 co = require '../style/color'
 
+make_time_label = require './make_time_label'
+
 s = StyleSheet.create {
   # container
   box_base: {
@@ -95,26 +97,6 @@ s = StyleSheet.create {
   }
 }
 
-
-_make_time_label = (time) ->
-  now = new Date()
-  offset = - 60 * 1e3 * now.getTimezoneOffset()
-  # support local time
-  d = new Date(new Date(time).getTime() + offset)
-  now = new Date(now.getTime() + offset)
-  time = d.toISOString()
-
-  # check year
-  if now.getYear() != d.getYear()
-    # -> 2017
-    return time.split('-')[0]
-  # check month / day
-  if (now.getMonth() != d.getMonth()) || (now.getDate() != d.getDate())
-    # -> 06-22
-    return time.split('T')[0].split('-')[1..].join('-')
-  # -> 02:33
-  time.split('T')[1].split(':')[0...2].join(':')
-
 ClipItem = cC {
   render: ->
     # available props
@@ -131,7 +113,7 @@ ClipItem = cC {
     #    }
     left = @props.data.i
     text = @props.data.text
-    right = _make_time_label @props.data.time
+    right = make_time_label @props.data.time
 
     box_s = s.box
     left_s = s.left
