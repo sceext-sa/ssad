@@ -1,0 +1,90 @@
+// file_list.less, ssad/ssad_app/ssad_file_list/style/
+
+.ssad_file_list {
+
+  .file_list {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+
+    overflow: auto;
+
+    .path {
+      flex: initial;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      padding: 0.5rem;
+      word-break: break-word;
+
+      border-bottom-width: 0.1rem;
+      border-bottom-style: solid;
+      border-bottom-color: @co_bg_sec;
+      font-size: 0.8em;
+    }
+
+    ul {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+
+      background-color: @co_bg;
+    }
+  }
+
+  .sub_file_item {
+    flex: initial;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border-bottom-width: 0.1rem;
+    border-bottom-style: solid;
+    border-color: @co_bg_sec;
+
+    cursor: pointer;
+
+    transition-duration: @trans_t;
+    transition-property: background-color;
+
+    &:hover {
+      background-color: @co_bg_sec;
+      transition-duration: 0s;
+    }
+
+    .name {
+      box-sizing: border-box;
+      padding-left: 0.5rem;
+      padding-top: 1rem;
+      flex: 1;
+      color: @co_text;
+      word-break: break-word;
+    }
+    .size {
+      flex: initial;
+      font-size: 0.8em;
+      color: @co_text_sec;
+      align-self: flex-end;
+    }
+
+    // dir highlight (left block)
+    &>div {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      box-sizing: border-box;
+      padding: 0.5rem;
+      border-left-width: 0.5rem;
+      border-left-style: solid;
+      border-left-color: transparent;
+    }
+    &.dir>div {
+      border-left-color: @co_light;
+    }
+    &.unknow>div {
+      border-left-color: @co_btn_danger;
+    }
+  }
+}

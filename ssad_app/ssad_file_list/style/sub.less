@@ -1,0 +1,92 @@
+// sub.less, ssad/ssad_app/ssad_file_list/style/
+
+.ssad_file_list {
+
+  .sub_input_key {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    &>div {
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0.3rem;
+
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+
+      background-color: @co_bg_sec;
+    }
+
+    p {
+      color: @co_text;
+      padding-top: 1em;
+      padding-bottom: 0.5em;
+      cursor: default;
+    }
+
+    &>div>div {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+    .top, .foot {
+      flex: initial;
+    }
+    .err {
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        padding: 0;
+        text-align: 'center';
+        color: @co_text_sec;
+
+        &:before {
+          content: 'Error';
+          display: inline-block;
+          padding: 0.2rem;
+          border-radius: 0.2rem;
+          margin: 0.2rem;
+          margin-right: 1em;
+          font-size: 0.8em;
+          background-color: @co_btn_danger;
+          color: @co_text;
+        }
+      }
+    }
+  }
+
+  .sub_input {
+    input {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0.2em;
+
+      background-color: @co_bg_input;
+      color: @co_text_input;
+    }
+  }
+
+  .sub_btn {
+    button {
+      background-color: @co_btn_primary;
+      color: @co_text;
+      box-sizing: border-box;
+      padding: 0.5rem;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+
+      cursor: pointer;
+    }
+  }
+}

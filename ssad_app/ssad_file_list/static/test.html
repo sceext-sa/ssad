@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<!--
+  test.html, ssad/ssad_app/ssad_file_list/static/
+-->
+<title>Test of ssad_file_list</title>
+<style type="text/css" >
+
+html, body {
+  margin: 0;
+  border-style: none;
+  padding: 0;
+}
+
+iframe {
+  display: block;
+  margin: 0;
+  border-style: none;
+  padding: 0;
+  overflow: auto;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  position: fixed;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+}
+
+.top {
+  flex: initial;
+  display: flex;
+  flex-direction: row;
+}
+
+#args {
+  flex: 1;
+}
+
+#btn {
+  flex: initial;
+}
+
+.sub_frame {
+  flex: 1;
+}
+
+#ssad_file_list {
+  height: 100%;
+  width: 100%;
+}
+
+</style>
+<script type="text/javascript" >
+function _start_init() {
+  const src_base = '/ssad201706/pub/ssad_file_list/static/dist/ssad_file_list.dev.html';
+
+  const e_args = document.getElementById('args');
+  const e_btn = document.getElementById('btn');
+  const e_f = document.getElementById('ssad_file_list');
+
+  function set_args(a) {
+    const url = src_base + '?' + a;
+    e_f.src = url;
+  }
+
+  e_btn.addEventListener('click', function () {
+    const value = e_args.value;
+    set_args(value);
+
+    // listen post message
+    const w = e_f.contentWindow;
+    function on_msg(event) {
+      if (event.source != w) {
+        console.log('DEBUG: WARNING: message source is not sub iframe ! ');
+        return;
+      }
+      const data = event.data;
+      console.log('DEBUG: got msg ' + JSON.stringify(data));
+    }
+    window.addEventListener('message', on_msg, false);
+  });
+}
+</script>
+</head>
+<body>
+  <div class="top" >
+    <input id="args" type="text" />
+    <button type="button" id="btn" >OK</button>
+  </div>
+  <div class="sub_frame" >
+    <iframe id="ssad_file_list" src="/ssad201706/pub/ssad_file_list/" ></iframe>
+  </div>
+<!-- -->
+<script type="text/javascript" >
+_start_init();
+</script>
+</body>
+</html>
