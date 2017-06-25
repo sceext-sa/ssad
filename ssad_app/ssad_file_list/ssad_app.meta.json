@@ -1,0 +1,28 @@
+{
+  "ssad_app_spec": "0.1.0",
+
+  "id": "ssad_file_list",
+  "name": "ssad 目录 (文件) 查看器",
+  "version": "0.1.0-1",
+
+  "main": "static/dist/ssad_file_list.dev.html",
+  "pub_root": {
+    "static": {
+      "sub_root": "app",
+      "path": "/"
+    }
+  },
+  "ext_to_mime": {
+    "html": "text/html",
+    "js": "text/javascript",
+    "css": "text/css",
+
+    "": "application/octet-stream"
+  },
+
+  "license": "GNU GPL v3+",
+  "author": "sceext <sceext@foxmail.com>",
+  "home": "https://github.com/sceext-sa/ssad",
+
+  "_test": true
+}

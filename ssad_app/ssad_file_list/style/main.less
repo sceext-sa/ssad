@@ -1,0 +1,36 @@
+// main.less, ssad/ssad_app/ssad_file_list/style/
+
+@import "config";
+@import "color";
+@import "reset";
+
+@import "sub";
+@import "file_list";
+// TODO support color theme ?
+
+
+// global
+html {
+  background-color: @co_bg_default;
+  color: @co_text_default;
+}
+
+body {
+  font-size: @rem_size;
+  font-family: @font_default;
+
+  background-color: @co_bg_default;
+  color: @co_text_default;
+}
+
+
+.ssad_file_list {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+}

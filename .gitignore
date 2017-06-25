@@ -1,5 +1,7 @@
 
+# ssad_app
 dist/
+js/
 
 # tmp
 tmp/
@@ -19,7 +21,6 @@ node_modules/
 
 # android-apk
 keystores/
-
 
 
 ## for react-native
