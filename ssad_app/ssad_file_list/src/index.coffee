@@ -11,13 +11,11 @@ querystring = require 'querystring'
   applyMiddleware
 } = require 'redux'
 thunk = require('redux-thunk').default
-# DEBUG redux in browser
+# DEBUG redux in browser (redux remote)
 # FIXME
 #{ composeWithDevTools } = require 'redux-devtools-extension'
 { composeWithDevTools } = require 'remote-redux-devtools'
-# FIXME
 composeWithDevTools = composeWithDevTools({ realtime: true })
-
 
 
 { Provider } = require 'react-redux'
@@ -30,10 +28,6 @@ action = require './redux/action'
 
 config = require './config'
 async_ = require './async'
-util = require './util'
-
-ssad_server_api = require './ssad_server_api'
-event_api = require './event_api'
 
 # use with redux
 FileList = require './redux/file_list'
@@ -73,7 +67,6 @@ O = cC {
     (cE Provider, {
       store
       },
-      # TODO support init (start) path ?
       (cE FileList)
     )
 }
@@ -82,7 +75,6 @@ O = cC {
 # main entry
 init = ->
   console.log "DEBUG: start init .. . "
-  # TODO init args options from url ?
   # render root element
   ReactDOM.render (cE O), document.getElementById('root')
   # DEBUG ssad_server version

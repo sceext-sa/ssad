@@ -2,8 +2,6 @@
 
 path = require 'path'
 
-config = require '../config'
-util = require '../util'
 ssad_server_api = require '../ssad_server_api'
 event_api = require '../event_api'
 
@@ -79,8 +77,16 @@ _do_load = (name, is_load_sub_root) ->
       if is_load_sub_root
         # this is load sub_root, so update root_path
         dispatch update_root_path()
+      # event_api: on_load_dir
+      dispatch _on_load_dir()
     catch e
+      # event_api: on_error
+      event_api.on_error getState(), e.toString()
       dispatch load_err(e)
+
+_on_load_dir = ->
+  (dispatch, getState) ->
+    event_api.on_load_dir getState()
 
 
 load_ok = (data) ->
@@ -161,7 +167,8 @@ select_file = (name) ->
       type: FL_SELECT_FILE
       payload: name
     }
-    # TODO
+    # event_api: on_select_file
+    event_api.on_select_file getState(), name
     await return
 
 module.exports = {
