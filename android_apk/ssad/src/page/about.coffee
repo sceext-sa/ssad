@@ -84,7 +84,7 @@ PageAbout = cC {
           },
           # ssad version
           (cE Title, {
-            text: 'SSA Daemon'
+            text: 'SSA daemon'
             })
           (cE ScrollView, {
             horizontal: true

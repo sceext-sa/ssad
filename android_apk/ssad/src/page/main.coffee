@@ -30,7 +30,7 @@ PageMain = cC {
         flex: 1
       } },
       (cE NavHeader, {
-        title: 'SSA Daemon'
+        title: 'SSA daemon'
         main: true
         navigation: @props.navigation
         })
