@@ -1,11 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="org.sceext.ssad"
-  android:versionName="0.2.0"
-  android:versionCode="4">
+  android:versionName="0.2.2"
+  android:versionCode="5">
 
   <uses-permission android:name="android.permission.INTERNET" />
+  <!-- -->
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <!-- -->
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -21,7 +23,7 @@
   <application
     android:name=".MainApplication"
     android:allowBackup="true"
-    android:label="SSA Daemon"
+    android:label="SSA daemon"
     android:icon="@mipmap/ic_launcher">
     <activity
       android:name=".MainActivity"
@@ -43,7 +45,7 @@
       android:windowSoftInputMode="adjustResize" />
     <activity
       android:name=".ClipActivity"
-      android:label="SSAD Clip"
+      android:label="SSAD clip"
       android:launchMode="singleInstance"
       android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
       android:theme="@style/Theme.AppCompat.Light.NoActionBar"

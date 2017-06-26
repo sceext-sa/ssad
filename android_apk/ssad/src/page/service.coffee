@@ -112,7 +112,7 @@ PageService = cC {
           } ]
           },
           (cE Title, {
-            text: 'SSAD Clip'
+            text: 'SSAD clip'
             })
           (cE TextArea, {
             text: @_clip_status()
