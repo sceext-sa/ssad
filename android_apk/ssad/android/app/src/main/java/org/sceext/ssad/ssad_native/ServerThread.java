@@ -50,6 +50,8 @@ public class ServerThread implements Runnable {
         Json c = Config.i().server_start_config();
         int port = c.at("port").asInteger();
         String root_key = c.at("root_key").asString();
+        // DEBUG
+        System.err.println("DEBUG: ServerThread: try listen " + port);
 
         // create server, and set config
         _s = new DServer(new Callback(this));

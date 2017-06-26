@@ -1,6 +1,6 @@
 # config.coffee, ssad/android_apk/ssad/src/
 
-P_VERSION = 'ssad version 0.2.1 test20170623 1849'
+P_VERSION = 'ssad version 0.2.2 test20170626 1743'
 
 
 module.exports = {
