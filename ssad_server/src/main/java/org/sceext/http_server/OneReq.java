@@ -81,7 +81,7 @@ public class OneReq {
 
     private boolean _is_end = false;  // set to `true` after `_on_end()`
     private boolean _is_get_post_data = false;  // set to `true` when start get post data
-    private List<byte[]> _cache;  // cached post data
+    private final List<byte[]> _cache;  // cached post data
 
     private Json _req_info;
 
@@ -99,6 +99,21 @@ public class OneReq {
         _on_req = _callback.create_on_req();
         // create cache
         _cache = new LinkedList<byte[]>();
+    }
+
+    // reset flags for new request
+    private void _req_reset() {
+        // set flags
+        _is_end = false;
+        _is_get_post_data = false;
+        _is_upload_file = false;
+
+        _upload_file_path = null;
+        _upload_tmp_file_path = null;
+        _upload_file = null;
+
+        // clear cache
+        _cache.clear();
     }
 
     // get / set
@@ -188,6 +203,8 @@ public class OneReq {
     // public methods used by NettyHandler
 
     public void _call_on_req() {
+        // reset first
+        _req_reset();
         try {
             Json res = _on_req.on_req(this);
             _req_res(res, false);
@@ -442,7 +459,7 @@ public class OneReq {
         _upload_file = new FileOutputStream(f);
         // write any cached data
         byte[] data = _concat_cache();
-        _cache = null;  // clear cache
+        _cache.clear();  // clear cache
 
         _upload_file.write(data);
 
@@ -527,7 +544,7 @@ public class OneReq {
         _is_get_post_data = false;
 
         byte[] data = _concat_cache();
-        _cache = null;  // clear cache
+        _cache.clear();  // clear cache
 
         // run POST process in a new thread
         new Thread(new PostWorker(data)).start();
