@@ -1,4 +1,3 @@
-// TODO
 package org.sceext.http_server;
 
 import java.io.File;
@@ -190,8 +189,6 @@ public class OneReq {
 
     public void _call_on_req() {
         try {
-            _add_path();
-
             Json res = _on_req.on_req(this);
             _req_res(res, false);
         } catch (Exception e) {
@@ -231,17 +228,6 @@ public class OneReq {
     }
 
     // private methods
-
-    // add `.path` from _req_info.full_url
-    private void _add_path() {
-        String full = _req_info.at(FULL_URL).asString();
-        int i = full.indexOf(QM);
-        if (i != -1) {
-            _req_info.set(PATH, full.substring(0, i));
-        } else {
-            _req_info.set(PATH, full);
-        }
-    }
 
     // res Json info return by `_on_req.on_req()`
     private void _req_res(Json res, boolean post_worker) throws Exception {

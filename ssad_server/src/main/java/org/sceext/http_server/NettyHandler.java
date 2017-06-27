@@ -150,6 +150,8 @@ public class NettyHandler extends SimpleChannelInboundHandler<Object> {
                 }
             }
         }
+        // set path here
+        _info.set(OneReq.PATH, qd.path());
         // set request info
         _one.req_info(_info);
         _one._call_on_req();
