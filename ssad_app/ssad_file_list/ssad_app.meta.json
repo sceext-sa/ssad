@@ -5,11 +5,11 @@
   "name": "ssad 目录 (文件) 查看器",
   "version": "0.1.0-1",
 
-  "main": "static/dist/ssad_file_list.dev.html",
+  "main": "static/ssad_file_list.dev.html",
   "pub_root": {
     "static": {
       "sub_root": "app",
-      "path": "/"
+      "path": "/dist"
     }
   },
   "ext_to_mime": {

@@ -1,6 +1,6 @@
 # state.coffee, ssad/ssad_app/ssad_file_list/src/redux/
 
-# TODO support select file ?
+# TODO support selected item ?
 
 init_state = {  # with Immutable
   root_path: null  # current sub_root's path on disk

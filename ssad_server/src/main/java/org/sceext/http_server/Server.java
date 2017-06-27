@@ -10,7 +10,7 @@ import io.netty.handler.logging.LoggingHandler;
 
 
 public class Server {
-    public static final String VERSION = "netty http_server version 0.2.0-1 test20170620 0200";
+    public static final String VERSION = "netty http_server version 0.2.0-4 test20170627 2036";
 
     private int _port = 8080;
     private String _ip = "127.0.0.1";
