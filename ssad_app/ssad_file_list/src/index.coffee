@@ -19,8 +19,8 @@ thunk = require('redux-thunk').default
 
 { Provider } = require 'react-redux'
 { createElement: cE } = require 'react'
-ReactDOM = require 'react-dom'
 cC = require 'create-react-class'
+ReactDOM = require 'react-dom'
 
 reducer = require './redux/reducer'
 action = require './redux/action'
@@ -31,9 +31,9 @@ async_ = require './async'
 # use with redux
 FileList = require './redux/file_list'
 # redux store
-middleware = applyMiddleware(thunk)
+middleware = applyMiddleware thunk
 if composeWithDevTools?
-  middleware = composeWithDevTools(middleware)
+  middleware = composeWithDevTools middleware
 store = createStore reducer, middleware
 
 
