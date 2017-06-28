@@ -3,11 +3,8 @@
 init_state = {  # with Immutable
   # navigation part
   nav: {
-    # FIXME
-    #current: 'root'
-    #stack: []
-    current: 'page_main'
-    stack: ['root']
+    current: 'root'
+    stack: []
   }
   # main pages
   main: {

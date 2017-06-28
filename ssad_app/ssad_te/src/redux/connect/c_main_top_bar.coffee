@@ -4,6 +4,7 @@
 
 MainTopBar = require '../../main_top_bar'
 action = require '../action/a_main_top_bar'
+a_nav = require '../nav/n_action'
 
 
 mapStateToProps = (state, props) ->
@@ -14,7 +15,8 @@ mapStateToProps = (state, props) ->
 
 mapDispatchToProps = (dispatch, props) ->
   {
-    # TODO
+    on_nav: (id) ->
+      dispatch a_nav.go(id)
   }
 
 O = connect(mapStateToProps, mapDispatchToProps)(MainTopBar)
