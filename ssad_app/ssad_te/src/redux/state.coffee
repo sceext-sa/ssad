@@ -1,9 +1,13 @@
 # state.coffee, ssad/ssad_app/ssad_te/src/redux/
 
 init_state = {  # with Immutable
-  # nav part
+  # navigation part
   nav: {
-    # TODO
+    # FIXME
+    #current: 'root'
+    #path: [ 'root' ]
+    current: 'page_main'
+    path: ['root', 'page_main']
   }
   # main pages
   main: {

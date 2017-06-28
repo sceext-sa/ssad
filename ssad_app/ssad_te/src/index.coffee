@@ -71,7 +71,7 @@ _start_init = ->
   init().then( () ->
     # TODO
   ).catch( (e) ->
-    console.log "DEBUG: init error !  #{e}"
+    console.log "DEBUG: init error !  #{e.stack}"
   )
 # start after page load
 $ _start_init

@@ -6,6 +6,7 @@
     "browserify": "^14.4.0",
     "coffeescript": "next",
     "less": "^2.7.2",
+    "prop-types": "^15.5.10",
     "redux-devtools-extension": "^2.13.2",
     "watchify": "^3.9.0"
   },
