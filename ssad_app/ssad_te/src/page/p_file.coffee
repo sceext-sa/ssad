@@ -6,6 +6,7 @@ cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
 NavTop = require '../sub/nav_top'
+SubItem = require '../sub/sub_item'
 
 
 PFile = cC {
@@ -15,6 +16,9 @@ PFile = cC {
     on_nav: PropTypes.func.isRequired
   }
 
+  _on_nav_select: ->
+    @props.on_nav 'page_file_select'
+
   render: ->
     (cE 'div', {
       className: 'page p_file'
@@ -23,7 +27,17 @@ PFile = cC {
         title: 'File'
         on_back: @props.on_nav_back
         })
-      # TODO
+      (cE 'div', {
+        className: 'page_body'
+        },
+        # TODO
+        (cE SubItem, {
+          text: 'Select'
+          text_sec: 'TODO'
+          on_click: @_on_nav_select
+          })
+        # TODO
+      )
     )
 }
 

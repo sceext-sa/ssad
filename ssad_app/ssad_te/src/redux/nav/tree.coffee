@@ -18,14 +18,14 @@ PAGE_LIST = [
 ]
 
 get_pos = ($$state) ->
-  path = $$state.get('path').toJS()
+  stack = $$state.get('stack').toJS()
   current = $$state.get 'current'
 
   o = {}
   for i in PAGE_LIST
     if i == current
       o[i] = 'current'
-    else if path.indexOf(i) != -1
+    else if stack.indexOf(i) != -1
       o[i] = 'left'
     else
       o[i] = 'right'

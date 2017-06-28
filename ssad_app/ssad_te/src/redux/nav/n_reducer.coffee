@@ -17,18 +17,18 @@ reducer = ($$state, action) ->
   $$o = _check_init_state $$state
   switch action.type
     when ac.NAV_BACK
-      if $$o.get('path').size > 0
-        # update path, current
-        $$o = $$o.set 'current', $$o.get('path').last()
-        $$o = $$o.update 'path', ($$path) ->
-          $$path.pop()
+      if $$o.get('stack').size > 0
+        # update stack, current
+        $$o = $$o.set 'current', $$o.get('stack').last()
+        $$o = $$o.update 'stack', ($$stack) ->
+          $$stack.pop()
       # else: can not back
     when ac.NAV_GO
       id = action.payload
-      if tree.PAGE_LIST.indexOf(id) != -1
-        # update path, current
-        $$o = $$o.update 'path', ($$path) ->
-          $$path.push $$o.get('current')
+      if (tree.PAGE_LIST.indexOf(id) != -1) && (id != $$o.get('current'))  # is not current
+        # update stack, current
+        $$o = $$o.update 'stack', ($$stack) ->
+          $$stack.push $$o.get('current')
         $$o = $$o.set 'current', id
       # else: no such page
   $$o

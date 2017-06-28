@@ -5,9 +5,9 @@ init_state = {  # with Immutable
   nav: {
     # FIXME
     #current: 'root'
-    #path: [ 'root' ]
+    #stack: []
     current: 'page_main'
-    path: ['root', 'page_main']
+    stack: ['root']
   }
   # main pages
   main: {
