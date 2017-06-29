@@ -18,8 +18,10 @@ ReactDOM = require 'react-dom'
 
 
 config = require './config'
+util = require './util'
 core_editor = require './core_editor'
 reducer = require './redux/root_reducer'
+a_config_id_key = require './redux/action/a_config_id_key'
 
 # use with redux
 MainHost = require './redux/main_host'
@@ -33,12 +35,23 @@ store = createStore reducer, middleware
 config.store store  # save global store
 
 
-# TODO auto load config after page load ?
+_load_config = ->
+  c = util.get_config()
+  if c?
+    if c.app_id?
+      store.dispatch a_config_id_key.change_id(c.app_id)
+      if c.ssad_key?
+        store.dispatch a_config_id_key.change_key(c.ssad_key)
+        store.dispatch a_config_id_key.key_ok()
+
 _init = ->
   # TODO support switch between codemirror / ace core_editor ?
   # create CodeMirror editor
   core_editor.get_editor core_editor.CODEMIRROR, document.getElementById('root_core_editor')
   # TODO other core_editor init process
+  # load config from localStorage
+  _load_config()
+  # TODO load config from ssad_server (app/etc file ?)
 
   # TODO
   await return

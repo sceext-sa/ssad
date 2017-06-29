@@ -5,16 +5,21 @@
 MainTopBar = require '../../main_top_bar'
 action = require '../action/a_main_top_bar'
 a_nav = require '../nav/n_action'
+r_util = require '../r_util'
+a_file = require '../action/a_file'
 
 
 mapStateToProps = (state, props) ->
   $$state = state.main
   {
-    # TODO
+    filename: r_util.get_filename $$state
+    is_clean: $$state.get 'doc_clean'
   }
 
 mapDispatchToProps = (dispatch, props) ->
   {
+    on_save: ->
+      dispatch a_file.save()
     on_nav: (id) ->
       dispatch a_nav.go(id)
   }

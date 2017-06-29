@@ -41,5 +41,45 @@
     border-bottom-color: @co_bg_sec;
   }
 
+  // main button
+  .sub_main_button {
+    flex: initial;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: @nav_top_height;
+    background-color: @co_btn_primary;
+    cursor: pointer;
+
+    transition-property: background-color;
+    transition-duration: @trans_t;
+    &:hover {
+      background-color: mix(@co_bg_btn_touch, @co_btn_primary, @btn_touch_mix);
+      transition-duration: 0s;
+    }
+
+    span {
+      color: @co_text_btn;
+      letter-spacing: 0.4rem;
+    }
+  }
+
+  // sub_file_list
+  .sub_file_list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    iframe {
+      flex: 1;
+      margin: 0;
+      border-style: none;
+      padding: 0;
+      overflow: auto;
+    }
+  }
+
   // TODO
 }

@@ -5,6 +5,7 @@
 cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
+config = require '../config'
 NavTop = require '../sub/nav_top'
 
 
@@ -22,7 +23,14 @@ PAbout = cC {
         title: 'About'
         on_back: @props.on_nav_back
         })
-      # TODO
+      (cE 'div', {
+        className: 'page_body'
+        },
+        (cE 'span', null,
+          config.P_VERSION
+        )
+        # TODO
+      )
     )
 }
 

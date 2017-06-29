@@ -12,6 +12,10 @@ SubItem = require '../sub/sub_item'
 PConfig = cC {
   displayName: 'PConfig'
   propTypes: {
+    core_editor: PropTypes.string
+    need_config_key: PropTypes.bool.isRequired
+    key_error: PropTypes.bool
+
     on_nav_back: PropTypes.func.isRequired
     on_nav: PropTypes.func.isRequired
   }
@@ -22,6 +26,18 @@ PConfig = cC {
     @props.on_nav 'page_config_core'
 
   render: ->
+    core = ''
+    switch @props.core_editor
+      when 'codemirror'
+        core = 'CodeMirror'
+      when 'ace'
+        core = 'ACE'
+    k = 'OK'
+    if @props.need_config_key
+      k = 'TODO'
+    if @props.key_error
+      k = 'Error'
+
     (cE 'div', {
       className: 'page p_config'
       },
@@ -35,13 +51,13 @@ PConfig = cC {
         # sub_item: id_key
         (cE SubItem, {
           text: 'APP_ID / SSAD_KEY'
-          text_sec: 'TODO'
+          text_sec: k
           on_click: @_on_nav_id_key
           })
         # sub_item: core
         (cE SubItem, {
           text: 'Core editor'
-          text_sec: 'TODO'
+          text_sec: core
           on_click: @_on_nav_core
           })
         # TODO

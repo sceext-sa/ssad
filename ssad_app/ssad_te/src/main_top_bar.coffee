@@ -13,8 +13,11 @@ PropTypes = require 'prop-types'
 MainTopBar = cC {
   displayName: 'MainTopBar'
   propTypes: {
+    filename: PropTypes.string
+    is_clean: PropTypes.bool.isRequired
+
+    on_save: PropTypes.func.isRequired
     on_nav: PropTypes.func.isRequired
-    # TODO
   }
 
   _on_nav_main: ->
@@ -22,15 +25,32 @@ MainTopBar = cC {
   _on_nav_count: ->
     @props.on_nav 'page_count'
 
-  render: ->
-    (cE 'div', {
-      className: 'main_top_bar'
-      },
+  _render_save: ->
+    if @props.is_clean
       (cE 'span', {
         className: 'save'
         },
-        'S'  # TODO
+        (cE Glyphicon, {
+          glyph: 'ok'
+          })
       )
+    else
+      (cE 'span', {
+        className: 'save active'
+        onClick: @props.on_save
+        },
+        'S'
+      )
+
+  render: ->
+    f_name = 'No file'
+    if @props.filename?
+      f_name = @props.filename
+
+    (cE 'div', {
+      className: 'main_top_bar'
+      },
+      @_render_save()
       (cE 'span', {
         className: 'count'
         onClick: @_on_nav_count
@@ -40,7 +60,7 @@ MainTopBar = cC {
       (cE 'span', {
         className: 'title'
         },
-        'Unknow title'  # TODO
+        f_name
       )
       (cE 'span', {
         className: 'undo'

@@ -19,8 +19,10 @@ init_state = {  # with Immutable
       root_path: null
       path: null
       filename: null
-      # TODO
+      # TODO error ?
     }
+    # content text (document) clean
+    doc_clean: true
     # editor page
     editor: {
       mode: null  # TODO
@@ -33,8 +35,10 @@ init_state = {  # with Immutable
     # config page
     config: {
       # input
-      app_id: ''
+      app_id: 'ssad_te'
       ssad_key: ''
+      # app_id/ssad_key error
+      error: null
       # core editor type  (TODO ACE)
       core_editor: 'codemirror'  # 'codemirror', 'ace'
     }

@@ -4,8 +4,9 @@ Immutable = require 'immutable'
 
 state = require '../state'
 ac = require '../action/a_common'
-
-# TODO load and merge other sub reducers ?
+# sub reducers
+r_config = require './r_config'
+r_file = require './r_file'
 
 
 _check_init_state = ($$state) ->
@@ -16,9 +17,13 @@ _check_init_state = ($$state) ->
 
 reducer = ($$state, action) ->
   $$o = _check_init_state $$state
-  #switch action.type
-  # TODO
-  #else: TODO call other sub reducers ?
+  switch action.type
+    when ac.C_SET_DOC_CLEAN
+      $$o = $$o.set 'doc_clean', action.payload
+    else
+      # call sub reducers
+      $$o = r_config $$o, action
+      $$o = r_file $$o, action
   $$o
 
 module.exports = reducer
