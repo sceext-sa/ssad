@@ -9,8 +9,12 @@ action = require '../action/a_main'
 
 mapStateToProps = (state, props) ->
   $$state = state.main
+  filename = r_util.get_filename $$state
+  if filename?
+    filename = $$state.get 'filename'
+
   {
-    filename: r_util.get_filename $$state
+    filename
     need_config_key: r_util.check_key $$state
   }
 

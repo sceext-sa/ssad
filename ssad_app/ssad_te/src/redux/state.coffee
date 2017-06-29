@@ -23,6 +23,7 @@ init_state = {  # with Immutable
     }
     # content text (document) clean
     doc_clean: true
+    filename: null  # global show filename (after open)
     # editor page
     editor: {
       mode: null  # TODO

@@ -18,6 +18,8 @@ reducer = ($$o, action) ->
       # calc sub_path
       if d.root_path?
         sub_path = path.relative d.root_path, d.path
+        if '' == sub_path
+          sub_path = '/'
         $$o = $$o.setIn ['file', 'sub_path'], sub_path
       else
         $$o = $$o.setIn ['file', 'sub_path'], null  # reset sub_path

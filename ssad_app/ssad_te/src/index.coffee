@@ -46,14 +46,11 @@ _load_config = ->
 
 _init = ->
   # TODO support switch between codemirror / ace core_editor ?
-  # create CodeMirror editor
-  core_editor.get_editor core_editor.CODEMIRROR, document.getElementById('root_core_editor')
-  # TODO other core_editor init process
+  # init core_editor
+  core_editor.init document.getElementById('root_core_editor')
   # load config from localStorage
   _load_config()
   # TODO load config from ssad_server (app/etc file ?)
-
-  # TODO
   await return
 
 OM = cC {  # MainHost

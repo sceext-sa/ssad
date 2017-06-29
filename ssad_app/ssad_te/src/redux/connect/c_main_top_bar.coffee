@@ -11,8 +11,12 @@ a_file = require '../action/a_file'
 
 mapStateToProps = (state, props) ->
   $$state = state.main
+  filename = r_util.get_filename $$state
+  if filename?
+    filename = $$state.get 'filename'
+
   {
-    filename: r_util.get_filename $$state
+    filename
     is_clean: $$state.get 'doc_clean'
   }
 

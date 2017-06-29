@@ -45,7 +45,7 @@ class CMCore extends EventEmitter
       that._on_changes instance, changes
   # sub event listeners
   _on_changes: (cm, changes) ->
-    # TODO
+    @emit 'change', changes
 
   # public methods
   set_mode: (m) ->  # async
