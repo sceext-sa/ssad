@@ -1,0 +1,46 @@
+// main_top_bar.less, ssad/ssad_app/ssad_te/style/
+
+.ssad_te {
+
+  .main_top_bar {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .save, .count, .undo, .to_main {
+      height: @main_top_bar_height;
+      line-height: @main_top_bar_height;
+
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .save.active, .count, .undo, .to_main {
+      cursor: pointer;
+
+      transition-property: background-color;
+      transition-duration: @trans_t;
+      &:hover {
+        transition-duration: 0s;
+        background-color: mix(@co_bg_btn_touch, @co_bg, @btn_touch_mix);
+      }
+    }
+    .save, .undo, .to_main {
+      width: 3rem;
+      text-align: center;
+    }
+    .title {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+
+      flex: 1;
+      overflow: auto;
+    }
+    .save.active {
+      color: @co_title;
+    }
+
+    // TODO
+  }
+}

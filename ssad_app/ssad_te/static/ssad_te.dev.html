@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<!--
+  ssad_te.dev.html, ssad/ssad_app/ssad_te/static/
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#000000" />
+<title>ssad_te (DEV)</title>
+<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css" />
+<!-- TODO bootstrap theme -->
+<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap-theme.css" />
+<!-- codemirror and default theme -->
+<link rel="stylesheet" type="text/css" href="./codemirror/lib/codemirror.css" />
+<link rel="stylesheet" id="core_cm_theme_blackboard" type="text/css" href="./codemirror/theme/blackboard.css" />
+
+<link rel="stylesheet" type="text/css" href="./main.css" />
+
+<script type="text/javascript" src="./jquery.js" ></script>
+<script type="text/javascript" src="./lib.js" ></script>
+<!-- codemirror -->
+<script type="text/javascript" src="./codemirror/lib/codemirror.js" ></script>
+<script type="text/javascript" src="./codemirror/mode/meta.js" ></script>
+<script type="text/javascript" src="./codemirror/addon/mode/loadmode.js" ></script>
+<script type="text/javascript" src="./codemirror/addon/display/placeholder.js" ></script>
+<script type="text/javascript" src="./codemirror/addon/display/rulers.js" ></script>
+<script type="text/javascript" src="./codemirror/addon/selection/active-line.js" ></script>
+<script type="text/javascript" src="./codemirror/addon/selection/mark-selection.js" ></script>
+<script type="text/javascript" src="./codemirror/addon/edit/matchbrackets.js" ></script>
+
+<script type="text/javascript" src="./bundle.js" ></script>
+</head>
+<body>
+  <!-- root element for ssad_te -->
+  <div class="ssad_te" id="root_ssad_te" >
+    <!-- main core editor page -->
+    <div class="main_core_editor" >
+      <!-- react root: main_top_bar -->
+      <div class="main_top_bar_box" id="root_main_top_bar" ></div>
+      <!-- core editor -->
+      <div class="core_editor" id="root_core_editor" ></div>
+    </div>
+    <!-- react root: (main) pages -->
+    <div class="main_pages" id="root" ></div>
+  </div>
+<!-- -->
+</body>
+</html>
