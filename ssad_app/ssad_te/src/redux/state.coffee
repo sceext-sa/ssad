@@ -8,7 +8,40 @@ init_state = {  # with Immutable
   }
   # main pages
   main: {
-    # TODO
+    # app_id / ssad_key
+    app_id: null
+    ssad_key: null
+    # file page
+    file: {
+      # ssad_file_list
+      sub_root: null
+      sub_path: null
+      root_path: null
+      path: null
+      filename: null
+      # TODO
+    }
+    # editor page
+    editor: {
+      mode: null  # TODO
+      theme: null  # TODO
+      font_size: null  # TODO
+      # TODO advanced ?
+    }
+    # TODO edit part
+    edit: {}  # TODO
+    # config page
+    config: {
+      # input
+      app_id: ''
+      ssad_key: ''
+      # core editor type  (TODO ACE)
+      core_editor: 'codemirror'  # 'codemirror', 'ace'
+    }
+    # count page
+    count: {
+      # TODO
+    }
   }
 }
 

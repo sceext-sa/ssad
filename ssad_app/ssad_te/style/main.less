@@ -13,6 +13,7 @@
 @import "page_count";
 @import "main_top_bar";
 @import "nav";
+@import "core_editor";
 
 
 // global
@@ -74,8 +75,15 @@ body {
     }
     .core_editor {
       flex: 1;
-      // FIXME DEBUG
+      display: flex;
+      flex-direction: column;
+      // DEBUG
       background-color: @co_bg_sec;
+
+      // codemirror
+      .CodeMirror {
+        flex: 1;
+      }
     }
     z-index: 0;
   }

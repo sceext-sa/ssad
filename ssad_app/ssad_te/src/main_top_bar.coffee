@@ -43,9 +43,9 @@ MainTopBar = cC {
         'Unknow title'  # TODO
       )
       (cE 'span', {
-        className: 'cancel'
+        className: 'undo'
         },
-        'C'  # TODO
+        'U'  # TODO
       )
       (cE 'span', {
         className: 'to_main'

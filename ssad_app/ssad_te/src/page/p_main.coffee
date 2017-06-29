@@ -40,6 +40,7 @@ PMain = cC {
         # sub_item: page_file
         (cE SubItem, {
           text: 'File'
+          text_sec: 'TODO'
           on_click: @_on_nav_file
           })
         # sub_item: page_editor

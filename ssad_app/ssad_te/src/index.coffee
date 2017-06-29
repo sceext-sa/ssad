@@ -18,6 +18,7 @@ ReactDOM = require 'react-dom'
 
 
 config = require './config'
+core_editor = require './core_editor'
 reducer = require './redux/root_reducer'
 
 # use with redux
@@ -34,6 +35,11 @@ config.store store  # save global store
 
 # TODO auto load config after page load ?
 _init = ->
+  # TODO support switch between codemirror / ace core_editor ?
+  # create CodeMirror editor
+  core_editor.get_editor core_editor.CODEMIRROR, document.getElementById('root_core_editor')
+  # TODO other core_editor init process
+
   # TODO
   await return
 
