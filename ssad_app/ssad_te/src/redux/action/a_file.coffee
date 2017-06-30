@@ -2,8 +2,9 @@
 
 core_editor = require '../../core_editor'
 ssad_server_api = require '../../ssad_server_api'
-a_common = require './a_common'
 n_action = require '../nav/n_action'
+a_common = require './a_common'
+a_count = require './a_count'
 
 
 # action types
@@ -51,6 +52,8 @@ save = ->
       dispatch a_common.set_doc_clean(true)
       # OK: nav back
       dispatch n_action.back()
+      # refresh count
+      dispatch a_count.refresh()
     catch e
       dispatch file_error(e)
 
@@ -74,6 +77,8 @@ open = ->
       dispatch a_common.set_doc_clean(true)
       # OK: nav back
       dispatch n_action.back()
+      # refresh count
+      dispatch a_count.refresh()
     catch e
       dispatch file_error(e)
 

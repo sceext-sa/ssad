@@ -45,7 +45,22 @@ init_state = {  # with Immutable
     }
     # count page
     count: {
-      # TODO
+      # count values
+      info: {
+        chars: 0
+        lines: 0
+        no_empty_lines: 0
+        no_empty_chars: 0
+        words: 0
+        no_ascii_chars: 0
+        # more counts
+        empty_lines: 0
+        empty_chars: 0
+        ascii_chars: 0
+        'words+no_ascii_chars': 0
+      }
+      # main count to display (on main_top_bar)
+      main: 'words+no_ascii_chars'
     }
   }
 }

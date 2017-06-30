@@ -7,6 +7,7 @@ ac = require '../action/a_common'
 # sub reducers
 r_config = require './r_config'
 r_file = require './r_file'
+r_count = require './r_count'
 
 
 _check_init_state = ($$state) ->
@@ -24,6 +25,8 @@ reducer = ($$state, action) ->
       # call sub reducers
       $$o = r_config $$o, action
       $$o = r_file $$o, action
+      $$o = $$o.update 'count', ($$count) ->
+        r_count $$count, action
   $$o
 
 module.exports = reducer

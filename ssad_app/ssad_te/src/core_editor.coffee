@@ -49,6 +49,8 @@ _on_change = (change) ->
   config.store().dispatch a_common.set_doc_clean(is_clean())
 
 
+get_current_core = ->
+  _etc.core
 # simple init function
 init = (e_root) ->
   # TODO support ACE ?
@@ -82,6 +84,7 @@ module.exports = {
   get_editor
   init
 
+  get_current_core
   mark_clean
   is_clean
   get_text

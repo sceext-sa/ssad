@@ -13,6 +13,7 @@ NavTop = cC {
     title_center: PropTypes.bool
 
     on_back: PropTypes.func
+    # children
   }
 
   _render_back: ->
@@ -38,6 +39,8 @@ NavTop = cC {
         },
         @props.title
       )
+      # right button
+      @props.children
     )
 }
 

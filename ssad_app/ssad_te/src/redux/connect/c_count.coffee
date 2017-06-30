@@ -9,12 +9,16 @@ action = require '../action/a_count'
 mapStateToProps = (state, props) ->
   $$state = state.main
   {
-    # TODO
+    info: $$state.getIn(['count', 'info']).toJS()
+    main: $$state.getIn ['count', 'main']
   }
 
 mapDispatchToProps = (dispatch, props) ->
-  o = props  # pass all props
-  # TODO
+  o = Object.assign {}, props  # pass all props
+  o.on_set_main = (main) ->
+    dispatch action.set_main(main)
+  o.on_refresh = ->
+    dispatch action.refresh()
   o
 
 O = connect(mapStateToProps, mapDispatchToProps)(PCount)
