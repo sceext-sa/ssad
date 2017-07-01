@@ -29,6 +29,11 @@ init_state = {  # with Immutable
       mode: null  # TODO
       theme: null  # TODO
       font_size: null  # TODO
+      # editor flags config
+      show_line_number: true
+      line_wrap: true
+      # TODO more config ?
+
       # TODO advanced ?
       # for CodeMirror
       cm_scrollbar_style: 'native'  # 'native', 'overlay', 'null', 'simple'
