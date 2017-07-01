@@ -8,6 +8,7 @@ ac = require '../action/a_common'
 r_config = require './r_config'
 r_file = require './r_file'
 r_count = require './r_count'
+r_editor = require './r_editor'
 
 
 _check_init_state = ($$state) ->
@@ -27,6 +28,7 @@ reducer = ($$state, action) ->
       $$o = r_file $$o, action
       $$o = $$o.update 'count', ($$count) ->
         r_count $$count, action
+      $$o = r_editor $$o, action
   $$o
 
 module.exports = reducer

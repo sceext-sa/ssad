@@ -30,6 +30,8 @@ init_state = {  # with Immutable
       theme: null  # TODO
       font_size: null  # TODO
       # TODO advanced ?
+      # for CodeMirror
+      cm_scrollbar_style: 'native'  # 'native', 'overlay', 'null', 'simple'
     }
     # TODO edit part
     edit: {}  # TODO

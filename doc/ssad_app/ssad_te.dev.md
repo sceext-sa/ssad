@@ -21,6 +21,9 @@ ssad_te 的 页面 (pages) 结构 (及其 命名) 如下:
       + page_editor_mode
       + page_editor_theme
       + page_editor_font_size
+
+      + page_editor_cm_scrollbar_style
+
       + page_editor_advanced
     + page_edit (TODO)
     + page_config

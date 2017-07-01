@@ -9,7 +9,7 @@ action = require '../action/a_editor'
 mapStateToProps = (state, props) ->
   $$state = state.main
   {
-    # TODO
+    cm_scrollbar_style: $$state.getIn ['editor', 'cm_scrollbar_style']
   }
 
 mapDispatchToProps = (dispatch, props) ->

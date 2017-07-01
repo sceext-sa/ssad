@@ -16,6 +16,8 @@ DEFAULT_OPTIONS = {
   lineWrapping: true
   lineNumbers: true
 
+  scrollbarStyle: 'native'
+
   matchBrackets: true
   highlightSelectionMatches: true
   styleActiveLine: true
@@ -73,6 +75,9 @@ class CMCore extends EventEmitter
 
   set_placeholder: (text) ->
     @_cm.setOption 'placeholder', text
+
+  set_scrollbar_style: (style) ->
+    @_cm.setOption 'scrollbarStyle', style
 
   # operations
   get_text: ->

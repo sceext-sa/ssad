@@ -12,6 +12,8 @@ SubItem = require '../sub/sub_item'
 PEditor = cC {
   displayName: 'PEditor'
   propTypes: {
+    cm_scrollbar_style: PropTypes.string.isRequired
+
     on_nav_back: PropTypes.func.isRequired
     on_nav: PropTypes.func.isRequired
   }
@@ -24,6 +26,8 @@ PEditor = cC {
     @props.on_nav 'page_editor_font_size'
   _on_nav_advanced: ->
     @props.on_nav 'page_editor_advanced'
+  _on_nav_cm_scrollbar_style: ->
+    @props.on_nav 'page_editor_cm_scrollbar_style'
 
   render: ->
     (cE 'div', {
@@ -55,6 +59,8 @@ PEditor = cC {
           text_sec: 'TODO'
           on_click: @_on_nav_font_size
           })
+        # for CodeMirror
+        @_render_codemirror()
         # TODO
         # TODO null fill
         (cE 'div', {
@@ -68,6 +74,23 @@ PEditor = cC {
           })
         # TODO core editor config ?
       )
+    )
+
+  _render_codemirror: ->
+    (cE 'div', {
+      className: 'codemirror'
+      },
+      (cE 'span', {
+        className: 'title'
+        },
+        'CodeMirror'
+      )
+      # sub_item: cm_scrollbar_style
+      (cE SubItem, {
+        text: 'Scrollbar Style'
+        text_sec: @props.cm_scrollbar_style
+        on_click: @_on_nav_cm_scrollbar_style
+        })
     )
 }
 

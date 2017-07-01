@@ -9,6 +9,9 @@ PAGE_LIST = [
       'page_editor_theme'
       'page_editor_font_size'
       'page_editor_advanced'
+
+      'page_editor_cm_scrollbar_style'
+
     'page_edit'
     'page_config'
       'page_config_id_key'

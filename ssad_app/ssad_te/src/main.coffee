@@ -14,6 +14,8 @@ CEditorMode = require './redux/connect/c_editor_mode'
 CEditorTheme = require './redux/connect/c_editor_theme'
 CEditorFontSize = require './redux/connect/c_editor_font_size'
 CEditorAdvanced = require './redux/connect/c_editor_advanced'
+CEditorCmScrollbarStyle = require './redux/connect/c_editor_cm_scrollbar_style'
+
 CConfig = require './redux/connect/c_config'
 CConfigIdKey = require './redux/connect/c_config_id_key'
 CConfigCore = require './redux/connect/c_config_core'
@@ -41,6 +43,8 @@ Main = cC {
             (cE CEditorTheme, { id: 'page_editor_theme' })
             (cE CEditorFontSize, { id: 'page_editor_font_size' })
             (cE CEditorAdvanced, { id: 'page_editor_advanced' })
+            # for CodeMirror
+            (cE CEditorCmScrollbarStyle, { id: 'page_editor_cm_scrollbar_style' })
           # TODO page_edit ?
           (cE CConfig, { id: 'page_config' })
             (cE CConfigIdKey, { id: 'page_config_id_key' })
