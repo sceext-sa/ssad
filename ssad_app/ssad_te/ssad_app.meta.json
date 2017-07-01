@@ -3,7 +3,7 @@
 
   "id": "ssad_te",
   "name": "Text Editor on SSAD",
-  "version": "0.1.0-1",
+  "version": "0.2.0-1",
 
   "main": "static/ssad_te.dev.html",
   "pub_root": {

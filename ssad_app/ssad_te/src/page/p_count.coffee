@@ -100,6 +100,7 @@ PCount = cC {
       (cE 'div', {
         className: 'page_body'
         },
+        # base counts
         (cE 'ul', null,
           (cE CountItem, {
             id: 'chars'
@@ -130,13 +131,6 @@ PCount = cC {
             on_set_main: @props.on_set_main
             })
           (cE CountItem, {
-            id: 'words'
-            text: 'word'
-            value: @props.info.words
-            main: @props.main
-            on_set_main: @props.on_set_main
-            })
-          (cE CountItem, {
             id: 'no_ascii_chars'
             text: 'no ASCII char'
             value: @props.info.no_ascii_chars
@@ -144,8 +138,40 @@ PCount = cC {
             on_set_main: @props.on_set_main
             })
         )
-        # ---
         (cE 'hr')
+        # words
+        (cE 'ul', null,
+          (cE CountItem, {
+            id: 'words'
+            text: 'word'
+            value: @props.info.words
+            main: @props.main
+            on_set_main: @props.on_set_main
+            })
+          (cE CountItem, {
+            id: 'words_ascii'
+            text: 'ASCII word'
+            value: @props.info.words_ascii
+            main: @props.main
+            on_set_main: @props.on_set_main
+            })
+          (cE CountItem, {
+            id: 'words_no_ascii'
+            text: 'no ASCII word'
+            value: @props.info.words_no_ascii
+            main: @props.main
+            on_set_main: @props.on_set_main
+            })
+          (cE CountItem, {
+            id: 'words_mix'
+            text: 'MIX word'
+            value: @props.info.words_mix
+            main: @props.main
+            on_set_main: @props.on_set_main
+            })
+        )
+        (cE 'hr')
+        # more counts
         (cE 'ul', null,
           (cE CountItem, {
             id: 'empty_lines'
@@ -172,6 +198,13 @@ PCount = cC {
             id: 'words+no_ascii_chars'
             text: 'words + no ASCII char'
             value: @props.info['words+no_ascii_chars']
+            main: @props.main
+            on_set_main: @props.on_set_main
+            })
+          (cE CountItem, {
+            id: 'words_ascii+no_ascii_chars'
+            text: 'ASCII words + no ASCII char'
+            value: @props.info['words_ascii+no_ascii_chars']
             main: @props.main
             on_set_main: @props.on_set_main
             })
