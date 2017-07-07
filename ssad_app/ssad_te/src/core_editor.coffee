@@ -142,7 +142,8 @@ redo = ->
 
 set_overwrite = (enable) ->
   _c().set_overwrite enable
-
+set_show_invisibles = (enable) ->
+  _c().set_show_invisibles enable
 
 # core init
 
@@ -178,8 +179,6 @@ cm_set_right_ruler = (n) ->
 # methods only for ace
 ace_set_scroll_past_end = (enable) ->
   _c().set_scroll_past_end enable
-ace_set_show_invisibles = (enable) ->
-  _c().set_show_invisibles enable
 ace_set_cursor_style = (s) ->
   _c().set_cursor_style s
 ace_set_h_scrollbar_always_show = (enable) ->
@@ -220,6 +219,7 @@ module.exports = {
   redo
 
   set_overwrite
+  set_show_invisibles
 
   cm_get_mode_by_filename
   cm_set_placeholder
@@ -228,7 +228,6 @@ module.exports = {
   cm_set_right_ruler
 
   ace_set_scroll_past_end
-  ace_set_show_invisibles
   ace_set_cursor_style
   ace_set_h_scrollbar_always_show
   ace_set_v_scrollbar_always_show

@@ -35,11 +35,12 @@ init_state = {  # with Immutable
         theme: null
         font_size: null
 
-        show_line_number: true
+        show_line_number: false
         line_wrap: true
         read_only: false
         tab_size: 4  # TODO
         overwrite: false  # TODO
+        show_invisibles: true
 
         # only for CodeMirror
         cm_scrollbar_style: 'native'  # 'native', 'overlay', 'null', 'simple'
@@ -56,10 +57,10 @@ init_state = {  # with Immutable
         read_only: false
         tab_size: 4  # TODO
         overwrite: false  # TODO
+        show_invisibles: true
 
         # only for ACE
         ace_scroll_past_end: true
-        ace_show_invisibles: true
         ace_cursor_style: 'ace'  # 'ace', 'slim', 'smooth', 'wide'
         ace_show_scrollbar_h: false  # TODO
         ace_show_scrollbar_v: false  # TODO

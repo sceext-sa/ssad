@@ -359,6 +359,10 @@ classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
+cm-show-invisibles@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/cm-show-invisibles/-/cm-show-invisibles-2.0.1.tgz#b43431e620e35ec55559f154903c4a1897b96b97"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"

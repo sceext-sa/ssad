@@ -14,7 +14,7 @@ DEFAULT_OPTIONS = {
   theme: 'blackboard'
 
   lineWrapping: true
-  lineNumbers: true
+  lineNumbers: false
 
   scrollbarStyle: 'native'
 
@@ -23,6 +23,9 @@ DEFAULT_OPTIONS = {
   styleActiveLine: true
   placeholder: '  CodeMirror editor'
   rulers: [ { column: 80 } ]
+
+  showInvisibles: true
+  maxInvisibles: 255
 }
 
 _load_mode = (m) ->
@@ -100,6 +103,9 @@ class CMcore extends EventEmitter
 
   set_overwrite: (enable) ->
     @_cm.toggleOverwrite enable
+
+  set_show_invisibles: (enable) ->
+    @_cm.setOption 'showInvisibles', enable
 
   get_clean_mark: ->
     @_cm.changeGeneration()

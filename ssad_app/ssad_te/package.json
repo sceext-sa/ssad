@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "bootstrap": "3",
+    "cm-show-invisibles": "^2.0.1",
     "codemirror": "^5.27.2",
     "codemirror-one-dark-theme": "^1.0.6",
     "create-react-class": "^15.6.0",

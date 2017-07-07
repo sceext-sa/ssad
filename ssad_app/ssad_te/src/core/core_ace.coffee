@@ -93,6 +93,9 @@ class ACEcore extends EventEmitter
   set_overwrite: (enable) ->
     @_ace.setOption 'overwrite', enable
 
+  set_show_invisibles: (enable) ->
+    @_ace.setOption 'showInvisibles', enable
+
   # for clean check
   reset_undo: ->
     @_ace.session.getUndoManager().reset()
@@ -108,9 +111,6 @@ class ACEcore extends EventEmitter
   # more options for ACE
   set_scroll_past_end: (enable) ->
     @_ace.setOption 'scrollPastEnd', enable
-
-  set_show_invisibles: (enable) ->
-    @_ace.setOption 'showInvisibles', enable
 
   set_cursor_style: (s) ->
     @_ace.setOption 'cursorStyle', s

@@ -1,6 +1,6 @@
 # config.coffee, ssad/ssad_app/ssad_te/src/
 
-P_VERSION = 'ssad_te version 0.2.0-2 test20170708 0047'
+P_VERSION = 'ssad_te version 0.2.0-2 test20170708 0421'
 
 # localStorage key
 LOCAL_STORAGE_KEY = 'ssad_te_config'

@@ -16,12 +16,24 @@ PEditor = cC {
   propTypes: {
     show_line_number: PropTypes.bool.isRequired
     line_wrap: PropTypes.bool.isRequired
+    read_only: PropTypes.bool.isRequired
+    tab_size: PropTypes.number.isRequired  # TODO
+    overwrite: PropTypes.bool.isRequired
+    show_invisibles: PropTypes.bool.isRequired
     core_editor: PropTypes.string.isRequired
 
     cm_scrollbar_style: PropTypes.string.isRequired
+    ace_scroll_past_end: PropTypes.bool.isRequired
 
     on_set_show_line_number: PropTypes.func.isRequired
     on_set_line_wrap: PropTypes.func.isRequired
+    on_set_read_only: PropTypes.func.isRequired
+    on_set_tab_size: PropTypes.func.isRequired
+    on_set_overwrite: PropTypes.func.isRequired
+    on_set_show_invisibles: PropTypes.func.isRequired
+
+    on_set_ace_scroll_past_end: PropTypes.func.isRequired
+
     on_nav_back: PropTypes.func.isRequired
     on_nav: PropTypes.func.isRequired
   }
@@ -36,10 +48,21 @@ PEditor = cC {
     @props.on_nav 'page_editor_advanced'
   _on_nav_cm_scrollbar_style: ->
     @props.on_nav 'page_editor_cm_scrollbar_style'
+
   _on_set_show_line_number: ->
     @props.on_set_show_line_number (! @props.show_line_number)
   _on_set_line_wrap: ->
     @props.on_set_line_wrap (! @props.line_wrap)
+  _on_set_read_only: ->
+    @props.on_set_read_only (! @props.read_only)
+  # TODO set tab_size
+  _on_set_overwrite: ->
+    @props.on_set_overwrite (! @props.overwrite)
+  _on_set_show_invisibles: ->
+    @props.on_set_show_invisibles (! @props.show_invisibles)
+
+  _on_set_ace_scroll_past_end: ->
+    @props.on_set_ace_scroll_past_end (! @props.ace_scroll_past_end)
 
   render: ->
     (cE 'div', {
@@ -85,6 +108,27 @@ PEditor = cC {
           show_off: true
           on_click: @_on_set_line_wrap
           })
+        # flag_config: read_only
+        (cE CheckItem, {
+          text: 'Read only'
+          is_selected: @props.read_only
+          show_off: true
+          on_click: @_on_set_read_only
+          })
+        # flag_config: overwrite
+        (cE CheckItem, {
+          text: 'Overwrite'
+          is_selected: @props.overwrite
+          show_off: true
+          on_click: @_on_set_overwrite
+          })
+        # flag_config: show_invisibles
+        (cE CheckItem, {
+          text: 'Show invisibles'
+          is_selected: @props.show_invisibles
+          show_off: true
+          on_click: @_on_set_show_invisibles
+          })
 
         # for CodeMirror
         @_render_codemirror()
@@ -100,7 +144,6 @@ PEditor = cC {
           text: 'Advanced'
           on_click: @_on_nav_advanced
           })
-        # TODO core editor config ?
       )
     )
 
@@ -134,7 +177,13 @@ PEditor = cC {
         },
         'ACE'
       )
-      # TODO
+      # flag_config: show_invisibles
+      (cE CheckItem, {
+        text: 'Scroll past end'
+        is_selected: @props.ace_scroll_past_end
+        show_off: true
+        on_click: @_on_set_ace_scroll_past_end
+        })
     )
 }
 
