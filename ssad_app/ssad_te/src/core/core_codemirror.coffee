@@ -1,4 +1,4 @@
-# core_codemirror.coffee, ssad/ssad_app/ssad_te/
+# core_codemirror.coffee, ssad/ssad_app/ssad_te/src/core/
 # use global:
 #   CodeMirror
 
@@ -34,7 +34,7 @@ _load_theme = (theme_name) ->
   await return
 
 
-class CMCore extends EventEmitter
+class CMcore extends EventEmitter
   constructor: (cm) ->
     super()
     @_cm = cm
@@ -115,7 +115,7 @@ class CMCore extends EventEmitter
 
 init_editor = (e_root) ->
   cm = CodeMirror(e_root, DEFAULT_OPTIONS)
-  o = new CMCore cm
+  o = new CMcore cm
   o
 
 get_version = ->

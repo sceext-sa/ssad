@@ -11,8 +11,7 @@ E_SET_LINE_WRAP = 'e_set_line_wrap'
 
 set_show_line_number = (enable) ->
   (dispatch, getState) ->
-    c = core_editor.get_current_core()
-    c.set_show_line_number enable
+    core_editor.set_show_line_number enable
 
     dispatch {
       type: E_SET_SHOW_LINE_NUMBER
@@ -22,8 +21,7 @@ set_show_line_number = (enable) ->
 
 set_line_wrap = (enable) ->
   (dispatch, getState) ->
-    c = core_editor.get_current_core()
-    c.set_line_wrap enable
+    core_editor.set_line_wrap enable
 
     dispatch {
       type: E_SET_LINE_WRAP

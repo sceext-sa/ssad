@@ -50,8 +50,9 @@ _init_auto_count = ->
   store.dispatch a_count.refresh()
   sleep_time = config.AUTO_COUNT_SLEEP_S * 1e3
 
+  # TODO TODO support ACE ?
   # TODO support more code / switch core ?
-  core = core_editor.get_current_core()
+  core = core_editor.get_core()
   last_mark = core.get_clean_mark()
 
   _check_count = ->
@@ -69,7 +70,12 @@ _init_auto_save = ->
 _init = ->
   # TODO support switch between codemirror / ace core_editor ?
   # init core_editor
-  core_editor.init document.getElementById('root_core_editor')
+  core_editor.set_core_root_element core_editor.CORE_EDITOR_CODEMIRROR, document.getElementById('root_core_editor_cm')
+  core_editor.set_core_root_element core_editor.CORE_EDITOR_ACE, document.getElementById('root_core_editor_ace')
+  # TODO init core is codemirror
+  core_editor.set_core core_editor.CORE_EDITOR_CODEMIRROR
+  util.set_core_active_cm()
+
   # load config from localStorage
   _load_config()
   # auto count

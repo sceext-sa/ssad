@@ -21,6 +21,8 @@
 
 <script type="text/javascript" src="./jquery.js" ></script>
 <script type="text/javascript" src="./lib.js" ></script>
+<!-- ACE -->
+<script type="text/javascript" src="./ace-builds/src-noconflict/ace.js" charset="utf-8" ></script>
 <!-- codemirror -->
 <script type="text/javascript" src="./codemirror/lib/codemirror.js" ></script>
 <script type="text/javascript" src="./codemirror/mode/meta.js" ></script>
@@ -42,7 +44,12 @@
       <!-- react root: main_top_bar -->
       <div class="main_top_bar_box" id="root_main_top_bar" ></div>
       <!-- core editor -->
-      <div class="core_editor" id="root_core_editor" ></div>
+      <div class="core_editor_box" >
+        <!-- ACE -->
+        <div class="core_editor" id="root_core_editor_ace" ></div>
+        <!-- codemirror -->
+        <div class="core_editor" id="root_core_editor_cm" ></div>
+      </div>
     </div>
     <!-- react root: (main) pages -->
     <div class="main_pages" id="root" ></div>

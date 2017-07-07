@@ -11,8 +11,7 @@ E_CM_SET_SCROLLBAR_STYLE = 'e_cm_set_scrollbar_style'
 set_scrollbar_style = (style) ->
   (dispatch, getState) ->
     # set to core editor
-    c = core_editor.get_current_core()
-    c.set_scrollbar_style style
+    core_editor.cm_set_scrollbar_style style
 
     dispatch {
       type: E_CM_SET_SCROLLBAR_STYLE
