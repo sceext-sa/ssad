@@ -53,8 +53,8 @@ arr-diff@^2.0.0:
     arr-flatten "^1.0.1"
 
 arr-flatten@^1.0.1:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/arr-flatten/-/arr-flatten-1.0.3.tgz#a274ed85ac08849b6bd7847c4580745dc51adfb1"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/arr-flatten/-/arr-flatten-1.1.0.tgz#36048bbff4e7b47e136644316c99669ea5ae91f1"
 
 array-filter@~0.0.0:
   version "0.0.1"
@@ -376,8 +376,8 @@ codemirror@^5.27.2:
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.27.4.tgz#0e817c839bfea9959dd16cd48ae14acc0e43c3b6"
 
 coffeescript@next:
-  version "2.0.0-beta2"
-  resolved "https://registry.yarnpkg.com/coffeescript/-/coffeescript-2.0.0-beta2.tgz#caafd6a67d903a4333f8b485bcab54ed5147ef7e"
+  version "2.0.0-beta3"
+  resolved "https://registry.yarnpkg.com/coffeescript/-/coffeescript-2.0.0-beta3.tgz#5bce739c6c69a5c8e8bb5fb967a16db0cca5c04f"
 
 combine-source-map@~0.7.1:
   version "0.7.2"
@@ -790,8 +790,8 @@ hash-base@^2.0.0:
     inherits "^2.0.1"
 
 hash.js@^1.0.0, hash.js@^1.0.3:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/hash.js/-/hash.js-1.1.2.tgz#bf5c887825cfe40b9efde7bf11bd2db26e6bf01b"
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/hash.js/-/hash.js-1.1.3.tgz#340dedbe6290187151c1ea1d777a3448935df846"
   dependencies:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.0"

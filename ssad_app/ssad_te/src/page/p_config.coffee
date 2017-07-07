@@ -5,6 +5,7 @@
 cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
+core_editor = require '../core_editor'
 NavTop = require '../sub/nav_top'
 SubItem = require '../sub/sub_item'
 
@@ -28,9 +29,9 @@ PConfig = cC {
   render: ->
     core = ''
     switch @props.core_editor
-      when 'codemirror'
+      when core_editor.CORE_EDITOR_CODEMIRROR
         core = 'CodeMirror'
-      when 'ace'
+      when core_editor.CORE_EDITOR_ACE
         core = 'ACE'
     k = 'OK'
     if @props.need_config_key

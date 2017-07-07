@@ -1,5 +1,7 @@
 # state.coffee, ssad/ssad_app/ssad_te/src/redux/
 
+core_editor = require '../core_editor'
+
 init_state = {  # with Immutable
   # navigation part
   nav: {
@@ -26,17 +28,43 @@ init_state = {  # with Immutable
     filename: null  # global show filename (after open)
     # editor page
     editor: {
-      mode: null  # TODO
-      theme: null  # TODO
-      font_size: null  # TODO
-      # editor flags config
-      show_line_number: true
-      line_wrap: true
-      # TODO more config ?
+      # different core use different config
+      codemirror: {
+        # TODO
+        mode: null
+        theme: null
+        font_size: null
 
+        show_line_number: true
+        line_wrap: true
+        read_only: false
+        tab_size: 4  # TODO
+        overwrite: false  # TODO
+
+        # only for CodeMirror
+        cm_scrollbar_style: 'native'  # 'native', 'overlay', 'null', 'simple'
+        cm_right_ruler: 80  # TODO
+      }
+      ACE: {
+        # TODO
+        mode: null
+        theme: null
+        font_size: null
+
+        show_line_number: false
+        line_wrap: true
+        read_only: false
+        tab_size: 4  # TODO
+        overwrite: false  # TODO
+
+        # only for ACE
+        ace_scroll_past_end: true
+        ace_show_invisibles: true
+        ace_cursor_style: 'ace'  # 'ace', 'slim', 'smooth', 'wide'
+        ace_show_scrollbar_h: false  # TODO
+        ace_show_scrollbar_v: false  # TODO
+      }
       # TODO advanced ?
-      # for CodeMirror
-      cm_scrollbar_style: 'native'  # 'native', 'overlay', 'null', 'simple'
     }
     # TODO edit part
     edit: {}  # TODO
@@ -47,8 +75,8 @@ init_state = {  # with Immutable
       ssad_key: ''
       # app_id/ssad_key error
       error: null
-      # core editor type  (TODO ACE)
-      core_editor: 'codemirror'  # 'codemirror', 'ace'
+      # core editor type
+      core_editor: core_editor.CORE_EDITOR_CODEMIRROR  # 'codemirror', 'ACE'
     }
     # count page
     count: {
