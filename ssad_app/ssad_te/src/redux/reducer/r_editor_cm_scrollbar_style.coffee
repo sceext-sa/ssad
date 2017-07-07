@@ -5,7 +5,7 @@ Immutable = require 'immutable'
 ac = require '../action/a_editor_cm_scrollbar_style'
 
 
-# $$o = state.main.editor
+# $$o = state.main.editor.codemirror
 reducer = ($$o, action) ->
   switch action.type
     when ac.E_CM_SET_SCROLLBAR_STYLE

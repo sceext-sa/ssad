@@ -13,11 +13,13 @@ DEFAULT_OPTIONS = {
 
   theme: 'ace/theme/tomorrow_night_bright'
   mode: 'ace/mode/text'
-  showGutter: true
+  showGutter: false
   # showLineNumbers: true
   tabSize: 4
   wrap: true
-  # fontSize: ''
+  # FIXME init fontSize
+  fontSize: 16
+  fontFamily: 'monospace'
   # readOnly: false
   # overwrite: false
 
@@ -28,7 +30,6 @@ DEFAULT_OPTIONS = {
   # hScrollBarAlwaysVisible: false
   # vScrollBarAlwaysVisible: true
 
-  # fontFamily: ''
   # firstLineNumber: 1
 }
 
@@ -129,15 +130,15 @@ init_editor = (e_root) ->
   o
 
 get_version = ->
-  # TODO
+  ace.version
 
 get_mode_list = ->
   modelist = ace.require 'ace/ext/modelist'
-  # TODO
+  modelist.modes
 
 get_theme_list = ->
   themelist = ace.require 'ace/ext/themelist'
-  # TODO
+  themelist.themes
 
 get_mode_by_filename = (filename) ->
   modelist = ace.require 'ace/ext/modelist'

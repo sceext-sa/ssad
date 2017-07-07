@@ -12,4 +12,72 @@
       }
     }
   }
+
+  .p_config_core {
+    .page_body.center {
+      justify-content: center;
+      align-items: center;
+
+      .save_file {
+        text-align: center;
+      }
+    }
+
+    .core_item {
+      flex: 1;
+      padding: 1rem;
+      padding-bottom: 0;
+      display: flex;
+      flex-direction: column;
+
+      @left_width: 2.5rem;
+
+      h2 {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 2rem;
+        margin-top: 0;
+
+        .left {
+          width: @left_width;
+          font-size: 1.5rem;
+        }
+        .version {
+          font-size: 1.5rem;
+          flex: 1;
+          text-align: right;
+        }
+        color: @co_title;
+        .left, .version {
+          color: @co_text_sec;
+        }
+      }
+      p, a {
+        padding-left: @left_width;
+      }
+      p {
+        color: @co_text;
+        flex: 1;
+      }
+      a {
+        color: @co_text_sec;
+        word-break: break-all;
+        display: block;
+        padding-bottom: 1rem;
+      }
+
+      cursor: pointer;
+      transition-property: background-color;
+      transition-duration: @trans_t;
+      &.selected, &:hover {
+        transition-duration: 0s;
+        background-color: mix(@co_btn_primary, @co_bg, @btn_touch_mix / 2);
+      }
+
+      &:nth-child(2) {
+        flex: 1.07;
+      }
+    }
+  }
 }

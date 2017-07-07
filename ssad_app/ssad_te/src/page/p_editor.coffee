@@ -5,6 +5,7 @@
 cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
+core_editor = require '../core_editor'
 NavTop = require '../sub/nav_top'
 SubItem = require '../sub/sub_item'
 CheckItem = require '../sub/check_item'
@@ -15,6 +16,8 @@ PEditor = cC {
   propTypes: {
     show_line_number: PropTypes.bool.isRequired
     line_wrap: PropTypes.bool.isRequired
+    core_editor: PropTypes.string.isRequired
+
     cm_scrollbar_style: PropTypes.string.isRequired
 
     on_set_show_line_number: PropTypes.func.isRequired
@@ -85,7 +88,8 @@ PEditor = cC {
 
         # for CodeMirror
         @_render_codemirror()
-        # TODO
+        # for ACE
+        @_render_ace()
         # TODO null fill
         (cE 'div', {
           style: {
@@ -101,6 +105,8 @@ PEditor = cC {
     )
 
   _render_codemirror: ->
+    if @props.core_editor != core_editor.CORE_EDITOR_CODEMIRROR
+      return
     (cE 'div', {
       className: 'codemirror'
       },
@@ -115,6 +121,20 @@ PEditor = cC {
         text_sec: @props.cm_scrollbar_style
         on_click: @_on_nav_cm_scrollbar_style
         })
+    )
+
+  _render_ace: ->
+    if @props.core_editor != core_editor.CORE_EDITOR_ACE
+      return
+    (cE 'div', {
+      className: 'ace'
+      },
+      (cE 'span', {
+        className: 'title'
+        },
+        'ACE'
+      )
+      # TODO
     )
 }
 

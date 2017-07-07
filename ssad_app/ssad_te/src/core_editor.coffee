@@ -51,7 +51,14 @@ set_core = (core_name) ->
       throw new Error "no such core #{core_name}"
   # set current core
   _etc.current_core_name = core_name
-  # TODO copy text from one core to another ?
+  # try copy text from one core to another
+  switch core_name
+    when CORE_EDITOR_CODEMIRROR
+      if _etc.core_ace?
+        _etc.core_cm.set_text _etc.core_ace.get_text()
+    when CORE_EDITOR_ACE
+      if _etc.core_cm?
+        _etc.core_ace.set_text _etc.core_cm.get_text()
 
 get_current_core_name = ->
   _etc.current_core_name
