@@ -1,0 +1,56 @@
+// page.less, ssad/ssad_app/ssad_todo/style/
+
+.ssad_todo {
+  .page {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+  }
+  // nav_top / page_body
+  .nav_top {
+    flex: initial;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: @nav_top_height;
+    background-color: @co_bg_nav;
+    cursor: default;
+
+    .back {
+      height: @nav_top_height;
+      line-height: @nav_top_height;
+      width: @nav_back_width;
+      text-align: center;
+      cursor: pointer;
+      color: @co_text_sec;
+
+      transition-property: background-color;
+      transition-duration: @trans_t;
+      &:hover {
+        background-color: mix(@co_bg_btn_touch, @co_bg_nav, @btn_touch_mix);
+        transition-duration: 0s;
+      }
+    }
+    .title {
+      flex: 1;
+      color: @co_title;
+
+      &.center {
+        text-align: center;
+        padding-right: @nav_back_width;  // fix center
+      }
+    }
+  }
+  .page_body {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+
+    background-color: @co_bg;
+  }
+}
