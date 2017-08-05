@@ -17,6 +17,7 @@ ssad_te 的 页面 (pages) 结构 (及其 命名) 如下:
   + page_main
     + page_file
       + page_file_select
+      + page_file_auto_save
     + page_editor
       + page_editor_mode
       + page_editor_theme

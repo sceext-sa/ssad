@@ -86,7 +86,7 @@ _count_words = (text) ->
   o
 
 
-count = (text) ->
+_count = (text) ->
   # base counts
   o = {
     chars: _count_chars text
@@ -105,5 +105,10 @@ count = (text) ->
   o['words_ascii+no_ascii_chars'] = o.words_ascii + o.no_ascii_chars
 
   o
+
+count = (text) ->
+  # DEBUG
+  console.log "DEBUG: count #{text.length}"
+  _count text
 
 module.exports = count

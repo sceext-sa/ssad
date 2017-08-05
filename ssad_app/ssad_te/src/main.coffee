@@ -9,6 +9,7 @@ Nav = require './redux/nav/n_connect'
 CMain = require './redux/connect/c_main'
 CFile = require './redux/connect/c_file'
 CFileSelect = require './redux/connect/c_file_select'
+CFileAutoSave = require './redux/connect/c_file_auto_save'
 CEditor = require './redux/connect/c_editor'
 CEditorMode = require './redux/connect/c_editor_mode'
 CEditorTheme = require './redux/connect/c_editor_theme'
@@ -38,6 +39,7 @@ Main = cC {
         (cE CMain, { id: 'page_main' })
           (cE CFile, { id: 'page_file' })
             (cE CFileSelect, { id: 'page_file_select' })
+            (cE CFileAutoSave, { id: 'page_file_auto_save' })
           (cE CEditor, { id: 'page_editor' })
             (cE CEditorMode, { id: 'page_editor_mode' })
             (cE CEditorTheme, { id: 'page_editor_theme' })

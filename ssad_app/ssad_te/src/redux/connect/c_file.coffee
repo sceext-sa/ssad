@@ -12,6 +12,7 @@ mapStateToProps = (state, props) ->
   {
     filename: r_util.get_filename $$state
     is_clean: $$state.get 'doc_clean'
+    auto_save_last_time: 'TODO'  # TODO
   }
 
 mapDispatchToProps = (dispatch, props) ->

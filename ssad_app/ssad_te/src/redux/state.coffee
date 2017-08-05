@@ -23,6 +23,14 @@ init_state = {  # with Immutable
       filename: null
       # TODO error ?
     }
+    # page_file_auto_save
+    auto_save: {
+      enable: true  # enable auto_save function
+      last_time: null  # last auto_save (check) time
+      logs: []  # auto_save log text
+
+      _last_clean_mark: null  # used to avoid un-need saves
+    }
     # content text (document) clean
     doc_clean: true
     filename: null  # global show filename (after open)

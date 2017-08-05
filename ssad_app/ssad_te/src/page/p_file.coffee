@@ -15,6 +15,7 @@ PFile = cC {
   propTypes: {
     filename: PropTypes.string
     is_clean: PropTypes.bool.isRequired
+    auto_save_last_time: PropTypes.string.isRequired
 
     on_open: PropTypes.func.isRequired
     on_save: PropTypes.func.isRequired
@@ -25,6 +26,8 @@ PFile = cC {
 
   _on_nav_select: ->
     @props.on_nav 'page_file_select'
+  _on_nav_auto_save: ->
+    @props.on_nav 'page_file_auto_save'
 
   render: ->
     f_name = 'No file'
@@ -41,12 +44,18 @@ PFile = cC {
       (cE 'div', {
         className: 'page_body'
         },
+        # Select
         (cE SubItem, {
           text: 'Select'
           text_sec: f_name
           on_click: @_on_nav_select
           })
-        # TODO auto save ? (logs ?)
+        # Auto save
+        (cE SubItem, {
+          text: 'Auto save'
+          text_sec: @props.auto_save_last_time
+          on_click: @_on_nav_auto_save
+          })
         # TODO null fill
         (cE 'div', {
           style: {

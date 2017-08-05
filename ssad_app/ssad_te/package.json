@@ -1,6 +1,6 @@
 {
   "name": "ssad_te",
-  "version": "0.2.0-1",
+  "version": "0.2.0-3",
   "license": "GPL-3.0+",
   "devDependencies": {
     "browserify": "^14.4.0",

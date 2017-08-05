@@ -4,6 +4,7 @@ PAGE_LIST = [
   'page_main'
     'page_file'
       'page_file_select'
+      'page_file_auto_save'
     'page_editor'
       'page_editor_mode'
       'page_editor_theme'
