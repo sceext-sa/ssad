@@ -7,6 +7,45 @@
     flex: 1;
   }
 
+  // sub_item
+  .sub_item {
+    flex: initial;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: @nav_top_height;
+    background-color: @co_bg_btn;
+    cursor: pointer;
+
+    transition-property: background-color;
+    transition-duration: @trans_t;
+    &:hover {
+      background-color: mix(@co_bg_btn_touch, @co_bg_btn, @btn_touch_mix);
+      transition-duration: 0s;
+    }
+
+    .text {
+      flex: 1;
+      color: @co_text_btn;
+      padding-left: 1rem;
+    }
+    .text_sec {
+      color: mix(@co_text_btn, @co_text_sec, 50%);
+    }
+    .right {
+      height: @nav_top_height;
+      line-height: @nav_top_height;
+      width: @nav_back_width;
+      text-align: center;
+      color: @co_text_sec;
+    }
+
+    border-bottom-style: solid;
+    border-bottom-width: 0.1rem;
+    border-bottom-color: @co_bg_sec;
+  }
+
   // main_button
   .sub_main_button {
     flex: initial;
@@ -44,5 +83,68 @@
       background-color: mix(@co_btn_primary, @co_bg, 50%);
     }
   }
-  // TODO
+
+  // check_item
+  .sub_check_item {
+    flex: initial;
+    flex-shrink: 0;
+
+    height: @nav_top_height;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    background-color: @co_bg_btn;
+    cursor: pointer;
+
+    transition-property: background-color;
+    transition-duration: @trans_t;
+    &.selected, &:hover {
+      transition-duration: 0s;
+      background-color: mix(@co_bg_btn_touch, @co_bg_btn, @btn_touch_mix);
+    }
+
+    .text {
+      color: @co_text_btn;
+      flex: 1;
+    }
+    .right {
+      color: @co_text_sec;
+    }
+
+    border-bottom-style: solid;
+    border-bottom-width: 0.1rem;
+    border-bottom-color: @co_bg_sec;
+  }
+
+  // add_button
+  .sub_add_button {
+    @button_size: 10rem;
+
+    width: @button_size;
+    height: @button_size;
+    border-radius: @button_size / 2;
+
+    background-color: @co_btn_primary;
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: @trans_t;
+    &:hover {
+      transition-duration: 0s;
+      background-color: mix(@co_bg_btn_touch, @co_btn_primary, @btn_touch_mix);
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    span {
+      display: block;
+      color: @co_text;
+      text-align: center;
+      font-size: @button_size;
+    }
+  }
 }
