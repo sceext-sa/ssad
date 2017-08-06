@@ -1,0 +1,48 @@
+// sub.less, ssad/ssad_app/ssad_todo/style/
+
+.ssad_todo {
+
+  // null_fill
+  .sub_null_fill {
+    flex: 1;
+  }
+
+  // main_button
+  .sub_main_button {
+    flex: initial;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: @nav_top_height;
+    font-size: 2.5rem;
+    background-color: @co_btn_primary;
+
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: @trans_t;
+    &:hover {
+      background-color: mix(@co_btn_primary, @co_bg_btn_touch, 50%);
+      transition-duration: 0ms;
+    }
+
+    .text {
+      color: @co_text_btn;
+      flex: 1;
+      text-align: center;
+    }
+    .right {
+      color: @co_text_sec;
+      flex: initial;
+      text-align: center;
+      padding-right: 1rem;
+    }
+
+    &.disabled, &.disabled:hover {
+      cursor: not-allowed;
+      background-color: mix(@co_btn_primary, @co_bg, 50%);
+    }
+  }
+  // TODO
+}

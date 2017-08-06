@@ -9,13 +9,13 @@ Nav = require './redux/nav/n_connect'
 # sub pages
 CWelcome = require './redux/connect/c_welcome'
 CEnableTaskList = require './redux/connect/c_enable_task_list'
-  COneTask = require './redux/connect/c_one_task'
-    CChangeStatus = require './redux/connect/c_change_status'
-  CEditCreateTask = require './redux/connect/c_edit_create_task'
+COneTask = require './redux/connect/c_one_task'
+CChangeStatus = require './redux/connect/c_change_status'
+CEditCreateTask = require './redux/connect/c_edit_create_task'
 CMainMenu = require './redux/connect/c_main_menu'
-  CDisabledList = require './redux/connect/c_disabled_list'
-  CAbout = require './redux/connect/c_about'
-  CConfig = require './redux/connect/c_config'
+CDisabledList = require './redux/connect/c_disabled_list'
+CAbout = require './redux/connect/c_about'
+CConfig = require './redux/connect/c_config'
 
 
 Main = cC {

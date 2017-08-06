@@ -20,7 +20,8 @@ ReactDOM = require 'react-dom'
 config = require './config'
 util = require './util'
 reducer = require './ui/redux/root_reducer'
-# TODO
+n_action = require './ui/redux/nav/n_action'
+a_welcome = require './ui/redux/action/a_welcome'
 
 # use with redux
 MainHost = require './ui/redux/main_host'
@@ -30,12 +31,26 @@ if composeWithDevTools?
   middleware = composeWithDevTools middleware
 # redux store
 store = createStore reducer, middleware
-#config.store store  # TODO save global store
+config.store store  # save global store
 
 
-# TODO _load_config ?
+_load_config = ->
+  c = util.get_config()
+  if c?
+    if c.app_id?
+      store.dispatch a_welcome.change_id(c.app_id)
+      if c.ssad_key?
+        store.dispatch a_welcome.change_key(c.ssad_key)
+        store.dispatch a_welcome.check_key()
+        return
+  # goto welcome page
+  store.dispatch n_action.go('page_welcome')
 
 _init = ->
+  # TODO goto main_menu page on init
+  store.dispatch n_action.go('page_main_menu')
+  # load config from localStorage
+  _load_config()
   # TODO
   await return
 
