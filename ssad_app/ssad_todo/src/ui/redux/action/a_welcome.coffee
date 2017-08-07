@@ -33,8 +33,10 @@ check_key = ->
     # check key
     app_id = $$state.getIn ['wel', 'app_id']
     ssad_key = $$state.getIn ['wel', 'ssad_key']
+    ssad_server_api.app_id app_id
+    ssad_server_api.ssad_key ssad_key
     try
-      await ssad_server_api.check_key(app_id, ssad_key)
+      await ssad_server_api.check_key()
       # OK
       dispatch key_ok()
       # save key in localStorage

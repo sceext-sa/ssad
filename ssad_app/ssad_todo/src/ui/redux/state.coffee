@@ -8,11 +8,6 @@ init_state = {  # with Immutable
   }
   # main pages
   main: {
-    # app_id / ssad_key
-    ssad: {
-      id: null
-      key: null
-    }
     # welcome page
     wel: {
       # input
@@ -25,9 +20,25 @@ init_state = {  # with Immutable
     now: null
     # TODO time-zone config ?
 
+    # current task
+    task_id: null
+    # is create task (or false: edit task)
+    is_create_task: false
+
     # TODO
   }
-  # TODO td data cache ?
+  # td data / cache
+  task_info: {}
+  #{
+  #  TASK_ID: {  # one task info
+  #    # task data
+  #    history: [
+  #      {  # one history item
+  #        # history data
+  #      }
+  #    ]
+  #  }
+  #}
 }
 
 module.exports = init_state

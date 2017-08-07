@@ -13,9 +13,6 @@ reducer = ($$o, action) ->
       $$o = $$o.setIn ['wel', 'ssad_key'], action.payload
     #when ac.WELCOME_CHECK_KEY
     when ac.WELCOME_KEY_OK
-      # save key/id
-      $$o = $$o.setIn ['ssad', 'id'], $$o.getIn(['wel', 'app_id'])
-      $$o = $$o.setIn ['ssad', 'key'], $$o.getIn(['wel', 'ssad_key'])
       # reset error, key
       $$o = $$o.setIn ['wel', 'error'], null
       $$o = $$o.setIn ['wel', 'ssad_key'], ''

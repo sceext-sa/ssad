@@ -10,43 +10,67 @@ SSAD_SERVER_ROOT = '/ssad201706/key/'
 SSAD_SERVER_VERSION = '/ssad201706/pub/.ssad/version'
 
 
+# global storage
+_etc = {
+  app_id: null
+  ssad_key: null
+}
+
+# get/set
+app_id = (i) ->
+  if i?
+    _etc.app_id = i
+  _etc.app_id
+ssad_key = (k) ->
+  if k?
+    _etc.ssad_key = k
+  _etc.ssad_key
+
+
 get_version = ->
   await async_.get_json SSAD_SERVER_VERSION, {}
 
-check_key = (app_id, ssad_key) ->
-  url = SSAD_SERVER_ROOT + app_id + '/'
-  await async_.get_json url, {
-    ssad_key
+
+_base_url = ->
+  SSAD_SERVER_ROOT + app_id() + '/'
+
+_key = ->
+  {
+    ssad_key: ssad_key()
   }
 
-load_text_file = (app_id, ssad_key, sub_root, sub_path) ->
-  base = SSAD_SERVER_ROOT + app_id + '/'
-  url = path.join base, sub_root, sub_path
-  await async_.get_text url, {
-    ssad_key
-  }
 
-put_text_file = (app_id, ssad_key, sub_root, sub_path, text) ->
-  base = SSAD_SERVER_ROOT + app_id + '/'
-  url = path.join base, sub_root, sub_path
-  await async_.put_text url, {
-    ssad_key
-  }
+check_key = ->
+  await async_.get_json _base_url(), _key()
 
-rm_file = (TODO) ->
+load_text_file = (sub_root, sub_path) ->
+  url = path.join _base_url(), sub_root, sub_path
+  await async_.get_text url, _key()
+
+put_text_file = (sub_root, sub_path, text) ->
+  url = path.join _base_url(), sub_root, sub_path
+  await async_.put_text url, _key()
+
+rm_file = (sub_root, sub_path) ->
+  url = path.join _base_url(), sub_root, sub_path
   # TODO
 
-list_dir = (TODO) ->
-  # TODO
+load_json = (sub_root, sub_path) ->
+  url = path.join _base_url(), sub_root, sub_path
+  await async_.get_json url, _key()
+
 
 # TODO support move ?
 
 module.exports = {
+  app_id  # get/set
+  ssad_key  # get/set
+
   get_version  # async
   check_key  # async
 
   load_text_file  # async
   put_text_file  # async
   rm_file  # async
-  list_dir  # async
+  load_json  # async
 }
