@@ -35,10 +35,24 @@ put_text = (url, query, text) ->
     r.fail (jqxhr, status, e) ->
       reject e
 
+rm_file = (url, query) ->
+  new Promise (resolve, reject) ->
+    url += '?' + querystring.stringify query
+    opt = {
+      method: 'DELETE'
+    }
+    r = $.ajax url, opt
+    r.done () ->
+      resolve r.responseText
+    r.fail (jqxhr, status, e) ->
+      reject e
+
 
 module.exports = {
   get_json  # async
   get_text  # async
 
   put_text  # async
+
+  rm_file  # async
 }

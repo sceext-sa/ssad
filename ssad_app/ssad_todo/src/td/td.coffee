@@ -1,15 +1,9 @@
 # td.coffee, ssad/ssad_app/ssad_todo/src/td/
 
-ssad_server_api = require '../ssad_server_api'
+td_file = require './td_file'
 
+get_next_task_id = require './task_id'
 load_task_and_history = require './load_task_and_history'
-
-# TODO
-
-
-get_next_task_id = ->
-  # TODO
-  await return
 
 
 get_task_list = ->

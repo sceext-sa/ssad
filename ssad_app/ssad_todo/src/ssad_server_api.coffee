@@ -53,7 +53,7 @@ put_text_file = (sub_root, sub_path, text) ->
 
 rm_file = (sub_root, sub_path) ->
   url = path.join _base_url(), sub_root, sub_path
-  # TODO
+  await async_.rm_file url, _key()
 
 load_json = (sub_root, sub_path) ->
   url = path.join _base_url(), sub_root, sub_path
