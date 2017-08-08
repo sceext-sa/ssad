@@ -43,7 +43,7 @@ _scan_task_id = ->
       if id > max
         max = id
   # create max_task_id file
-  f = path.join td_file.path_task(), td_file.name_max_task_id(max + 1)
+  f = path.join td_file.path_task(), td_file.name_max_task_id(max)
   await td_file.touch f
 
 _check_task_id_conflict = (task_id) ->
@@ -63,7 +63,7 @@ _check_task_id_conflict = (task_id) ->
         throw new Error "task_id conflict #{i}"
 
 
-get_next_task_id = ->
+get_next_task_id = (ignore_error) ->
   # check td/task dir exist (robust init process)
   try
     l = await td_file.list_dir td_file.path_task()
@@ -84,15 +84,21 @@ get_next_task_id = ->
     await _scan_task_id()
     l = await td_file.list_dir td_file.path_task()
     max_task_id = _check_max_task_id l
+  # new task_id
+  task_id = max_task_id + 1
   # check task_id conflict
   try
-    await _check_task_id_conflict max_task_id
+    await _check_task_id_conflict task_id
   catch e
-    console.log "WARNING: max_task_id conflict  #{e.stack}"
+    if !ignore_error
+      console.log "WARNING: max_task_id conflict  #{e.stack}"
     await _remove_all_max_task_id()
     await _scan_task_id()
     l = await td_file.list_dir td_file.path_task()
     max_task_id = _check_max_task_id l
-  max_task_id
+    # new task_id
+    task_id = max_task_id + 1
+  # return new task_id
+  task_id
 
 module.exports = get_next_task_id  # async
