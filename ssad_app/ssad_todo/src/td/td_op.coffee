@@ -9,8 +9,16 @@ get_next_task_id = require './task_id'
 
 
 get_task_list = ->
-  l = await td_file.list_dir td_file.path_task()
   o = []
+  try
+    l = await td_file.list_dir td_file.path_task()
+  catch e
+    # ignore errors such as 404
+    console.log "ERROR: td.get_task_list  #{e.stack}"
+    return o
+  if ! l?  # l  maybe undefined
+    return o
+
   for i in l
     if i.endsWith td_tree.SUFFIX_TASK
       t = Number.parseInt i[...(i.length - td_tree.SUFFIX_TASK.length)]
@@ -18,15 +26,25 @@ get_task_list = ->
   o
 
 get_disabled_list = ->
-  l = await td_file.list_dir td_file.path_disabled()
   o = []
+  try
+    l = await td_file.list_dir td_file.path_disabled()
+  catch e
+    # ignore errors such as 404
+    console.log "ERROR: td.get_disabled_list  #{e.stack}"
+    return o
+  if ! l?  # l  maybe undefined
+    return o
+
   for i in l
     if i.endsWith td_tree.SUFFIX_TASK
       o.push i[...(i.length - td_tree.SUFFIX_TASK.length)]
   o
 
 get_history_list = (task_id) ->
+  # NOTE no history is a error
   l = await td_file.list_dir td_file.path_one_history(task_id)
+
   o = {}
   for i in l
     if i.endsWith td_tree.SUFFIX_HISTORY

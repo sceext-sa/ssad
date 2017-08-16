@@ -37,6 +37,7 @@ init_state = {  # with Immutable
       #         hide: false  # history hide flag
       #       }
       #     }
+      #     # TODO save full history items list here ?
       #   }
       # }
       enable_list: {}  # enabled task list
@@ -52,7 +53,7 @@ init_state = {  # with Immutable
     init_load_progress: {
       now: 0
       all: 0
-      done: false  # load done
+      done: true  # load done  # NOTE: true for welcome page
     }
     # flag: doing operation
     op_doing: false

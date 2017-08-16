@@ -1,5 +1,7 @@
 # td.coffee, ssad/ssad_app/ssad_todo/src/td/
 
+path = require 'path'
+
 td_tree = require './td_tree'
 td_file = require './td_file'
 
@@ -35,6 +37,10 @@ get_uuid_namespace = ->
     throw new Error "no uuid namespace"
   return n
 
+make_disabled_task_name = (task_id, _time) ->
+  path.join td_tree.DIR_DISABLED, td_file.name_disabled_task(_time, task_id)
+
+
 module.exports = {
   get_next_task_id  # async
 
@@ -59,6 +65,7 @@ module.exports = {
   show_history  # async
 
   get_uuid_namespace  # async
+  make_disabled_task_name
 
   load_task_and_history  # async
 }
