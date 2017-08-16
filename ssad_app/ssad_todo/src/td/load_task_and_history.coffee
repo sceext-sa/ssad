@@ -23,7 +23,6 @@ load_task_and_history = (task_id, limit_n) ->
   name.reverse()  # load latest history item first
 
   history = {}  # loaded history
-  hide = {}
   # load each history
   count = 0
   status = null  # task status in history
@@ -31,7 +30,6 @@ load_task_and_history = (task_id, limit_n) ->
     one = await td_op.load_history task_id, i
     # save data
     history[i] = one
-    hide[i] = l[i]
 
     if one.data.status?
       status = one.data.status
@@ -43,7 +41,7 @@ load_task_and_history = (task_id, limit_n) ->
   {
     task
     history
-    hide
+    hide: l
   }
 
 module.exports = load_task_and_history  # async

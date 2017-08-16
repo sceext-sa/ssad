@@ -8,8 +8,12 @@ action = require './action/a_common'
 
 mapStateToProps = (state, props) ->
   $$state = state.main
+  $$i = $$state.get 'init_load_progress'
   {
-    # TODO
+    init_load_task_done: $$i.get 'done'
+    init_load_task_now: $$i.get 'now'
+    init_load_task_all: $$i.get 'all'
+    op_doing: $$state.get 'op_doing'
   }
 
 mapDispatchToProps = (dispatch, props) ->

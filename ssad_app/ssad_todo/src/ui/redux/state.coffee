@@ -25,20 +25,41 @@ init_state = {  # with Immutable
     # is create task (or false: edit task)
     is_create_task: false
 
+    # loaded td data (cache)
+    task_info: {
+      task: {}  # TASK_ID to task data
+      # {
+      #   TASK_ID: {  # one task info
+      #     raw: {}  # `.task.json`  task storage (file) data
+      #     history: {  # history data
+      #       HISTORY_NAME: {  # one history info  (_time)
+      #         raw: {}  # `.task_history.json`  history storage data
+      #         hide: false  # history hide flag
+      #       }
+      #     }
+      #   }
+      # }
+      enable_list: {}  # enabled task list
+      # {
+      #   LAST_UPDATE_TIME: TASK_ID
+      # }
+      disabled_list: {}  # disabled task list
+      # {
+      #   _TIME: TASK_ID
+      # }
+    }
+    # load tasks progress
+    init_load_progress: {
+      now: 0
+      all: 0
+      done: false  # load done
+    }
+    # flag: doing operation
+    op_doing: false
+    # TODO show error ?
+
     # TODO
   }
-  # td data / cache
-  task_info: {}
-  #{
-  #  TASK_ID: {  # one task info
-  #    # task data
-  #    history: [
-  #      {  # one history item
-  #        # history data
-  #      }
-  #    ]
-  #  }
-  #}
 }
 
 module.exports = init_state

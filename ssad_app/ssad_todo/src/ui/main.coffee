@@ -17,11 +17,17 @@ CDisabledList = require './redux/connect/c_disabled_list'
 CAbout = require './redux/connect/c_about'
 CConfig = require './redux/connect/c_config'
 
+InitLoadTask = require './sub/init_load_task'
+DoingOperate = require './sub/doing_operate'
+
 
 Main = cC {
   displayName: 'Main'
   propTypes: {
-    # TODO
+    init_load_task_done: PropTypes.bool.isRequired
+    init_load_task_now: PropTypes.number.isRequired
+    init_load_task_all: PropTypes.number.isRequired
+    op_doing: PropTypes.bool.isRequired
   }
 
   render: ->
@@ -40,8 +46,22 @@ Main = cC {
           (cE CAbout, { id: 'page_about' })
           (cE CConfig, { id: 'page_config' })
       )
-      # TODO show load-task / doing-operate ?
+      # show load-task / doing-operation
+      @_render_load_task()
+      @_render_doing()
+      # TODO show error ?
     )
+
+  _render_load_task: ->
+    if ! @props.init_load_task_done
+      (cE InitLoadTask, {
+        now: @props.init_load_task_now
+        all: @props.init_load_task_all
+      })
+
+  _render_doing: ->
+    if @props.init_load_task_done and @props.op_doing
+      (cE DoingOperate)
 }
 
 module.exports = Main
