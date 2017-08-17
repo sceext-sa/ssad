@@ -48,6 +48,7 @@ init_state = {  # with Immutable
       # {
       #   _TIME: TASK_ID
       # }
+      # TODO save full disabled task list here ?
     }
     # load tasks progress
     init_load_progress: {

@@ -16,6 +16,16 @@ make_load_task_and_history = (data) ->
     o.history[name] = one
   o
 
+get_task_last_update_time = (raw) ->
+  # NOTE each task has at least one history item
+  h = raw.history
+  time_list = Object.keys h
+  time_list.sort()
+  time_list.reverse()  # latest item
+  time_list[0]
+
+
 module.exports = {
   make_load_task_and_history
+  get_task_last_update_time
 }

@@ -47,8 +47,9 @@ _load_config = ->
   store.dispatch n_action.go('page_welcome')
 
 _init = ->
-  # TODO goto main_menu page on init
+  # goto  [ page_main_menu, page_enable_task_list ]  on init
   store.dispatch n_action.go('page_main_menu')
+  store.dispatch n_action.go('page_enable_task_list')
   # load config from localStorage
   _load_config()
   # TODO

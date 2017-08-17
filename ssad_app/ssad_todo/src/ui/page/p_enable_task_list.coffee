@@ -5,7 +5,41 @@
 cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
-NavTop = require '../sub/nav_top'
+{
+  Glyphicon
+} = require 'react-bootstrap'
+
+
+# css class: sub_task_top
+TaskTop = cC {
+  displayName: 'TaskTop'
+  propTypes: {
+    on_nav_back: PropTypes.func.isRequired
+    # TODO
+  }
+
+  render: ->
+    (cE 'div', {
+      className: 'sub_task_top'
+      },
+      # TODO
+      (cE 'span', {
+        className: 'todo'
+        },
+        'TODO'
+      )
+      # TODO
+      # right button (for open main menu)
+      (cE 'span', {
+        className: 'main_menu'
+        onClick: @props.on_nav_back
+        },
+        (cE Glyphicon, {
+          glyph: 'option-vertical'
+          })
+      )
+    )
+}
 
 
 Page = cC {
@@ -19,10 +53,10 @@ Page = cC {
     (cE 'div', {
       className: 'page p_enable_task_list'
       },
-      # TODO not use NavTop ?
-      (cE NavTop, {
-        title: 'TODO'
+      (cE TaskTop, {
         # TODO
+
+        on_nav_back: @props.on_nav_back
         })
       (cE 'div', {
         className: 'page_body'

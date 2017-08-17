@@ -28,6 +28,7 @@ init_load_task = ->
   })
 
   count_load = 0  # loaded tasks
+  enable_list = {}
   # load all enabled tasks (with default number of history items)
   for task_id in raw_enable_list
     raw = await td.load_task_and_history task_id
@@ -35,6 +36,9 @@ init_load_task = ->
     tasks = {}
     tasks[task_id] = one
     _dispatch a_task_info.load_tasks(tasks)
+    # update enable_list
+    last_time = task_op.get_task_last_update_time one
+    enable_list[last_time] = task_id
 
     count_load += 1
     _dispatch a_common.update_init_progress({
@@ -56,6 +60,8 @@ init_load_task = ->
   # load some latest disabled tasks
   time_list.sort()
   time_list.reverse()  # load latest items
+
+  disabled_list = {}
   for i in [0... config.DEFAULT_LOAD_DISABLED_N]
     if i >= time_list.length
       break
@@ -73,11 +79,16 @@ init_load_task = ->
       tasks = {}
       tasks[task_id] = task
       _dispatch a_task_info.load_tasks(tasks)
+      # update disabled_list
+      disabled_list[time] = task_id
 
       count_load += 1
       _dispatch a_common.update_init_progress({
         now: count_load
       })
+  # update task_info.enable_list / task_info.disabled_list
+  _dispatch a_task_info.update_enable_list(enable_list)
+  _dispatch a_task_info.update_disabled_list(disabled_list)
   # load done
   _dispatch a_common.update_init_progress({
     done: true
