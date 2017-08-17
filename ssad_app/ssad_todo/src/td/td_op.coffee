@@ -14,7 +14,7 @@ get_task_list = ->
     l = await td_file.list_dir td_file.path_task()
   catch e
     # ignore errors such as 404
-    console.log "ERROR: td.get_task_list  #{e.stack}"
+    console.log "ERROR: td.get_task_list  #{e}: #{e.stack}"
     return o
   if ! l?  # l  maybe undefined
     return o
@@ -31,7 +31,7 @@ get_disabled_list = ->
     l = await td_file.list_dir td_file.path_disabled()
   catch e
     # ignore errors such as 404
-    console.log "ERROR: td.get_disabled_list  #{e.stack}"
+    console.log "ERROR: td.get_disabled_list  #{e}: #{e.stack}"
     return o
   if ! l?  # l  maybe undefined
     return o

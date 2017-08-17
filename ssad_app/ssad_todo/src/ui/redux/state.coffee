@@ -24,6 +24,25 @@ init_state = {  # with Immutable
     task_id: null
     # is create task (or false: edit task)
     is_create_task: false
+    # create/edit task
+    edit_task: {
+      # common task attr
+      task_id: null
+      type: 'oneshot'  # 'regular', 'oneshot'
+      #_time  # TODO
+      title: ''
+      desc: ''
+      # oneshot task attr
+      time: {
+        planned_start: ''  # optional
+        ddl: ''  # optional
+        duration_limit: ''  # optional
+        # regular task attr
+        interval: ''  # (required)
+      }
+      time_base: 'last'  #  'last', 'fixed' (first)
+      # TODO support task data check ?
+    }
 
     # loaded td data (cache)
     task_info: {

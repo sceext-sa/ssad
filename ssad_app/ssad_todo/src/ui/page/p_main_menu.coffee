@@ -13,6 +13,8 @@ AddButton = require '../sub/add_button'
 Page = cC {
   displayName: 'PMainMenu'
   propTypes: {
+    on_create_task: PropTypes.func.isRequired
+
     on_nav_back: PropTypes.func.isRequired
     on_nav: PropTypes.func.isRequired
   }
@@ -27,8 +29,7 @@ Page = cC {
     @props.on_nav 'page_about'
 
   _on_add_task: ->
-    @props.on_nav 'page_edit_create_task'
-    # TODO
+    @props.on_create_task()
 
   render: ->
     (cE 'div', {
