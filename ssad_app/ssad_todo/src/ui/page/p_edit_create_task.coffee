@@ -9,6 +9,7 @@ PropTypes = require 'prop-types'
   FormGroup
   ControlLabel
   FormControl
+  HelpBlock
   Alert
   ButtonGroup
   Button
@@ -24,6 +25,7 @@ Page = cC {
     is_create_task: PropTypes.bool.isRequired
     task_data: PropTypes.object.isRequired  # state.main.edit_task
     enable_commit: PropTypes.bool  # support check task data
+    task_data_error: PropTypes.string
 
     edit_reset: PropTypes.func.isRequired
     edit_set_type: PropTypes.func.isRequired
@@ -83,8 +85,10 @@ Page = cC {
       (cE 'div', {
         className: 'page_body'
         },
-        # TODO edit_reset ?
+        # TODO support edit reset ?
         # TODO improve render style ?  (data show method)
+        # error info
+        @_render_error()
         # common task attr
         @_render_task_common()
         # check task type
@@ -96,7 +100,7 @@ Page = cC {
           #else: error
         )
         # null-fill
-        (cE 'div', { className: 'sub_null_fill' })
+        #(cE 'div', { className: 'sub_null_fill' })
         # main button
         (cE MainButton, {
           text: 'OK'
@@ -125,7 +129,7 @@ Page = cC {
           onChange: @_on_set_title
           })
       )
-      # TODO desc (textarea) ?
+      # desc (textarea)
       (cE 'div', {
         className: 'desc_text'
         },
@@ -133,8 +137,9 @@ Page = cC {
           (cE ControlLabel, null,
             'Description'
           )
+          # TODO auto-grow textarea ?
           (cE FormControl, {
-            type: 'text'
+            componentClass: 'textarea'
             value: @props.task_data.desc
             placeholder: 'desc text'
             onChange: @_on_set_desc
@@ -181,28 +186,45 @@ Page = cC {
       )
     )
 
+  _render_error: ->
+    if @props.task_data_error?
+      (cE 'div', {
+        className: 'err_info'
+        },
+        (cE Alert, {
+          bsStyle: 'danger'
+          },
+          (cE 'strong', null,
+            'ERROR  '
+          )
+          @props.task_data_error
+        )
+      )
+
   _render_type: ->
-    (cE 'div', {
-      className: 'select_type'
-      },
-      (cE 'span', null,
-        'type'
-      )
-      (cE ButtonGroup, null,
-        (cE Button, {
-          active: (@props.task_data.type is 'oneshot')
-          onClick: @_on_set_type_oneshot
-          },
-          'oneshot'
+    # task type can be only changed under create mode (not edit mode)
+    if @props.is_create_task
+      (cE 'div', {
+        className: 'select_type'
+        },
+        (cE 'span', null,
+          'type'
         )
-        (cE Button, {
-          active: (@props.task_data.type is 'regular')
-          onClick: @_on_set_type_regular
-          },
-          'regular'
+        (cE ButtonGroup, null,
+          (cE Button, {
+            active: (@props.task_data.type is 'oneshot')
+            onClick: @_on_set_type_oneshot
+            },
+            'oneshot'
+          )
+          (cE Button, {
+            active: (@props.task_data.type is 'regular')
+            onClick: @_on_set_type_regular
+            },
+            'regular'
+          )
         )
       )
-    )
 
   _render_task_oneshot: ->
     (cE 'form', {

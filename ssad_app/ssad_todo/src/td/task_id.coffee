@@ -46,7 +46,7 @@ _scan_task_id = ->
   f = path.join td_file.path_task(), td_file.name_max_task_id(max)
   await td_file.touch f
 
-_check_task_id_conflict = (task_id) ->
+_check_task_id_conflict = (task_id, ignore_error) ->
   # check task dir
   l = await td_file.list_dir td_file.path_task()
   for i in l
@@ -55,7 +55,13 @@ _check_task_id_conflict = (task_id) ->
       if id == task_id
         throw new Error "task_id conflict #{i}"
   # check disabled dir
-  l = await td_file.list_dir td_file.path_disabled()
+  try
+    l = await td_file.list_dir td_file.path_disabled()
+  catch e
+    if ! ignore_error
+      throw e
+    console.log "WARNING: _check_task_id_conflict: #{e}"
+    return
   for i in l
     if i.endsWith td_tree.SUFFIX_TASK
       id = Number.parseInt i.split('..')[1].split('.')[0]
@@ -88,7 +94,7 @@ get_next_task_id = (ignore_error) ->
   task_id = max_task_id + 1
   # check task_id conflict
   try
-    await _check_task_id_conflict task_id
+    await _check_task_id_conflict task_id, true
   catch e
     if !ignore_error
       console.log "WARNING: max_task_id conflict  #{e.stack}"

@@ -5,12 +5,14 @@ init_load_task = require './init_load_task'
 {
   make_load_task_and_history
   get_task_last_update_time
+  check_task_data
 } = require './task_op'
 
 
 module.exports = {
   make_load_task_and_history
   get_task_last_update_time
+  check_task_data  # throw
 
   init_load_task  # async
 }

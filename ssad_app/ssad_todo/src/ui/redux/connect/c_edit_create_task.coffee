@@ -2,16 +2,29 @@
 
 { connect } = require 'react-redux'
 
+task = require '../../../task/task'
+
 Page = require '../../page/p_edit_create_task'
 action = require '../action/a_edit_create_task'
 
 
 mapStateToProps = (state, props) ->
   $$state = state.main
+  # check task_data here
+  task_data = $$state.get('edit_task').toJS()
+  task_data_error = null
+  enable_commit = true
+  try
+    task.check_task_data task_data
+  catch e
+    task_data_error = "#{e}"
+    enable_commit = false
+
   {
     is_create_task: $$state.get 'is_create_task'
-    task_data: $$state.get('edit_task').toJS()
-    enable_commit: true  # TODO support check task data ?
+    task_data
+    task_data_error
+    enable_commit
   }
 
 mapDispatchToProps = (dispatch, props) ->

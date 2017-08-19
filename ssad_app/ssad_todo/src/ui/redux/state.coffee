@@ -41,7 +41,6 @@ init_state = {  # with Immutable
         interval: ''  # (required)
       }
       time_base: 'last'  #  'last', 'fixed' (first)
-      # TODO support task data check ?
     }
 
     # loaded td data (cache)

@@ -28,7 +28,7 @@ SUFFIX_HISTORY_HIDE = '.hide'
 SUFFIX_MAX_TASK_ID = '.max_task_id'
 SUFFIX_UUID_NAMESPACE = '.uuid_namespace'
 
-DEFAULT_TASK_ID = 1  # task_id starts with 1
+DEFAULT_TASK_ID = 0  # task_id starts with 1  # FIXME: value should be 0
 
 module.exports = {
   DIR_ROOT
