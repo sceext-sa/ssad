@@ -36,12 +36,16 @@ _scan_task_id = ->
       if id > max
         max = id
   # scan disabled dir
-  l = await td_file.list_dir td_file.path_disabled()
-  for i in l
-    if i.endsWith td_tree.SUFFIX_TASK
-      id = Number.parseInt i.split('..')[1].split('.')[0]
-      if id > max
-        max = id
+  try
+    l = await td_file.list_dir td_file.path_disabled()
+    for i in l
+      if i.endsWith td_tree.SUFFIX_TASK
+        id = Number.parseInt i.split('..')[1].split('.')[0]
+        if id > max
+          max = id
+  catch e
+    # ignore error
+    console.log "task_id._scan_task_id: WARNING: #{e}  #{e.stack}"
   # create max_task_id file
   f = path.join td_file.path_task(), td_file.name_max_task_id(max)
   await td_file.touch f
@@ -76,7 +80,7 @@ get_next_task_id = (ignore_error) ->
   catch e
     console.log "WARNING: list_dir #{td_file.path_task()}  #{e.stack}"
     # create max_task_id
-    max_task_id = path.join td_file.path_task(), td_file.name_max_task_id(td_tree.DEFAULT_TASK_ID)
+    max_task_id = path.join td_file.path_task(), td_file.name_max_task_id(td_tree.DEFAULT_TASK_ID - 1)
     await td_file.touch max_task_id
     # re-list dir
     l = await td_file.list_dir td_file.path_task()

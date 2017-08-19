@@ -1,5 +1,8 @@
 # a_edit_create_task.coffee, ssad/ssad_app/ssad_todo/src/ui/redux/action/
 
+task = require '../../../task/task'
+n_action = require '../nav/n_action'
+
 # action types
 
 EDIT_TASK_RESET = 'edit_task_reset'
@@ -76,8 +79,23 @@ set_time_base = (base) ->
 
 commit = ->
   (dispatch, getState) ->
-    # TODO
-    await return
+    $$state = getState().main
+    # check create / edit task
+    is_create_task = $$state.get 'is_create_task'
+    if is_create_task
+      # create task
+      # TODO show/hide doing_operate ?
+      # TODO error process
+      task_data = $$state.get('edit_task').toJS()
+
+      await task.create_task task_data
+      # page: go back
+      dispatch n_action.back()
+      # reset after create task success
+      dispatch reset()
+    else
+      # TODO update task
+      console.log "WARNING: a_edit_create_task.commit: update task not finished !"
 
 
 module.exports = {

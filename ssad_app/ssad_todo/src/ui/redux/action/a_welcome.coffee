@@ -81,7 +81,7 @@ _init_load_tasks = (dispatch) ->
   try
     await task.init_load_task()
   catch e
-    console.log "ERROR: task.init_load_task  #{e.stack}"
+    console.log "ERROR: task.init_load_task  #{e}  #{e.stack}"
 
 
 module.exports = {

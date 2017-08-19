@@ -14,9 +14,9 @@ load_task_and_history = (task_id, limit_n) ->
   if ! limit_n?
     limit_n = config.DEFAULT_LOAD_HISTORY_N
   # load the task
-  task = await td_op.load_task task_id
+  task = await load_task task_id
 
-  l = await td_op.get_history_list task_id
+  l = await get_history_list task_id
   # sort history name
   name = Object.keys l
   name.sort()
@@ -27,7 +27,7 @@ load_task_and_history = (task_id, limit_n) ->
   count = 0
   status = null  # task status in history
   for i in name
-    one = await td_op.load_history task_id, i
+    one = await load_history task_id, i
     # save data
     history[i] = one
 

@@ -49,7 +49,7 @@ load_text_file = (sub_root, sub_path) ->
 
 put_text_file = (sub_root, sub_path, text) ->
   url = path.join _base_url(), sub_root, sub_path
-  await async_.put_text url, _key()
+  await async_.put_text url, _key(), text
 
 rm_file = (sub_root, sub_path) ->
   url = path.join _base_url(), sub_root, sub_path

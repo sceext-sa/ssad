@@ -6,6 +6,8 @@ init_load_task = require './init_load_task'
   make_load_task_and_history
   get_task_last_update_time
   check_task_data
+
+  create_task
 } = require './task_op'
 
 
@@ -15,4 +17,6 @@ module.exports = {
   check_task_data  # throw
 
   init_load_task  # async
+
+  create_task  # async
 }

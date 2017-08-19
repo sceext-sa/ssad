@@ -40,13 +40,17 @@ name_back_task = (_time) ->
 name_namespace = (uuid) ->
   "#{uuid}#{td_tree.SUFFIX_UUID_NAMESPACE}"
 
+_print_json = (data) ->
+  o = JSON.stringify data, '    ', '    '
+  o + '\n'
+
 
 load_json = (filename) ->
   text = await ssad_server_api.load_text_file config.TD_ROOT, filename
   JSON.parse text
 
 put_json = (filename, data) ->
-  text = JSON.stringify data
+  text = _print_json data
   await ssad_server_api.put_text_file config.TD_ROOT, filename, text
 
 mv_text = (filename, to) ->

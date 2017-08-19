@@ -78,12 +78,11 @@ create_task = (data) ->
       id = Number.parseInt i.split('.')[0]
       if id == task_id
         throw new Error "task_id conflict #{task_id}"
-  l = await td_file.list_dir td_file.path_disabled()
+  l = await get_disabled_list()
   for i in l
-    if i.endsWith td_tree.SUFFIX_TASK
-      id = Number.parseInt i.split('..')[1].split('.')[0]
-      if id == task_id
-        throw new Error "task_id conflict #{task_id} (disabled) #{i}"
+    id = Number.parseInt i.split('..')[1].split('.')[0]
+    if id == task_id
+      throw new Error "task_id conflict #{task_id} (disabled) #{i}"
   # create new task file
   filename = path.join td_file.path_task(), td_file.name_task(task_id)
   await td_file.put_json filename, data
