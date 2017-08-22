@@ -1,11 +1,16 @@
 # task_op.coffee, ssad/ssad_app/ssad_todo/src/task/
 
+config = require '../config'
+a_task_info = require '../ui/redux/action/a_task_info'
 td = require '../td/td'
 one_task = require '../td/one_task'
 one_history = require '../td/one_history'
 
 task_check = require './task_check'
 
+
+_dispatch = (action) ->
+  config.store().dispatch action
 
 # TODO check task data right ?  (such task_id ?)
 make_load_task_and_history = (data) ->
@@ -107,7 +112,19 @@ create_task = (raw) ->
   # create task create history
   data = one_history.create_history task_id, one_history.TYPE_CREATE
   await td.create_history data
-  # TODO auto load the task after create ?
+  # NOTE task in enabled by default
+  # auto load the task after create
+  raw = await td.load_task_and_history task_id
+  one = make_load_task_and_history raw
+  tasks = {}
+  tasks[task_id] = one
+  _dispatch a_task_info.load_tasks(tasks)
+  # update enable_list
+  last_time = get_task_last_update_time one
+  enable_list = {}
+  enable_list[last_time] = task_id
+
+  _dispatch a_task_info.update_enable_list(enable_list)
 
 
 module.exports = {
