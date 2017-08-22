@@ -1,6 +1,7 @@
 # task.coffee, ssad/ssad_app/ssad_todo/src/task/
 
 init_load_task = require './init_load_task'
+task_check = require './task_check'
 
 {
   make_load_task_and_history
@@ -15,6 +16,7 @@ module.exports = {
   make_load_task_and_history
   get_task_last_update_time
   check_task_data  # throw
+  check_form: task_check.check_form
 
   init_load_task  # async
 

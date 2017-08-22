@@ -25,6 +25,7 @@ Page = cC {
     is_create_task: PropTypes.bool.isRequired
     task_data: PropTypes.object.isRequired  # state.main.edit_task
     enable_commit: PropTypes.bool  # support check task data
+    task_check_form: PropTypes.object.isRequired
     task_data_error: PropTypes.string
 
     edit_reset: PropTypes.func.isRequired
@@ -111,6 +112,12 @@ Page = cC {
       )
     )
 
+  _render_help_block: (text) ->
+    if text?
+      (cE HelpBlock, null,
+        text
+      )
+
   _render_task_common: ->
     (cE 'form', {
       className: 'task_common'
@@ -118,7 +125,9 @@ Page = cC {
       # type
       @_render_type()
       # title
-      (cE FormGroup, null,
+      (cE FormGroup, {
+        validationState: @props.task_check_form.title.state
+        },
         (cE ControlLabel, null,
           'Title'
         )
@@ -128,6 +137,8 @@ Page = cC {
           placeholder: 'title text'
           onChange: @_on_set_title
           })
+        (cE FormControl.Feedback)
+        (@_render_help_block @props.task_check_form.title.text)
       )
       # desc (textarea)
       (cE 'div', {
@@ -149,7 +160,9 @@ Page = cC {
       # common time attr
 
       # planned_start
-      (cE FormGroup, null,
+      (cE FormGroup, {
+        validationState: @props.task_check_form.time_planned_start.state
+        },
         (cE ControlLabel, null,
           'time: Planned start'
         )
@@ -159,9 +172,13 @@ Page = cC {
           placeholder: 'planned_start'
           onChange: @_on_set_time_planned_start
           })
+        (cE FormControl.Feedback)
+        (@_render_help_block @props.task_check_form.time_planned_start.text)
       )
       # ddl
-      (cE FormGroup, null,
+      (cE FormGroup, {
+        validationState: @props.task_check_form.time_ddl.state
+        },
         (cE ControlLabel, null,
           'time: DDL'
         )
@@ -171,9 +188,13 @@ Page = cC {
           placeholder: 'ddl'
           onChange: @_on_set_time_ddl
           })
+        (cE FormControl.Feedback)
+        (@_render_help_block @props.task_check_form.time_ddl.text)
       )
       # duration_limit
-      (cE FormGroup, null,
+      (cE FormGroup, {
+        validationState: @props.task_check_form.time_duration_limit.state
+        },
         (cE ControlLabel, null,
           'time: Duration limit'
         )
@@ -183,6 +204,8 @@ Page = cC {
           placeholder: 'duration_limit'
           onChange: @_on_set_time_duration_limit
           })
+        (cE FormControl.Feedback)
+        (@_render_help_block @props.task_check_form.time_duration_limit.text)
       )
     )
 
@@ -238,7 +261,9 @@ Page = cC {
       className: 'task_regular'
       },
       # interval
-      (cE FormGroup, null,
+      (cE FormGroup, {
+        validationState: @props.task_check_form.time_interval.state
+        },
         (cE ControlLabel, null,
           'time: Interval'
         )
@@ -248,6 +273,8 @@ Page = cC {
           placeholder: 'interval'
           onChange: @_on_set_time_interval
           })
+        (cE FormControl.Feedback)
+        (@_render_help_block @props.task_check_form.time_interval.text)
       )
       # time_base
       @_render_time_base()

@@ -19,12 +19,14 @@ mapStateToProps = (state, props) ->
   catch e
     task_data_error = "#{e}"
     enable_commit = false
+  task_check_form = task.check_form task_data
 
   {
     is_create_task: $$state.get 'is_create_task'
     task_data
     task_data_error
     enable_commit
+    task_check_form
   }
 
 mapDispatchToProps = (dispatch, props) ->
