@@ -10,6 +10,14 @@ action = require '../action/a_edit_create_task'
 
 mapStateToProps = (state, props) ->
   $$state = state.main
+  $$td = state.td
+
+  is_create_task = $$state.get 'is_create_task'
+  # task_id
+  if is_create_task
+    task_id = $$td.get 'next_task_id'
+  else
+    task_id = $$state.get 'task_id'
   # check task_data here
   task_data = $$state.get('edit_task').toJS()
   task_data_error = null
@@ -22,7 +30,8 @@ mapStateToProps = (state, props) ->
   task_check_form = task.check_form task_data
 
   {
-    is_create_task: $$state.get 'is_create_task'
+    is_create_task
+    task_id
     task_data
     task_data_error
     enable_commit

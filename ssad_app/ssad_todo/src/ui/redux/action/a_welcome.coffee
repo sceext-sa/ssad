@@ -4,8 +4,7 @@ util = require '../../../util'
 ssad_server_api = require '../../../ssad_server_api'
 n_action = require '../nav/n_action'
 
-a_common = require './a_common'
-task = require '../../../task/task'
+a_task = require './a_task'
 
 # action types
 
@@ -53,7 +52,11 @@ check_key = ->
         # just go back
         dispatch n_action.back()
       # start init load tasks
-      await _init_load_tasks dispatch
+      try
+        await dispatch a_task.init_load()
+      catch e
+        # DEBUG
+        console.log "ERROR: a_welcome: a_task.init_load: #{e}  #{e.stack}"
     catch e
       dispatch key_err(e)
       # goto welcome page
@@ -70,18 +73,6 @@ key_err = (err) ->
     error: true
     payload: err
   }
-
-
-_init_load_tasks = (dispatch) ->
-  # TODO more error process ?
-  dispatch a_common.update_init_progress {
-    done: false  # before start loading
-  }
-  # FIXME ignore error here
-  try
-    await task.init_load_task()
-  catch e
-    console.log "ERROR: task.init_load_task  #{e}  #{e.stack}"
 
 
 module.exports = {

@@ -19,13 +19,6 @@ create_task = ->
       dispatch a_common.set_is_create_task(true)
       # reset edit
       dispatch a_edit_create_task.reset()
-    # check task_id
-    $$state = getState().main
-    task_id = $$state.getIn ['edit_task', 'task_id']
-    if ! task_id?
-      # gen a new task_id
-      task_id = await td.get_next_task_id()
-      dispatch a_edit_create_task.set_task_id(task_id)
     # go to that page
     dispatch n_action.go 'page_edit_create_task'
 

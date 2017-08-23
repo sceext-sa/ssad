@@ -6,7 +6,6 @@ td_tree = require './td_tree'
 td_file = require './td_file'
 
 get_next_task_id = require './task_id'
-load_task_and_history = require './load_task_and_history'
 
 {
   get_task_list
@@ -66,6 +65,4 @@ module.exports = {
 
   get_uuid_namespace  # async
   make_disabled_task_name
-
-  load_task_and_history  # async
 }

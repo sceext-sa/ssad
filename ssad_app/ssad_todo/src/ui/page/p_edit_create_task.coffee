@@ -23,6 +23,7 @@ Page = cC {
   displayName: 'PEditCreateTask'
   propTypes: {
     is_create_task: PropTypes.bool.isRequired
+    task_id: PropTypes.number.isRequired
     task_data: PropTypes.object.isRequired  # state.main.edit_task
     enable_commit: PropTypes.bool  # support check task data
     task_check_form: PropTypes.object.isRequired
@@ -80,7 +81,7 @@ Page = cC {
         (cE 'span', {
           className: 'right_text'
           },
-          "#{@props.task_data.task_id}"
+          "#{@props.task_id}"
         )
       )
       (cE 'div', {

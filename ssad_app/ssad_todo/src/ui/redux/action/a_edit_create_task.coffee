@@ -2,11 +2,11 @@
 
 task = require '../../../task/task'
 n_action = require '../nav/n_action'
+a_task = require './a_task'
 
 # action types
 
 EDIT_TASK_RESET = 'edit_task_reset'
-EDIT_TASK_SET_TASK_ID = 'edit_task_set_task_id'
 EDIT_TASK_SET_TYPE = 'edit_task_set_type'
 EDIT_TASK_SET_TITLE = 'edit_task_set_title'
 EDIT_TASK_SET_DESC = 'edit_task_set_desc'
@@ -21,12 +21,6 @@ EDIT_TASK_COMMIT = 'edit_task_commit'
 reset = ->
   {
     type: EDIT_TASK_RESET
-  }
-
-set_task_id = (id) ->
-  {
-    type: EDIT_TASK_SET_TASK_ID
-    payload: id
   }
 
 set_type = (type) ->
@@ -87,8 +81,13 @@ commit = ->
       # TODO show/hide doing_operate ?
       # TODO error process
       task_data = $$state.get('edit_task').toJS()
+      # check task data again (just before create it)
+      task.check_task_data task_data
+      # check task_id
+      task_id = getState().td.get 'next_task_id'
+      task.check_task_id task_id  # throw
 
-      await task.create_task task_data
+      await dispatch a_task.create_task(task_data)
       # page: go back
       dispatch n_action.back()
       # reset after create task success
@@ -100,7 +99,6 @@ commit = ->
 
 module.exports = {
   EDIT_TASK_RESET
-  EDIT_TASK_SET_TASK_ID
   EDIT_TASK_SET_TYPE
   EDIT_TASK_SET_TITLE
   EDIT_TASK_SET_DESC
@@ -112,7 +110,6 @@ module.exports = {
   EDIT_TASK_COMMIT
 
   reset
-  set_task_id
   set_type
   set_title
   set_desc

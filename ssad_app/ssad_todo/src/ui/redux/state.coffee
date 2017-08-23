@@ -27,7 +27,6 @@ init_state = {  # with Immutable
     # create/edit task
     edit_task: {
       # common task attr
-      task_id: null
       type: 'oneshot'  # 'regular', 'oneshot'
       #_time  # TODO
       title: ''
@@ -43,31 +42,6 @@ init_state = {  # with Immutable
       time_base: 'last'  #  'last', 'fixed' (first)
     }
 
-    # loaded td data (cache)
-    task_info: {
-      task: {}  # TASK_ID to task data
-      # {
-      #   TASK_ID: {  # one task info
-      #     raw: {}  # `.task.json`  task storage (file) data
-      #     history: {  # history data
-      #       HISTORY_NAME: {  # one history info  (_time)
-      #         raw: {}  # `.task_history.json`  history storage data
-      #         hide: false  # history hide flag
-      #       }
-      #     }
-      #     # TODO save full history items list here ?
-      #   }
-      # }
-      enable_list: {}  # enabled task list
-      # {
-      #   LAST_UPDATE_TIME: TASK_ID
-      # }
-      disabled_list: {}  # disabled task list
-      # {
-      #   _TIME: TASK_ID
-      # }
-      # TODO save full disabled task list here ?
-    }
     # load tasks progress
     init_load_progress: {
       now: 0
@@ -77,8 +51,31 @@ init_state = {  # with Immutable
     # flag: doing operation
     op_doing: false
     # TODO show error ?
+  }
+  # td: loaded td data (cache)
+  td: {
+    next_task_id: null  # _NEXT_TASK_ID
+    task_list: [        # _TASK_LIST  enabled task list
+      # TASK_ID
+    ]
+    disabled_list: [    # _DISABLED_LIST  disabled task list
+      # ISO_TIME..TASK_ID
+    ]
 
-    # TODO
+    # task info
+    task: {
+      # TASK_ID: {    # one task item
+      #   raw: {}     # `.task.json`  task storage (file) data
+      #   history: {  # history data
+      #     HISTORY_NAME: {  # one history item  (_time)
+      #       # raw: `.task_history.json`  history storage data
+      #     }
+      #   }
+      #   history_list: {  # _HISTORY_LIST
+      #     # name: HIDE
+      #   }
+      # }
+    }
   }
 }
 
