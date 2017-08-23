@@ -88,8 +88,6 @@ Page = cC {
         },
         # TODO support edit reset ?
         # TODO improve render style ?  (data show method)
-        # error info
-        @_render_error()
         # common task attr
         @_render_task_common()
         # check task type
@@ -102,6 +100,8 @@ Page = cC {
         )
         # null-fill
         #(cE 'div', { className: 'sub_null_fill' })
+        # error info
+        @_render_error()
         # main button
         (cE MainButton, {
           text: 'OK'

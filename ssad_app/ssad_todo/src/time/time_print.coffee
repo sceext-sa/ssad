@@ -100,4 +100,59 @@ print_time = (data) ->
     o.push _print_one_time(i)
   o.join ' / '
 
-module.exports = print_time
+
+_get_n_days_ago = (date) ->
+  da = _offset_date date
+  now = _offset_date new Date()
+  nd = new Date now
+  nd.setUTCFullYear da.getUTCFullYear()
+  nd.setUTCMonth da.getUTCMonth()
+  nd.setUTCDate da.getUTCDate()
+  delta_ms = now.getTime() - nd.getTime()
+  Number.parseInt(delta_ms / 1e3 / 86400)
+
+print_iso_date_short = (date) ->
+  n_days_ago = _get_n_days_ago date
+  d = _offset_date date
+  now = _offset_date new Date()
+  # today
+  if n_days_ago is 0
+    return 'today'  # TODO print month-day ?
+  # yesterday
+  if n_days_ago is 1
+    return 'yesterday'
+  # print month-day
+  month = _zero_len d.getUTCMonth(), 2
+  day = _zero_len d.getUTCDate(), 2
+  o = "#{month}-#{day}"
+  # check year is same
+  if d.getUTCFullYear() != now.getUTCFullYear()
+    year = _zero_len d.getUTCFullYear(), 4
+    o = "#{year}-#{o}"
+  # add n-days-ago
+  if n_days_ago < 32  # TODO change limit ?
+    o = "#{o} (#{n_days_ago} days ago)"
+  # add week
+  week = _print_day_in_week d.getUTCDay()
+  "#{o} #{week}"
+
+print_iso_time_short = (date) ->
+  n_days_ago = _get_n_days_ago date
+  d = _offset_date date
+  now = _offset_date new Date()
+  o = ''
+  # not today, print date first
+  if n_days_ago > 0
+    o = print_iso_date_short(date) + ' '
+  # just print time (without second)
+  hour = _zero_len d.getUTCHours(), 2
+  minute = _zero_len d.getUTCMinutes(), 2
+  # TODO support n_minutes_ago ?
+  "#{o}#{hour}:#{minute}"
+
+
+module.exports = {
+  print_time
+  print_iso_date_short
+  print_iso_time_short
+}

@@ -1,7 +1,7 @@
 # task_check.coffee, ssad/ssad_app/ssad_todo/src/task/
 
+time = require '../time/time'
 time_parse = require '../time/time_parse'
-print_time = require '../time/time_print'
 
 
 # TODO improve: strict task time check ?
@@ -61,7 +61,7 @@ check_time_interval = (text) ->
 
 _print_time = (text) ->
   data = time_parse.parse_time_str text
-  print_time data
+  time.print_time data
 
 check_form = (data) ->
   _STATE_OK = 'success'
