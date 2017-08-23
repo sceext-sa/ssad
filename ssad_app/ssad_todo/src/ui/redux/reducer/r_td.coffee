@@ -2,6 +2,8 @@
 
 Immutable = require 'immutable'
 
+task_calc = require '../../../task/task_calc'
+
 state = require '../state'
 ac = require '../action/a_td'
 
@@ -11,6 +13,20 @@ _check_init_state = ($$state) ->
   if ! $$o?
     $$o = Immutable.fromJS state.td
   $$o
+
+# update one task calc attr
+_calc_task = ($$o, task_id) ->
+  # task current status
+  data = $$o.getIn(['task', task_id]).toJS()
+
+  status = task_calc.get_current_status data
+  $$o = $$o.setIn ['task', task_id, 'status'], status
+
+  text = task_calc.get_latest_text data
+  $$o = $$o.setIn ['task', task_id, 'text'], text
+
+  $$o
+
 
 # $$state: state.td
 reducer = ($$state, action) ->
@@ -28,7 +44,8 @@ reducer = ($$state, action) ->
       $$data = Immutable.fromJS action.payload.data
       # task must exist (loaded before)
       $$o = $$o.setIn ['task', action.payload.task_id, 'history_list'], $$data
-      # TODO update task calc attr ?
+
+      $$o = _calc_task $$o, action.payload.task_id
     when ac.TD_UPDATE_TASK
       task_id = action.payload.task_id
       # check task already exist
@@ -36,7 +53,6 @@ reducer = ($$state, action) ->
         # exist, only update raw
         $$data = Immutable.fromJS action.payload.data
         $$o = $$o.setIn ['task', task_id, raw], $$data
-        # TODO update task calc attr ?
       else  # not exist, create a new task
         one_task = {
           raw: action.payload.data
@@ -45,12 +61,14 @@ reducer = ($$state, action) ->
         }
         $$data = Immutable.fromJS one_task
         $$o = $$o.setIn ['task', task_id], $$data
-        # TODO update task calc attr ?
+
+      $$o = _calc_task $$o, task_id
     when ac.TD_UPDATE_HISTORY
       $$data = Immutable.fromJS action.payload.data
       # task must exist
       $$o = $$o.setIn ['task', action.payload.task_id, 'history', action.payload.history_name], $$data
-      # TODO update task calc attr ?
+
+      $$o = _calc_task $$o, action.payload.task_id
     #else: ignore
   $$o
 

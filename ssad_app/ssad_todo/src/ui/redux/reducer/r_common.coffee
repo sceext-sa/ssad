@@ -8,6 +8,7 @@ ac = require '../action/a_common'
 r_welcome = require './r_welcome'
 r_task_info = require './r_task_info'
 r_edit_create_task = require './r_edit_create_task'
+r_enable_task_list = require './r_enable_task_list'
 # TODO
 
 
@@ -38,6 +39,7 @@ reducer = ($$state, action) ->
         r_task_info $$t, action
       $$o = $$o.update 'edit_task', ($$e) ->
         r_edit_create_task $$e, action
+      $$o = r_enable_task_list $$o, action
   $$o
 
 module.exports = reducer

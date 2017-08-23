@@ -1,0 +1,79 @@
+// sub_task.less, ssad/ssad_app/ssad_todo/style/
+
+.ssad_todo {
+
+  .sub_task_item {
+    box-sizing: border-box;
+    border-bottom-style: solid;
+    border-bottom-width: 0.05rem;
+    border-bottom-color: @co_bg_sec;
+
+    display: flex;
+    flex-direction: row;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 0.5rem;
+      background-color: @co_light;
+    }
+
+    .left, .right {
+      box-sizing: border-box;
+    }
+    .left {
+      flex: 1;
+      padding: 1rem;
+      padding-right: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      .up, .down {
+        width: 100%;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: row;
+      }
+      .up {
+        .type, .status {
+          color: @co_text_sec;
+        }
+        .title {
+          padding-left: 0.5em;
+          color: @co_title;
+          flex: 1;
+          // TODO support too-long title hide ?
+        }
+        .time {
+          color: @co_text_sec;  // TODO
+        }
+      }
+      .down {
+        padding-top: 0.5rem;
+        color: @co_text_default;
+      }
+    }
+    .right {
+      width: 3.5rem;
+      padding-left: 0.5rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text-align: center;
+      cursor: pointer;
+      color: @co_text_sec;
+
+      transition-property: background-color;
+      transition-duration: @trans_t;
+      &:hover {
+        background-color: mix(@co_bg_btn_touch, @co_bg_nav, @btn_touch_mix);
+        transition-duration: 0s;
+      }
+    }
+  }
+  // TODO
+}

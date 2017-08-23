@@ -20,6 +20,9 @@ init_state = {  # with Immutable
     now: null
     # TODO time-zone config ?
 
+    # enable_task_list
+    show_list: 'current'  # 'current', 'err', 'ok'
+
     # current task
     task_id: null
     # is create task (or false: edit task)
@@ -74,6 +77,10 @@ init_state = {  # with Immutable
       #   history_list: {  # _HISTORY_LIST
       #     # name: HIDE
       #   }
+      #   # calc attr of one task
+      #   status: ''  # task current status
+      #   text: ''  # task latest text (note or desc)
+      #   last_time: ''  # TODO last update time, used for sort tasks (task list)
       # }
     }
   }

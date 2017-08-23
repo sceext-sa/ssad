@@ -39,7 +39,7 @@ init_load = ->
     enable_list = $$td.get('task_list').toJS()
     disabled_list = $$td.get('disabled_list').toJS()
     # to-load count
-    count_to_load_disabled = enable_list.length
+    count_to_load_disabled = disabled_list.length
     if count_to_load_disabled > config.DEFAULT_LOAD_DISABLED_N
       count_to_load_disabled = config.DEFAULT_LOAD_DISABLED_N
     count_to_load = enable_list.length + count_to_load_disabled
@@ -178,8 +178,13 @@ update_task = (data) ->
       type: T_UPDATE_TASK
       payload: data
     }
-    # TODO
-    await return
+    $$main = getState().main
+    task_id = $$main.get 'task_id'
+
+    to = _make_task_data task_id, data
+    await td.update_task to
+    # update data
+    await dispatch a_td.load_task(task_id)
 
 disable_task = (task_id) ->
   (dispatch, getState) ->
@@ -189,19 +194,28 @@ disable_task = (task_id) ->
         task_id
       }
     }
-    # TODO
-    await return
 
-enable_task = (task_name) ->
+    time = new Date().toISOString()
+    await td.disable_task task_id, time
+    # update task list
+    await dispatch a_td.load_task_list()
+    await dispatch a_td.load_disabled_list()
+
+enable_task = (task_id) ->
   (dispatch, getState) ->
     dispatch {
       type: T_ENABLE_TASK
       payload: {
-        task_name  # TODO maybe task_id ?
+        task_id
       }
     }
-    # TODO
-    await return
+
+    await td.enable_task task_id
+    # update task list
+    await dispatch a_td.load_task_list()
+    await dispatch a_td.load_disabled_list()
+    # load task and history
+    await dispatch load_one_task(task_id)
 
 change_status = (task_id, status) ->
   (dispatch, getState) ->
@@ -212,8 +226,13 @@ change_status = (task_id, status) ->
         status
       }
     }
-    # TODO
-    await return
+
+    h = one_history.create_history task_id, one_history.TYPE_STATUS, status
+    await td.create_history h
+    # update data
+    await dispatch a_td.load_history_list(task_id)
+    # load the new history item
+    await dispatch a_td.load_history(task_id, h._time)
 
 add_comment = (task_id, text) ->
   (dispatch, getState) ->
@@ -224,8 +243,12 @@ add_comment = (task_id, text) ->
         text
       }
     }
-    # TODO
-    await return
+
+    h = one_history.create_history task_id, one_history.TYPE_NOTE, null, text
+    await td.create_history h
+    # update data
+    await dispatch a_td.load_history_list(task_id)
+    await dispatch a_td.load_history(task_id, h._time)
 
 hide_history = (task_id, history_name) ->
   (dispatch, getState) ->
@@ -236,8 +259,10 @@ hide_history = (task_id, history_name) ->
         history_name
       }
     }
-    # TODO
-    await return
+
+    await td.hide_history task_id, history_name
+    # update data
+    await dispatch a_td.load_history_list(task_id)
 
 show_history = (task_id, history_name) ->
   (dispatch, getState) ->
@@ -248,8 +273,10 @@ show_history = (task_id, history_name) ->
         history_name
       }
     }
-    # TODO
-    await return
+
+    await td.show_history task_id, history_name
+    # update data
+    await dispatch a_td.load_history_list(task_id)
 
 module.exports = {
   T_INIT_LOAD

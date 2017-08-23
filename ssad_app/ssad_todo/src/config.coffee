@@ -1,6 +1,6 @@
 # config.coffee, ssad/ssad_app/ssad_todo/src/
 
-P_VERSION = 'ssad_todo version 0.1.0-1 test20170823 1844'
+P_VERSION = 'ssad_todo version 0.1.0-1 test20170824 0113'
 
 # localStorage key
 LOCAL_STORAGE_KEY = 'ssad_todo_config'
