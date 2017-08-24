@@ -6,6 +6,8 @@
 cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
+task = require '../../task/task'
+
 
 TaskItem = cC {
   displayName: 'TaskItem'
@@ -17,21 +19,6 @@ TaskItem = cC {
     text: PropTypes.string.isRequired
     # TODO time/ddl ?
     on_show_task: PropTypes.func.isRequired
-  }
-
-  _TASK_TYPE: {
-    'oneshot': 'o'
-    'regular': 'r'
-  }
-  _TASK_STATUS: {
-    'init': 'I'
-    'wait': 'W'
-    'doing': 'D'
-    'paused': 'P'
-    'done': 'O'
-    'fail': 'F'
-    'cancel': 'C'
-    'disabled': 'S'
   }
 
   _on_click: ->
@@ -50,12 +37,12 @@ TaskItem = cC {
           (cE 'span', {
             className: 'type'
             },
-            "#{@_TASK_TYPE[@props.type]}"
+            (task.get_short_task_type @props.type)
           )
           (cE 'span', {
             className: 'status'
             },
-            "#{@_TASK_STATUS[@props.status]}"
+            (task.get_short_task_status @props.status)
           )
           (cE 'span', {
             className: 'title'

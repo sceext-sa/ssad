@@ -104,14 +104,17 @@ Page = cC {
         # error info
         @_render_error()
         # main button
-        (cE MainButton, {
-          text: 'OK'
-          disabled: (! @props.enable_commit)
-
-          on_click: @props.edit_commit
-          })
+        @_render_main_button()
       )
     )
+
+  _render_main_button: ->
+    # not show disabled button
+    if @props.enable_commit
+      (cE MainButton, {
+        text: 'OK'
+        on_click: @props.edit_commit
+        })
 
   _render_help_block: (text) ->
     if text?

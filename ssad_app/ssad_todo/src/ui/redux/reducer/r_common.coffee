@@ -6,9 +6,9 @@ state = require '../state'
 ac = require '../action/a_common'
 # sub reducers
 r_welcome = require './r_welcome'
-r_task_info = require './r_task_info'
 r_edit_create_task = require './r_edit_create_task'
 r_enable_task_list = require './r_enable_task_list'
+r_one_task = require './r_one_task'
 # TODO
 
 
@@ -35,11 +35,10 @@ reducer = ($$state, action) ->
 
     else  # call sub reducers
       $$o = r_welcome $$o, action
-      $$o = $$o.update 'task_info', ($$t) ->
-        r_task_info $$t, action
       $$o = $$o.update 'edit_task', ($$e) ->
         r_edit_create_task $$e, action
       $$o = r_enable_task_list $$o, action
+      $$o = r_one_task $$o, action
   $$o
 
 module.exports = reducer

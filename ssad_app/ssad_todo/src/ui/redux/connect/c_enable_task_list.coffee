@@ -21,6 +21,7 @@ _make_count_and_show_list = ($$main, $$td) ->
     done: []
     fail: []
     cancel: []
+    disabled: []  # only for BUG fix
   }
   for i in task_list
     if task[i]?

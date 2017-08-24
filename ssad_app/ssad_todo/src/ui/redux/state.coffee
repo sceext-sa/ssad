@@ -22,6 +22,14 @@ init_state = {  # with Immutable
 
     # enable_task_list
     show_list: 'current'  # 'current', 'err', 'ok'
+    # p_one_task
+    show_detail: false
+    # change_status
+    cs: {
+      status: null  # current selected status
+      disabled: false  # enable/disable task
+      comment: ''  # add comment function
+    }
 
     # current task
     task_id: null
@@ -78,6 +86,7 @@ init_state = {  # with Immutable
       #     # name: HIDE
       #   }
       #   # calc attr of one task
+      #   disabled: false  # is task disabled
       #   status: ''  # task current status
       #   text: ''  # task latest text (note or desc)
       #   last_time: ''  # TODO last update time, used for sort tasks (task list)

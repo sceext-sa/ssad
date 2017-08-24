@@ -5,6 +5,9 @@ task_check = require './task_check'
 {
   check_task_data
   check_task_id
+
+  get_short_task_type
+  get_short_task_status
 } = require './task_op'
 
 
@@ -13,4 +16,7 @@ module.exports = {
   check_task_id  # throw
 
   check_form: task_check.check_form
+
+  get_short_task_type
+  get_short_task_status
 }

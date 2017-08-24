@@ -9,7 +9,7 @@ PropTypes = require 'prop-types'
 NavTop = cC {
   displayName: 'NavTop'
   propTypes: {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string
     title_center: PropTypes.bool
 
     on_back: PropTypes.func
@@ -25,20 +25,24 @@ NavTop = cC {
         '<'
       )
 
-  render: ->
+  _render_title: ->
     title_class = 'title'
     if @props.title_center
       title_class += ' center'
 
-    (cE 'div', {
-      className: 'nav_top'
-      },
-      @_render_back()
+    if @props.title?
       (cE 'span', {
         className: title_class
         },
         @props.title
       )
+
+  render: ->
+    (cE 'div', {
+      className: 'nav_top'
+      },
+      @_render_back()
+      @_render_title()
       # right button
       @props.children
     )

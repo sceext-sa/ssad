@@ -39,7 +39,34 @@ check_task_id = (id) ->
     throw new Error "bad task_id: #{id}"
 
 
+# for render tasks
+
+_TASK_TYPE = {
+  'oneshot': 'o'
+  'regular': 'r'
+}
+_TASK_STATUS = {
+  'init': 'I'
+  'wait': 'W'
+  'doing': 'D'
+  'paused': 'P'
+  'done': 'O'
+  'fail': 'F'
+  'cancel': 'C'
+  'disabled': 'S'
+}
+
+get_short_task_type = (type) ->
+  _TASK_TYPE[type]
+
+get_short_task_status = (status) ->
+  _TASK_STATUS[status]
+
+
 module.exports = {
   check_task_data  # throw
   check_task_id  # throw
+
+  get_short_task_type
+  get_short_task_status
 }

@@ -122,7 +122,7 @@ print_iso_date_short = (date) ->
   if n_days_ago is 1
     return 'yesterday'
   # print month-day
-  month = _zero_len d.getUTCMonth(), 2
+  month = _zero_len (d.getUTCMonth() + 1), 2
   day = _zero_len d.getUTCDate(), 2
   o = "#{month}-#{day}"
   # check year is same

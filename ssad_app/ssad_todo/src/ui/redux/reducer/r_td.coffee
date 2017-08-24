@@ -17,7 +17,10 @@ _check_init_state = ($$state) ->
 # update one task calc attr
 _calc_task = ($$o, task_id) ->
   # task current status
-  data = $$o.getIn(['task', task_id]).toJS()
+  $$data = $$o.getIn(['task', task_id])
+  if ! $$data?
+    return $$o
+  data = $$data.toJS()
 
   status = task_calc.get_current_status data
   $$o = $$o.setIn ['task', task_id, 'status'], status
@@ -25,6 +28,21 @@ _calc_task = ($$o, task_id) ->
   text = task_calc.get_latest_text data
   $$o = $$o.setIn ['task', task_id, 'text'], text
 
+  # task disabled ?  (check)
+  enable_list = $$o.get('task_list').toJS()
+  if enable_list.indexOf(task_id) != -1
+    disabled = false
+  else
+    disabled = true
+    # change current status
+    $$o = $$o.setIn ['task', task_id, 'status'], 'disabled'
+  $$o = $$o.setIn ['task', task_id, 'disabled'], disabled
+
+  $$o
+
+_calc_all_task = ($$o, enable_list) ->
+  for i in enable_list
+    $$o = _calc_task $$o, i
   $$o
 
 
@@ -37,6 +55,8 @@ reducer = ($$state, action) ->
     when ac.TD_UPDATE_TASK_LIST
       $$data = Immutable.fromJS action.payload
       $$o = $$o.set 'task_list', $$data
+      # update all tasks
+      $$o = _calc_all_task $$o, action.payload
     when ac.TD_UPDATE_DISABLED_LIST
       $$data = Immutable.fromJS action.payload
       $$o = $$o.set 'disabled_list', $$data
