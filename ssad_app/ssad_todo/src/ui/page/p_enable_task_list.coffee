@@ -130,7 +130,7 @@ TaskTop = cC {
 Page = cC {
   displayName: 'PEnableTaskList'
   propTypes: {
-    task: PropTypes.object.isRequired  # task data
+    task: PropTypes.object  # task data
     show_list: PropTypes.array.isRequired  # task items to show
 
     count_before: PropTypes.number.isRequired  # before_list items count

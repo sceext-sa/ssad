@@ -23,7 +23,7 @@ Page = cC {
   displayName: 'PEditCreateTask'
   propTypes: {
     is_create_task: PropTypes.bool.isRequired
-    task_id: PropTypes.number.isRequired
+    task_id: PropTypes.number
     task_data: PropTypes.object.isRequired  # state.main.edit_task
     enable_commit: PropTypes.bool  # support check task data
     task_check_form: PropTypes.object.isRequired

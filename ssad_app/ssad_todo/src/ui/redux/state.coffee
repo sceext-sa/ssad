@@ -26,6 +26,7 @@ init_state = {  # with Immutable
     show_detail: false
     # change_status
     cs: {
+      task_id: null  # working task_id
       status: null  # current selected status
       disabled: false  # enable/disable task
       comment: ''  # add comment function

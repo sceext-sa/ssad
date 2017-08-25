@@ -9,7 +9,7 @@ r_welcome = require './r_welcome'
 r_edit_create_task = require './r_edit_create_task'
 r_enable_task_list = require './r_enable_task_list'
 r_one_task = require './r_one_task'
-# TODO
+r_change_status = require './r_change_status'
 
 
 _check_init_state = ($$state) ->
@@ -39,6 +39,8 @@ reducer = ($$state, action) ->
         r_edit_create_task $$e, action
       $$o = r_enable_task_list $$o, action
       $$o = r_one_task $$o, action
+      $$o = $$o.update 'cs', ($$c) ->
+        r_change_status $$c, action
   $$o
 
 module.exports = reducer

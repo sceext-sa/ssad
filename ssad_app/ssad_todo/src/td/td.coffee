@@ -37,7 +37,7 @@ get_uuid_namespace = ->
   return n
 
 make_disabled_task_name = (task_id, _time) ->
-  path.join td_tree.DIR_DISABLED, td_file.name_disabled_task(_time, task_id)
+  path.join td_tree.DIR_DISABLED, td_file.name_disabled_task(_time, task_id, true)
 
 
 module.exports = {

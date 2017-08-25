@@ -3,6 +3,8 @@
 n_action = require '../nav/n_action'
 a_common = require './a_common'
 a_edit_create_task = require './a_edit_create_task'
+a_change_status = require './a_change_status'
+
 
 # action types
 
@@ -63,8 +65,21 @@ change_status = ->
     dispatch {
       type: OT_CHANGE_STATUS
     }
-    # TODO
-    await return
+    $$state = getState().main
+    # check task_id
+    cs_task_id = $$state.getIn ['cs', 'task_id']
+    task_id = $$state.get 'task_id'
+    if cs_task_id != task_id
+      # reset first
+      dispatch a_change_status.reset()
+      # load data
+      dispatch a_change_status.set_task_id(task_id)
+
+      task = getState().td.getIn(['task', task_id]).toJS()
+      dispatch a_change_status.set_status(task.status)
+      dispatch a_change_status.set_disabled(task.disabled)
+    # go to that page
+    dispatch n_action.go('page_change_status')
 
 change_show_detail = (show) ->
   {

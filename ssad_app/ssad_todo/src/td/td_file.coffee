@@ -25,8 +25,12 @@ path_one_history = (task_id) ->
 path_one_back = (task_id) ->
   path.join path_back(), task_id.toString()
 
-name_disabled_task = (_time, task_id) ->
-  "#{_time}..#{task_id}#{td_tree.SUFFIX_TASK}"
+name_disabled_task = (_time, task_id, no_suffix) ->
+  o = "#{_time}..#{task_id}"
+  if ! no_suffix
+    o = "#{o}#{td_tree.SUFFIX_TASK}"
+  o
+
 name_task = (task_id) ->
   "#{task_id}#{td_tree.SUFFIX_TASK}"
 name_max_task_id = (max) ->

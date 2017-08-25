@@ -18,7 +18,7 @@ NavTop = require '../sub/nav_top'
 Page = cC {
   displayName: 'POneTask'
   propTypes: {
-    task_id: PropTypes.number.isRequired
+    task_id: PropTypes.number
     data: PropTypes.object  # task data
     show_detail: PropTypes.bool.isRequired
     history_list: PropTypes.array  # history items to show

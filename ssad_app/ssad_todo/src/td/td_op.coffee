@@ -106,7 +106,12 @@ _check_task_exist = (task_id, not_exist) ->
 
 _check_disabled_task_exist = (task_id, not_exist) ->
   f = []
-  l = await td_file.list_dir td_file.path_disabled()
+  l = []
+  try
+    l = await td_file.list_dir td_file.path_disabled()
+  catch e
+    console.log "WARNING: td_op._check_disabled_task_exist: #{e}  #{e.stack}"
+
   for i in l
     if i.endsWith td_tree.SUFFIX_TASK
       id = Number.parseInt i.split('..')[1].split('.')[0]

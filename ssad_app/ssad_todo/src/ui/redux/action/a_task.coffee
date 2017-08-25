@@ -66,6 +66,7 @@ init_load = ->
       if i >= disabled_list.length
         break
       p = disabled_list[i].split '..'  # ISO_TIME..TASK_ID
+
       task_name = td.make_disabled_task_name p[1], p[0]
       await dispatch a_td.load_task(task_name)
 
