@@ -7,6 +7,7 @@ a_task = require './a_task'
 # action types
 
 ET_RESET = 'et_reset'
+ET_SET_TASK_ID = 'et_set_task_id'
 ET_SET_TYPE = 'et_set_type'
 ET_SET_TITLE = 'et_set_title'
 ET_SET_DESC = 'et_set_desc'
@@ -22,6 +23,12 @@ ET_COMMIT = 'et_commit'
 reset = ->
   {
     type: ET_RESET
+  }
+
+set_task_id = (task_id) ->
+  {
+    type: ET_SET_TASK_ID
+    payload: task_id
   }
 
 set_type = (type) ->
@@ -87,29 +94,36 @@ commit = ->
     $$state = getState().main
     # check create / edit task
     is_create_task = $$state.get 'is_create_task'
-    if is_create_task
-      # create task
-      # TODO show/hide doing_operate ?
-      # TODO error process
+    # TODO show/hide doing_operate ?
+    # TODO error process
+    _check_task_data = (task_id) ->
       task_data = $$state.get('edit_task').toJS()
-      # check task data again (just before create it)
+      # check task data again (just before create/update it)
       task.check_task_data task_data
       # check task_id
-      task_id = getState().td.get 'next_task_id'
       task.check_task_id task_id  # throw
+      task_data
+
+    if is_create_task
+      # create task
+      task_id = getState().td.get 'next_task_id'
+      task_data = _check_task_data task_id  # throw
 
       await dispatch a_task.create_task(task_data)
-      # page: go back
-      dispatch n_action.back()
-      # reset after create task success
-      dispatch reset()
-    else
-      # TODO update task
-      console.log "WARNING: a_edit_create_task.commit: update task not finished !"
+    else  # update task
+      task_id = $$state.get 'task_id'
+      task_data = _check_task_data task_id  # throw
+
+      await dispatch a_task.update_task(task_data)
+    # page: go back
+    dispatch n_action.back()
+    # reset after create/update task success
+    dispatch reset()
 
 
 module.exports = {
   ET_RESET
+  ET_SET_TASK_ID
   ET_SET_TYPE
   ET_SET_TITLE
   ET_SET_DESC
@@ -122,6 +136,7 @@ module.exports = {
   ET_COMMIT
 
   reset
+  set_task_id
   set_type
   set_title
   set_desc

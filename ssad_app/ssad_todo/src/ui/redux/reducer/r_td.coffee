@@ -91,7 +91,7 @@ reducer = ($$state, action) ->
       if $$o.getIn(['task', task_id])?
         # exist, only update raw
         $$data = Immutable.fromJS action.payload.data
-        $$o = $$o.setIn ['task', task_id, raw], $$data
+        $$o = $$o.setIn ['task', task_id, 'raw'], $$data
       else  # not exist, create a new task
         one_task = {
           raw: action.payload.data

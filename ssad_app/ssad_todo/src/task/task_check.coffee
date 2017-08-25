@@ -142,6 +142,42 @@ check_form = (data) ->
   o
 
 
+check_task_change = (old, d) ->
+  o = old.raw.data
+  # skip: 'task_id', 'type' must be same
+
+  # check title
+  if o.title != d.title
+    throw "title changed"
+  # check desc
+  if o.desc != d.desc
+    throw "desc changed"
+  # check optional attr
+  _check_opt_attr = (old, b, text) ->
+    if old?
+      old = old.trim()
+    b = b.trim()
+    if b is ''
+      b = null
+    # if one is null, another is not, throw
+    if (old? and (! b?)) or ((! old?) and b?)
+      throw text
+    # both is not null
+    if (old? and b?) and (old != b)
+      throw text
+    # else: both null
+  _check_opt_attr o.time.planned_start, d.time.planned_start, 'time.planned_start'
+  _check_opt_attr o.time.ddl, d.time.ddl, 'time.ddl'
+  _check_opt_attr o.time.duration_limit, d.time.duration_limit, 'time.duration_limit'
+  _check_opt_attr o.time.auto_ready, d.time.auto_ready, 'time.auto_ready'
+
+  # checks only for regular task
+  if o.type is 'regular'
+    _check_opt_attr o.time.interval, d.time.interval, 'time.interval'
+    _check_opt_attr o.time_base, d.time_base, 'time_base'
+  # check done
+
+
 module.exports = {
   check_time_planned_start  # throw
   check_time_ddl  # throw
@@ -150,4 +186,5 @@ module.exports = {
   check_time_interval  # throw
 
   check_form
+  check_task_change  # throw
 }

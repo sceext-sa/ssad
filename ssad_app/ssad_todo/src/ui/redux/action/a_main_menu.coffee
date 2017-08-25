@@ -19,6 +19,9 @@ create_task = ->
       dispatch a_common.set_is_create_task(true)
       # reset edit
       dispatch a_edit_create_task.reset()
+    # always set task_id
+    next_task_id = getState().td.get 'next_task_id'
+    dispatch a_edit_create_task.set_task_id(next_task_id)
     # go to that page
     dispatch n_action.go 'page_edit_create_task'
 

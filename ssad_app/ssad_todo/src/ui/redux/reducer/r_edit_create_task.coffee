@@ -11,6 +11,8 @@ reducer = ($$o, action) ->
   switch action.type
     when ac.ET_RESET
       $$o = Immutable.fromJS state.main.edit_task
+    when ac.ET_SET_TASK_ID
+      $$o = $$o.set 'task_id', action.payload
     when ac.ET_SET_TYPE
       $$o = $$o.set 'type', action.payload
     when ac.ET_SET_TITLE

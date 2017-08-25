@@ -16,6 +16,7 @@ module.exports = {
   check_task_id  # throw
 
   check_form: task_check.check_form
+  check_task_change: task_check.check_task_change  # throw
 
   get_short_task_type
   get_short_task_status

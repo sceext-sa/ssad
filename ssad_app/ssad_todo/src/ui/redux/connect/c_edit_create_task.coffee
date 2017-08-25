@@ -14,10 +14,7 @@ mapStateToProps = (state, props) ->
 
   is_create_task = $$state.get 'is_create_task'
   # task_id
-  if is_create_task
-    task_id = $$td.get 'next_task_id'
-  else
-    task_id = $$state.get 'task_id'
+  task_id = $$state.getIn ['edit_task', 'task_id']
   # check task_data here
   task_data = $$state.get('edit_task').toJS()
   task_data_error = null
@@ -28,6 +25,17 @@ mapStateToProps = (state, props) ->
     task_data_error = "#{e}"
     enable_commit = false
   task_check_form = task.check_form task_data
+  # check task change, only for edit task
+  if (! is_create_task) and enable_commit
+    if task_id?
+      old = $$td.getIn(['task', task_id]).toJS()
+      enable_commit = false  # no commit, if task not change
+      try
+        task.check_task_change old, task_data
+      catch e  # task changed  # TODO FIXME not use throw ?  (unsafe)
+        enable_commit = true
+    else
+      enable_commit = false  # no task_id
 
   {
     is_create_task

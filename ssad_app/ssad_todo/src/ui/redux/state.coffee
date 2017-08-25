@@ -37,6 +37,7 @@ init_state = {  # with Immutable
     is_create_task: false
     # create/edit task
     edit_task: {
+      task_id: null
       # common task attr
       type: 'oneshot'  # 'regular', 'oneshot'
       title: ''

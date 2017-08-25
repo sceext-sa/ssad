@@ -171,7 +171,6 @@ Page = cC {
         },
         "#{raw.data.desc}"
       )
-      # TODO time ?
       p  # oneshot / regular
       # auto_ready
       (@_render_time_attr 'Auto ready', raw.data.time.auto_ready)
