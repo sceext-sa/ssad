@@ -9,13 +9,15 @@ check_task_data = (raw) ->
   if raw.title.trim() is ''
     throw new Error "empty title: #{raw.title}"
   # skip: desc
-  # check time.{ planned_start, ddl, duration_limit }
+  # check time.{ planned_start, ddl, duration_limit, auto_ready }
   if raw.time.planned_start.trim() != ''
     task_check.check_time_planned_start raw.time.planned_start
   if raw.time.ddl.trim() != ''
     task_check.check_time_ddl raw.time.ddl
   if raw.time.duration_limit.trim() != ''
     task_check.check_time_duration_limit raw.time.duration_limit
+  if raw.time.auto_ready.trim() != ''
+    task_check.check_time_auto_ready raw.time.auto_ready
   # check task type
   switch raw.type
     when 'regular'

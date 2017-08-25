@@ -47,6 +47,14 @@ check_time_duration_limit = (text) ->
   _check_unit_throw o, true
   # check pass
 
+check_time_auto_ready = (text) ->
+  o = time_parse.parse_time_str text
+  # TODO improve: strict check ?
+  # at least one item
+  if o.length < 1
+    throw new Error "empty auto_ready"
+  # check pass
+
 check_time_interval = (text) ->
   o = time_parse.parse_time_str text
   # TODO improve: strict check ?
@@ -106,6 +114,8 @@ check_form = (data) ->
   o.time_ddl = _check_optional_time data.time.ddl, check_time_ddl
   # check time.duration_limit (optional)
   o.time_duration_limit = _check_optional_time data.time.duration_limit, check_time_duration_limit
+  # check time.auto_ready (optional)
+  o.time_auto_ready = _check_optional_time data.time.auto_ready, check_time_auto_ready
 
   # task regular:
   if data.type is 'regular'
@@ -136,6 +146,7 @@ module.exports = {
   check_time_planned_start  # throw
   check_time_ddl  # throw
   check_time_duration_limit  # throw
+  check_time_auto_ready  # throw
   check_time_interval  # throw
 
   check_form

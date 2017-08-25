@@ -54,6 +54,8 @@ mapDispatchToProps = (dispatch, props) ->
     dispatch action.set_time_ddl(text)
   o.edit_set_time_duration_limit = (text) ->
     dispatch action.set_time_duration_limit(text)
+  o.edit_set_time_auto_ready = (text) ->
+    dispatch action.set_time_auto_ready(text)
   o.edit_set_time_interval = (text) ->
     dispatch action.set_time_interval(text)
   o.edit_set_time_base = (base) ->

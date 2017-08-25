@@ -39,14 +39,14 @@ init_state = {  # with Immutable
     edit_task: {
       # common task attr
       type: 'oneshot'  # 'regular', 'oneshot'
-      #_time  # TODO
       title: ''
       desc: ''
       # oneshot task attr
       time: {
-        planned_start: ''  # optional
-        ddl: ''  # optional
+        planned_start: ''   # optional
+        ddl: ''             # optional
         duration_limit: ''  # optional
+        auto_ready: ''      # optional
         # regular task attr
         interval: ''  # (required)
       }

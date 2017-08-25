@@ -36,6 +36,7 @@ Page = cC {
     edit_set_time_planned_start: PropTypes.func.isRequired
     edit_set_time_ddl: PropTypes.func.isRequired
     edit_set_time_duration_limit: PropTypes.func.isRequired
+    edit_set_time_auto_ready: PropTypes.func.isRequired
     edit_set_time_interval: PropTypes.func.isRequired
     edit_set_time_base: PropTypes.func.isRequired
     edit_commit: PropTypes.func.isRequired
@@ -62,6 +63,8 @@ Page = cC {
     @props.edit_set_time_ddl event.target.value
   _on_set_time_duration_limit: (event) ->
     @props.edit_set_time_duration_limit event.target.value
+  _on_set_time_auto_ready: (event) ->
+    @props.edit_set_time_auto_ready event.target.value
   _on_set_time_interval: (event) ->
     @props.edit_set_time_interval event.target.value
 
@@ -210,6 +213,22 @@ Page = cC {
           })
         (cE FormControl.Feedback)
         (@_render_help_block @props.task_check_form.time_duration_limit.text)
+      )
+      # auto_ready
+      (cE FormGroup, {
+        validationState: @props.task_check_form.time_auto_ready.state
+        },
+        (cE ControlLabel, null,
+          'time: Auto ready'
+        )
+        (cE FormControl, {
+          type: 'text'
+          value: @props.task_data.time.auto_ready
+          placeholder: 'auto_ready'
+          onChange: @_on_set_time_auto_ready
+          })
+        (cE FormControl.Feedback)
+        (@_render_help_block @props.task_check_form.time_auto_ready.text)
       )
     )
 

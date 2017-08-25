@@ -137,6 +137,10 @@ _make_task_data = (task_id, raw) ->
     t = raw.time.duration_limit.trim()
     if t != ''
       opt.time.duration_limit = t
+  if raw.time.auto_ready?
+    t = raw.time.auto_ready.trim()
+    if t != ''
+      opt.time.auto_ready = t
   if raw.time.interval?
     t = raw.time.interval.trim()
     if t != ''

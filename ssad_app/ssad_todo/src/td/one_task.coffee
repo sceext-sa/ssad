@@ -7,23 +7,21 @@
 #    #_time
 #    title: ''  # one-line text
 #    desc: ''
+#
+#    time: {
+#      planned_start: ''   # optional
+#      ddl: ''             # optional
+#      duration_limit: ''  # optional
+#      auto_ready: ''      # optional
+#     }
 #  }
 #
 # oneshot task attr
-#  {
-#    time: {
-#      planned_start: ''  # optional
-#      ddl: ''  # optional
-#      duration_limit: ''  # optional
-#    }
-#  }
+#  {}
 #
 # regular task attr
 #  {
 #    time: {
-#      planned_start: ''  # optional
-#      ddl: ''  # optional
-#      duration_limit: ''  # optional
 #      interval: ''
 #    }
 #    time_base: 'last'  # 'last', 'fixed' (first)
@@ -72,6 +70,8 @@ _clean_time = (t) ->
     o.ddl = t.ddl
   if t.duration_limit?
     o.duration_limit = t.duration_limit
+  if t.auto_ready?
+    o.auto_ready = t.auto_ready
   o
 
 clean_task_r = (data) ->
