@@ -30,6 +30,8 @@ init_load = ->
     dispatch {
       type: T_INIT_LOAD
     }
+    # `no_calc` is enabled by default
+
     # load (enabled) task list and disabled (task) list first
     await dispatch a_td.load_task_list()
     await dispatch a_td.load_disabled_list()
@@ -71,6 +73,9 @@ init_load = ->
       dispatch a_common.update_init_progress({
         now: count_load
       })
+    # turn-off no_calc
+    dispatch a_td.set_no_calc(false)
+    dispatch a_td.calc_all()  # update all data
     # load done
     dispatch a_common.update_init_progress({
       done: true

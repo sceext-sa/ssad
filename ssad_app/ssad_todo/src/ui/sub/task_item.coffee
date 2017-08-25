@@ -7,6 +7,7 @@ cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
 task = require '../../task/task'
+time = require '../../time/time'
 
 
 TaskItem = cC {
@@ -17,7 +18,8 @@ TaskItem = cC {
     status: PropTypes.string.isRequired
     title: PropTypes.string.isRequired
     text: PropTypes.string.isRequired
-    # TODO time/ddl ?
+    last_time: PropTypes.string.isRequired
+
     on_show_task: PropTypes.func.isRequired
   }
 
@@ -25,6 +27,8 @@ TaskItem = cC {
     @props.on_show_task @props.task_id
 
   render: ->
+    last_time = time.print_iso_time_short new Date(@props.last_time)
+
     (cE 'div', {
       className: 'sub_task_item'
       },
@@ -49,11 +53,11 @@ TaskItem = cC {
             },
             "#{@props.title}"
           )
-          # TODO time/ddl ?
+          # last_time
           (cE 'span', {
             className: 'time'
             },
-            'TODO'
+            "#{last_time}"
           )
         )
         (cE 'div', {

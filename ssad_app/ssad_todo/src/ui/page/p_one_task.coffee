@@ -213,7 +213,7 @@ Page = cC {
         return null
       that._render_info_item 'Time base', raw.data.time_base
 
-    last_update = time.print_iso_time_short new Date(raw._time)
+    last_update = time.print_iso_time_short new Date(raw._time), true, true
 
     (cE 'div', {
       className: 'detail'

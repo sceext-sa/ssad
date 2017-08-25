@@ -15,6 +15,7 @@ TaskItem = require '../sub/task_item'
 TaskTop = cC {
   displayName: 'TaskTop'
   propTypes: {
+    count_before: PropTypes.number.isRequired
     count_current: PropTypes.number.isRequired
     count_err: PropTypes.number.isRequired
     count_ok: PropTypes.number.isRequired
@@ -24,6 +25,8 @@ TaskTop = cC {
     on_nav_back: PropTypes.func.isRequired
   }
 
+  _on_change_list_before: ->
+    @props.on_change_list 'before'
   _on_change_list_current: ->
     @props.on_change_list 'current'
   _on_change_list_err: ->
@@ -33,6 +36,7 @@ TaskTop = cC {
 
   render: ->
     list_class = {
+      before: 'list'
       current: 'list'
       err: 'list'
       ok: 'list'
@@ -42,6 +46,22 @@ TaskTop = cC {
     (cE 'div', {
       className: 'sub_task_top'
       },
+      # before_list
+      (cE 'div', {
+        className: list_class.before
+        onClick: @_on_change_list_before
+        },
+        (cE 'span', {
+          className: 'name before'
+          },
+          '+'
+        )
+        (cE 'span', {
+          className: 'number'
+          },
+          "#{@props.count_before}"
+        )
+      )
       # current_list
       (cE 'div', {
         className: list_class.current
@@ -113,6 +133,7 @@ Page = cC {
     task: PropTypes.object.isRequired  # task data
     show_list: PropTypes.array.isRequired  # task items to show
 
+    count_before: PropTypes.number.isRequired  # before_list items count
     count_current: PropTypes.number.isRequired  # current_list items count
     count_err: PropTypes.number.isRequired  # err_list items count
     count_ok: PropTypes.number.isRequired  # ok_list items count
@@ -129,6 +150,7 @@ Page = cC {
       className: 'page p_enable_task_list'
       },
       (cE TaskTop, {
+        count_before: @props.count_before
         count_current: @props.count_current
         count_err: @props.count_err
         count_ok: @props.count_ok
@@ -182,6 +204,7 @@ Page = cC {
         status: one.status
         title: one.raw.data.title
         text: one.text
+        last_time: one.last_time
 
         on_show_task: @props.on_show_item
       })

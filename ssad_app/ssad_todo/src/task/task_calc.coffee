@@ -31,8 +31,20 @@ get_latest_text = (data) ->
     desc = ''  # use empty str
   desc
 
+# task last update time, for sort task
+get_last_time = (data) ->
+  # get all history time
+  ht = Object.keys data.history_list
+  # add one: task raw last_update time
+  ht.push data.raw._time
+  # sort time
+  ht.sort()
+  ht.reverse()  # use latest one
+  ht[0]
+
 
 module.exports = {
   get_current_status
   get_latest_text
+  get_last_time
 }

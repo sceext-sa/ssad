@@ -19,6 +19,9 @@ TD_UPDATE_HISTORY_LIST = 'td_update_history_list'
 TD_UPDATE_TASK = 'td_update_task'
 TD_UPDATE_HISTORY = 'td_update_history'
 
+TD_SET_NO_CALC = 'td_set_no_calc'
+TD_CALC_ALL = 'td_calc_all'
+
 
 # TODO error process ?
 
@@ -130,6 +133,19 @@ update_history = (task_id, history_name, data) ->
     }
   }
 
+
+set_no_calc = (no_calc) ->
+  {
+    type: TD_SET_NO_CALC
+    payload: no_calc
+  }
+
+calc_all = ->
+  {
+    type: TD_CALC_ALL
+  }
+
+
 module.exports = {
   TD_LOAD_NEXT_TASK_ID
   TD_LOAD_TASK_LIST
@@ -145,6 +161,9 @@ module.exports = {
   TD_UPDATE_TASK
   TD_UPDATE_HISTORY
 
+  TD_SET_NO_CALC
+  TD_CALC_ALL
+
   load_next_task_id  # thunk
   load_task_list  # thunk
   load_disabled_list  # thunk
@@ -158,4 +177,7 @@ module.exports = {
   update_history_list
   update_task
   update_history
+
+  set_no_calc
+  calc_all
 }

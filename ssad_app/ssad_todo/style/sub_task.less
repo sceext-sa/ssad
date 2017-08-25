@@ -10,6 +10,7 @@
 
     display: flex;
     flex-direction: row;
+    position: relative;
 
     &:before {
       content: '';
@@ -47,7 +48,16 @@
           // TODO support too-long title hide ?
         }
         .time {
-          color: @co_text_sec;  // TODO
+          color: @co_text_sec;
+          font-size: 0.7em;
+          position: absolute;
+          top: 0;
+          right: 0;
+          pointer-events: none;
+          padding-top: 0.5rem;
+          padding-right: 1rem;
+          padding-left: 1rem;
+          background-color: @co_bg;
         }
       }
       .down {
@@ -66,7 +76,7 @@
 
       text-align: center;
       cursor: pointer;
-      color: @co_text_sec;
+      color: @co_bg_sec;
 
       transition-property: background-color;
       transition-duration: @trans_t;
@@ -74,6 +84,9 @@
         background-color: mix(@co_bg_btn_touch, @co_bg_nav, @btn_touch_mix);
         transition-duration: 0s;
       }
+
+      position: relative;
+      z-index: 1;
     }
   }
   // TODO

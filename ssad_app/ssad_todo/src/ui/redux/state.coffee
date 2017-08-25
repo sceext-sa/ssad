@@ -21,7 +21,7 @@ init_state = {  # with Immutable
     # TODO time-zone config ?
 
     # enable_task_list
-    show_list: 'current'  # 'current', 'err', 'ok'
+    show_list: 'current'  # 'before', 'current', 'err', 'ok'
     # p_one_task
     show_detail: false
     # change_status
@@ -65,6 +65,8 @@ init_state = {  # with Immutable
   }
   # td: loaded td data (cache)
   td: {
+    no_calc: true  # flag: not calc_task on task update (to speed up init_load)
+
     next_task_id: null  # _NEXT_TASK_ID
     task_list: [        # _TASK_LIST  enabled task list
       # TASK_ID
@@ -89,7 +91,7 @@ init_state = {  # with Immutable
       #   disabled: false  # is task disabled
       #   status: ''  # task current status
       #   text: ''  # task latest text (note or desc)
-      #   last_time: ''  # TODO last update time, used for sort tasks (task list)
+      #   last_time: ''  # last update time, used for sort tasks (task list)
       # }
     }
   }
