@@ -71,6 +71,8 @@ reducer = ($$state, action) ->
     when ac.TD_CALC_ALL
       enable_list = $$o.get('task_list').toJS()
       $$o = _calc_all_task $$o, enable_list
+    when ac.TD_CALC_TASK
+      $$o = _check_calc $$o, action.payload
 
     when ac.TD_UPDATE_TASK_LIST
       $$data = Immutable.fromJS action.payload
@@ -93,10 +95,15 @@ reducer = ($$state, action) ->
         $$data = Immutable.fromJS action.payload.data
         $$o = $$o.setIn ['task', task_id, 'raw'], $$data
       else  # not exist, create a new task
+        raw = action.payload.data
         one_task = {
-          raw: action.payload.data
+          raw
           history: {}
           history_list: {}
+          disabled: true  # disabled by default
+          status: 'disabled'
+          text: raw.data.desc  # no history by default
+          last_time: raw.data._time
         }
         $$data = Immutable.fromJS one_task
         $$o = $$o.setIn ['task', task_id], $$data

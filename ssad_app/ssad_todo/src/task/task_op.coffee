@@ -56,6 +56,7 @@ _TASK_STATUS = {
   'fail': 'F'
   'cancel': 'C'
   'disabled': 'S'
+  'ready': 'R'
 }
 
 get_short_task_type = (type) ->

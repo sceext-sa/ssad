@@ -210,6 +210,7 @@ disable_task = (task_id) ->
     # update task list
     await dispatch a_td.load_task_list()
     await dispatch a_td.load_disabled_list()
+    dispatch a_td.calc_task(task_id)
 
 enable_task = (task_id) ->
   (dispatch, getState) ->

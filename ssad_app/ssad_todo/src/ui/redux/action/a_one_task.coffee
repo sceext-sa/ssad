@@ -46,6 +46,9 @@ edit_task = ->
     is_create_task = $$state.get 'is_create_task'
     edit_task_id = $$state.getIn ['edit_task', 'task_id']
     task_id = $$state.get 'task_id'
+    # check task disabled
+    if getState().td.getIn(['task', task_id, 'disabled'])
+      return  # disabled task can not edit
 
     if is_create_task or (edit_task_id != task_id)
       # set is_create_task

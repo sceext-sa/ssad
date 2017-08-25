@@ -7,7 +7,7 @@ action = require '../action/a_enable_task_list'
 
 
 _make_count_and_show_list = ($$main, $$td) ->
-  # TODO no render when no_calc is enabled
+  # no render when no_calc is enabled
   no_calc = $$td.get 'no_calc'
   if no_calc
     return {
