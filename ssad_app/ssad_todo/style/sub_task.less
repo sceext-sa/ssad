@@ -205,6 +205,7 @@
       }
 
       &.last_item {
+        min-height: auto;
         margin: (@border_width / 2);
         margin-top: @border_width;
 
@@ -238,8 +239,29 @@
           font-size: 1.2rem;
           color: @co_bg_sec;
         }
+
+        &.load_more {
+          span {
+            background-color: @co_btn_primary;
+            border-color: @co_btn_primary;
+            text-align: center;
+            flex: 1;
+            color: @co_title;
+            font-size: 1.5rem;
+
+            cursor: pointer;
+            transition-duration: @trans_t;
+            transition-property: background-color, border-color;
+          }
+          &:hover {
+            span {
+              transition-duration: 0s;
+              background-color: mix(@co_btn_primary, @co_bg_btn_touch, @btn_touch_mix);
+              border-color: mix(@co_btn_primary, @co_bg_btn_touch, @btn_touch_mix);
+            }
+          }
+        }
       }
-      // TODO
     }
   }
 }

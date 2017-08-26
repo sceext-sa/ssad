@@ -1,10 +1,13 @@
 # a_one_task.coffee, ssad/ssad_app/ssad_todo/src/ui/redux/action/
 
+config = require '../../../config'
+
 n_action = require '../nav/n_action'
 a_common = require './a_common'
 a_edit_create_task = require './a_edit_create_task'
 a_change_status = require './a_change_status'
 a_task = require './a_task'
+a_td = require './a_td'
 
 
 # action types
@@ -130,8 +133,33 @@ change_show_detail = (show) ->
 
 load_more_history = (task_id) ->
   (dispatch, getState) ->
-    # TODO
-    await return
+    dispatch {  # for DEBUG
+      type: OT_LOAD_MORE_HISTORY
+      payload: {
+        task_id
+      }
+    }
+
+    task = getState().td.getIn(['task', task_id]).toJS()
+    all_history = Object.keys task.history_list
+    to_load = []
+    for i in all_history
+      if ! task.history[i]?
+        to_load.push i
+    # sort history by time
+    to_load.sort()
+    to_load.reverse()  # latest items first
+
+    # TODO show doing operate ?
+
+    # load each history items
+    for i in [0... config.LOAD_MORE_ONCE_N]
+      if i >= to_load.length
+        break
+
+      await dispatch a_td.load_history(task_id, to_load[i])
+    # load history done
+    dispatch update_history(task_id)
 
 
 hide_history = (task_id, history_name) ->
@@ -143,7 +171,6 @@ hide_history = (task_id, history_name) ->
         history_name
       }
     }
-    # TODO error process ?
     await dispatch a_task.hide_history(task_id, history_name)
 
     dispatch update_history(task_id)
@@ -157,7 +184,6 @@ show_history = (task_id, history_name) ->
         history_name
       }
     }
-    # TODO error process ?
     await dispatch a_task.show_history(task_id, history_name)
 
     dispatch update_history(task_id)

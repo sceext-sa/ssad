@@ -21,7 +21,11 @@ mapStateToProps = (state, props) ->
       # make group
       history = $$state.getIn(['ot', 'history']).toJS()
       { group } = task.make_group data.history_list, history
-      # TODO can_load_more_history
+      # check can_load_more_history
+      count_all = Object.keys(data.history_list).length
+      count_loaded = Object.keys(data.history).length
+      if count_all > count_loaded
+        can_load_more_history = true
 
   {
     task_id

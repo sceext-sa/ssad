@@ -12,7 +12,6 @@ a_common = require './a_common'
 # load data
 T_INIT_LOAD = 't_init_load'
 T_LOAD_ONE_TASK = 't_load_one_task'  # load task and history
-# TODO load_more_disabled_task ?  TODO load_more_history ?
 
 # modify (update) data (task)
 T_CREATE_TASK = 't_create_task'
