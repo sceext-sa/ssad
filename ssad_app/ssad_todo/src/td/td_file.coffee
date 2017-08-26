@@ -45,7 +45,7 @@ name_namespace = (uuid) ->
   "#{uuid}#{td_tree.SUFFIX_UUID_NAMESPACE}"
 
 _print_json = (data) ->
-  o = JSON.stringify data, '    ', '    '
+  o = JSON.stringify data  # not use pretty print
   o + '\n'
 
 
