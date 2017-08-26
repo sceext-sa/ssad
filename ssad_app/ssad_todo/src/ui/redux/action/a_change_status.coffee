@@ -3,6 +3,11 @@
 n_action = require '../nav/n_action'
 a_task = require './a_task'
 
+# FIXME
+_update_history = (task_id) ->
+  a_one_task = require './a_one_task'
+  a_one_task.update_history(task_id)
+
 # action types
 
 CS_SET_TASK_ID = 'cs_set_task_id'
@@ -62,6 +67,8 @@ commit_status = ->
     await dispatch a_task.change_status(task_id, status)
     # reset after OK
     dispatch reset()
+    # update one_task
+    dispatch _update_history(task_id)
     # nav back
     dispatch n_action.back()
 
@@ -83,6 +90,7 @@ commit_disabled = ->
       await dispatch a_task.enable_task(task_id)
     # reset after OK
     dispatch reset()
+    dispatch _update_history(task_id)
     dispatch n_action.back()
 
 add_comment = ->
@@ -99,6 +107,7 @@ add_comment = ->
     await dispatch a_task.add_comment(task_id, comment)
     # reset after OK
     dispatch reset()
+    dispatch _update_history(task_id)
     dispatch n_action.back()
 
 

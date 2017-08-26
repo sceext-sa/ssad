@@ -1,6 +1,7 @@
 # a_enable_task_list.coffee, ssad/ssad_app/ssad_todo/src/ui/redux/action/
 
 n_action = require '../nav/n_action'
+a_one_task = require './a_one_task'
 
 # action types
 
@@ -24,6 +25,8 @@ set_task_id = (task_id) ->
 show_item = (task_id) ->
   (dispatch, getState) ->
     dispatch set_task_id(task_id)
+    # update one_task page
+    dispatch a_one_task.set_task_id(task_id)
     # go to `page_one_task`
     dispatch n_action.go('page_one_task')
 

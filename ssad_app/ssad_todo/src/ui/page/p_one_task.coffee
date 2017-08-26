@@ -13,6 +13,7 @@ task = require '../../task/task'
 time = require '../../time/time'
 
 NavTop = require '../sub/nav_top'
+TaskHistoryItem = require '../sub/task_history_item'
 
 
 Page = cC {
@@ -21,15 +22,20 @@ Page = cC {
     task_id: PropTypes.number
     data: PropTypes.object  # task data
     show_detail: PropTypes.bool.isRequired
-    history_list: PropTypes.array  # history items to show
     can_load_more_history: PropTypes.bool.isRequired
+
+    group: PropTypes.array  # history of groups to show
 
     on_edit_task: PropTypes.func.isRequired
     on_change_status: PropTypes.func.isRequired
     on_change_show_detail: PropTypes.func.isRequired
+
     on_load_more_history: PropTypes.func.isRequired
+
     on_hide_history: PropTypes.func.isRequired
     on_show_history: PropTypes.func.isRequired
+    on_hide_history_group: PropTypes.func.isRequired
+    on_show_history_group: PropTypes.func.isRequired
 
     on_nav_back: PropTypes.func.isRequired
   }
@@ -43,9 +49,11 @@ Page = cC {
   _render_top: ->
     task_type = null
     task_status = null
+    long_status = ''
     if @props.data?
       task_type = task.get_short_task_type @props.data.raw.data.type
-      task_status = task.get_short_task_status @props.data.status
+      long_status = @props.data.status
+      task_status = task.get_short_task_status long_status
 
     (cE 'div', {
       className: 'one_task_top'
@@ -65,6 +73,12 @@ Page = cC {
           className: 'status'
           },
           "#{task_status}"
+        )
+        # current long status
+        (cE 'span', {
+          className: 'long_status'
+          },
+          "#{long_status}"
         )
         # TODO time ?
       )
@@ -234,8 +248,126 @@ Page = cC {
       )
     )
 
+  _render_no_history: ->
+    (cE 'div', {
+      className: 'no_history'
+      },
+      (cE 'span', null,
+        'no history loaded for disabled task'
+      )
+    )
+
   _render_history: ->
-    # TODO
+    # check task disabled
+    if @props.data.disabled
+      return @_render_no_history()
+
+    groups = []
+    for i in [0... @props.group.length]
+      groups.push @_render_one_group(i, @props.group[i])
+
+    (cE 'div', {
+      className: 'all_history'
+      },
+      groups
+      @_render_load_more()
+    )
+
+  _render_one_group: (group_id, group) ->
+    class_name = 'one_group'
+    group_title = null
+    group_body = null
+    show_group_body = false
+    # check hide or show group
+    if group.hide  # a hide group
+      class_name += ' hide_group'
+      group_title = @_render_group_title group_id, group
+      # check hide_show
+      if group.hide_show
+        show_group_body = true
+    else
+      show_group_body = true
+    # render group_body: history items
+    if show_group_body
+      group_body = []
+      for history_name in group.history
+        group_body.push @_render_one_item(group_id, group, history_name)
+    # FIXME type: 'create' history can not be hide !
+
+    (cE 'div', {
+      key: group_id
+
+      className: class_name
+      },
+      group_title
+      group_body
+    )
+
+  _render_one_item: (group_id, group, history_name) ->
+    # check is create history
+    history = @props.data.history[history_name]
+    if history.data.type is 'create'
+      return @_render_create_history group_id, group, history
+
+    mode = null  # default mode
+    if group.hide
+      mode = 'hide_show'
+
+    that = this
+    on_hide_history = ->
+      that.props.on_hide_history that.props.task_id, history_name
+    on_show_history = ->
+      that.props.on_show_history that.props.task_id, history_name
+
+    (cE TaskHistoryItem, {
+      key: history_name
+
+      mode
+      history
+
+      on_hide_history
+      on_show_history
+    })
+
+  _render_group_title: (group_id, group) ->
+    that = this
+    on_show_group = ->
+      that.on_show_history_group that.props.task_id, group_id
+    on_hide_group = ->
+      that.on_hide_history_group that.props.task_id, group_id
+
+    (cE TaskHistoryItem, {
+      mode: 'hide_group'
+
+      is_group_show: group.hide_show
+      group_size: group.history.length
+
+      on_show_group
+      on_hide_group
+    })
+
+  _render_create_history: (group_id, group, history) ->
+    # TODO support show comment/status with create history ?
+    (cE TaskHistoryItem, {
+      key: history._time
+
+      mode: 'create'
+      history
+    })
+
+  _render_load_more: ->
+    if ! @props.can_load_more_history
+      return null
+
+    that = this
+    on_load_more = ->
+      that.props.on_load_more_history that.props.task_id
+
+    (cE TaskHistoryItem, {
+      mode: 'load_more'
+
+      on_load_more
+    })
 }
 
 module.exports = Page

@@ -90,5 +90,110 @@
       z-index: 1;
     }
   }
-  // TODO
+
+  .sub_task_history_item {
+    @left_width: 1.7rem;
+    @left_line_width: 0.1rem;
+    @border_width: 1rem;
+    @left_button_size: 1.5rem;
+
+    flex-shrink: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+
+    .mode {
+      margin-left: @left_width;
+      border-left-style: solid;
+      border-left-width: @left_line_width;
+      border-left-color: @co_text_sec;
+      padding: @border_width;
+      padding-left: 2rem;
+
+      .left_button {
+        @button_padding: 1rem;
+
+        position: absolute;
+        left: (@left_width - (@left_button_size / 2) + (@left_line_width / 2) - @button_padding);
+        top: (@border_width - @button_padding + 0rem);
+
+        padding: @button_padding;
+        cursor: pointer;
+        transition-duration: @trans_t;
+        transition-property: background-color;
+        &:hover {
+          transition-duration: 0s;
+          background-color: mix(@co_bg, @co_bg_btn_touch, @btn_touch_mix);
+        }
+
+        span {
+          display: block;
+          width: @left_button_size;
+          height: @left_button_size;
+          border-radius: (@left_button_size / 2);
+
+          background-color: @co_light;
+        }
+      }
+
+      .time {
+        font-size: 1.2rem;
+        color: @co_text_sec;
+
+        margin-bottom: 0.5rem;
+      }
+
+      .content {
+        .status {
+          font-size: 2rem;
+          color: @co_title;
+        }
+        .comment {
+          font-size: 1.5rem;
+          color: @co_text_default;
+          // pre style
+          white-space: pre;
+          word-break: break-all;
+          word-wrap: break-word;
+        }
+      }
+
+      &.last_item {
+        margin: (@border_width / 2);
+        margin-top: @border_width;
+
+        border-left-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+
+        &:before {
+          content: '';
+          display: block;
+          width: 0;
+          height: @border_width;
+          border-left-style: solid;
+          border-left-width: @left_line_width;
+          border-left-color: @co_text_sec;
+          position: absolute;
+          top: (@border_width * -1);
+          left: @left_width;
+        }
+
+        span {
+          padding: 1rem 2rem;
+
+          border-style: solid;
+          border-width: @left_line_width;
+          border-color: @co_light;
+          border-radius: (@border_width / 2);
+
+          background-color: @co_light;
+          font-size: 1.2rem;
+          color: @co_bg_sec;
+        }
+      }
+      // TODO
+    }
+  }
 }

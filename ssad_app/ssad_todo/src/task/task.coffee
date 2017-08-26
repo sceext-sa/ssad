@@ -8,6 +8,8 @@ task_check = require './task_check'
 
   get_short_task_type
   get_short_task_status
+
+  make_group
 } = require './task_op'
 
 
@@ -20,4 +22,6 @@ module.exports = {
 
   get_short_task_type
   get_short_task_status
+
+  make_group
 }

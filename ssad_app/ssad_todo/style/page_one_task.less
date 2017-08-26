@@ -10,6 +10,11 @@
       .left {
         flex: 1;
         color: @co_text;
+
+        .long_status {
+          padding-left: 1rem;
+          color: @co_text_sec;
+        }
       }
       .right {
         min-width: 4rem;
@@ -49,6 +54,7 @@
       .common, .detail_button, .detail {
         display: flex;
         flex-direction: column;
+        flex-shrink: 0;
       }
 
       .detail_button {
@@ -125,8 +131,12 @@
         }
       }
 
-      // TODO
+      .no_history {
+        padding: 1rem;
+        font-size: 1.3rem;
+        text-align: center;
+        color: @co_text_sec;
+      }
     }
-    // TODO
   }
 }

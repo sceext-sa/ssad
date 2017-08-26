@@ -8,12 +8,49 @@ a_change_status = require './a_change_status'
 
 # action types
 
+OT_RESET = 'ot_reset'
+OT_SET_TASK_ID = 'ot_set_task_id'
+OT_UPDATE_HISTORY = 'ot_update_history'
+
 OT_EDIT_TASK = 'ot_edit_task'
 OT_CHANGE_STATUS = 'ot_change_status'
 OT_CHANGE_SHOW_DETAIL = 'ot_change_show_detail'
 OT_LOAD_MORE_HISTORY = 'ot_load_more_history'
+
 OT_HIDE_HISTORY = 'ot_hide_history'
-OT_SHOW_HISTORY = 'ot_show_history'  # TODO
+OT_SHOW_HISTORY = 'ot_show_history'
+OT_HIDE_HISTORY_GROUP = 'ot_hide_history_group'
+OT_SHOW_HISTORY_GROUP = 'ot_show_history_group'
+
+
+reset = ->
+  {
+    type: OT_RESET
+  }
+
+set_task_id = (task_id) ->
+  (dispatch, getState) ->
+    # reset first
+    dispatch reset()
+    # new task_id
+    dispatch {
+      type: OT_SET_TASK_ID
+      payload: task_id
+    }
+    # update data
+    dispatch update_history(task_id)
+
+update_history = (task_id) ->
+  (dispatch, getState) ->
+    $$task = getState().td.getIn ['task', task_id]
+    dispatch {
+      type: OT_UPDATE_HISTORY
+      payload: {
+        task_id
+        task: $$task
+      }
+    }
+
 
 _load_data = (data) ->
   (dispatch, getState) ->
@@ -45,7 +82,7 @@ edit_task = ->
     # check is edit this task
     is_create_task = $$state.get 'is_create_task'
     edit_task_id = $$state.getIn ['edit_task', 'task_id']
-    task_id = $$state.get 'task_id'
+    task_id = $$state.getIn ['ot', 'task_id']
     # check task disabled
     if getState().td.getIn(['task', task_id, 'disabled'])
       return  # disabled task can not edit
@@ -71,7 +108,7 @@ change_status = ->
     $$state = getState().main
     # check task_id
     cs_task_id = $$state.getIn ['cs', 'task_id']
-    task_id = $$state.get 'task_id'
+    task_id = $$state.getIn ['ot', 'task_id']
     if cs_task_id != task_id
       # reset first
       dispatch a_change_status.reset()
@@ -90,34 +127,71 @@ change_show_detail = (show) ->
     payload: show
   }
 
-load_more_history = ->
+load_more_history = (task_id) ->
   (dispatch, getState) ->
     # TODO
     await return
 
-hide_history = (history_name) ->
+
+hide_history = (task_id, history_name) ->
   (dispatch, getState) ->
     # TODO
     await return
 
-show_history = () ->  # TODO
+show_history = (task_id, history_name) ->
   (dispatch, getState) ->
     # TODO
     await return
+
+hide_history_group = (task_id, group_id) ->
+  (dispatch, getState) ->
+    history_list = getState().td.getIn(['task', task_id, 'history_list']).toJS()
+    dispatch {
+      type: OT_HIDE_HISTORY_GROUP
+      payload: {
+        history_list
+        group_id
+      }
+    }
+
+show_history_group = (task_id, group_id) ->
+  (dispatch, getState) ->
+    history_list = getState().td.getIn(['task', task_id, 'history_list']).toJS()
+    dispatch {
+      type: OT_SHOW_HISTORY_GROUP
+      payload: {
+        history_list
+        group_id
+      }
+    }
+
 
 module.exports = {
+  OT_RESET
+  OT_SET_TASK_ID
+  OT_UPDATE_HISTORY
+
   OT_EDIT_TASK
   OT_CHANGE_STATUS
   OT_CHANGE_SHOW_DETAIL
   OT_LOAD_MORE_HISTORY
+
   OT_HIDE_HISTORY
   OT_SHOW_HISTORY
+  OT_HIDE_HISTORY_GROUP
+  OT_SHOW_HISTORY_GROUP
+
+  reset
+  set_task_id  # thunk
+  update_history  # thunk
 
   edit_task  # thunk
   change_status  # thunk
   change_show_detail
-
   load_more_history  # thunk
+
   hide_history  # thunk
   show_history  # thunk
+  hide_history_group
+  show_history_group
 }

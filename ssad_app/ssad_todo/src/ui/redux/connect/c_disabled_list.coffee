@@ -38,6 +38,9 @@ _make_count_and_show_list = ($$main, $$td) ->
   count_loaded = loaded_list.length
   # sort loaded_list by time  (latest first)
   loaded_list.sort (a, b) ->
+    a = di[a]
+    b = di[b]
+
     if a > b
       -1
     else if a < b

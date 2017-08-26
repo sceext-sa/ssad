@@ -17,13 +17,17 @@ init_state = {  # with Immutable
       error: null
     }
     # current time: for global time display/show (update)
-    now: null
+    now: null  # TODO update this value every 5 minute ?
     # TODO time-zone config ?
 
     # enable_task_list
     show_list: 'current'  # 'before', 'current', 'err', 'ok'
     # p_one_task
     show_detail: false
+    ot: {  # for show/hide history
+      task_id: null  # current task_id, used for update history
+      history: {}  # history hide_show status, HISTORY_NAME: show (default false)
+    }
     # change_status
     cs: {
       task_id: null  # working task_id
