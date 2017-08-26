@@ -97,9 +97,12 @@ make_group = (history_list, history) ->
       group.history.push history_name
     else  # reset group
       o.group.push group
+      # new group already with one item
       group = {
-        hide: null
-        history: []
+        hide: history_list[history_name]
+        history: [
+          history_name
+        ]
       }
   # check last group
   if group.history.length > 0

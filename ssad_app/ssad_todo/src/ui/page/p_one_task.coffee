@@ -332,9 +332,9 @@ Page = cC {
   _render_group_title: (group_id, group) ->
     that = this
     on_show_group = ->
-      that.on_show_history_group that.props.task_id, group_id
+      that.props.on_show_history_group that.props.task_id, group_id
     on_hide_group = ->
-      that.on_hide_history_group that.props.task_id, group_id
+      that.props.on_hide_history_group that.props.task_id, group_id
 
     (cE TaskHistoryItem, {
       mode: 'hide_group'

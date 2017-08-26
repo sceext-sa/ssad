@@ -110,6 +110,8 @@
       padding: @border_width;
       padding-left: 2rem;
 
+      min-height: 5rem;
+
       .left_button {
         @button_padding: 1rem;
 
@@ -136,6 +138,50 @@
         }
       }
 
+      &.hide_group {
+        @left_button_size: 2.7rem;
+        @button_padding: 0.4rem;
+
+        .left_button {
+          padding: @button_padding;
+
+          span {
+            width: @left_button_size;
+            height: @left_button_size;
+            border-radius: (@left_button_size / 2);
+
+            background-color: @co_btn_primary;
+            text-align: center;
+            line-height: @left_button_size;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: @co_title;
+          }
+        }
+
+        @line_height: 0.5rem;
+        padding-left: 1rem;
+        padding-top: ((3.5rem - @line_height) / 2);
+        &:after {
+          content: '';
+          display: block;
+          height: @line_height;
+          background-color: @co_bg_sec;
+          border-radius: (@line_height / 2);
+        }
+      }
+      &.hide_show {
+        .left_button {
+          span {
+            background-color: @co_btn_primary;
+            text-align: center;
+            font-size: 1rem;
+            line-height: @left_button_size;
+            color: @co_bg;
+          }
+        }
+      }
+
       .time {
         font-size: 1.2rem;
         color: @co_text_sec;
@@ -152,7 +198,7 @@
           font-size: 1.5rem;
           color: @co_text_default;
           // pre style
-          white-space: pre;
+          white-space: pre-wrap;
           word-break: break-all;
           word-wrap: break-word;
         }

@@ -50,9 +50,9 @@ mapDispatchToProps = (dispatch, props) ->
   o.on_show_history = (task_id, history_name) ->
     dispatch action.show_history(task_id, history_name)
   o.on_hide_history_group = (task_id, group_id) ->
-    dispatch action.on_hide_history_group(task_id, group_id)
+    dispatch action.hide_history_group(task_id, group_id)
   o.on_show_history_group = (task_id, group_id) ->
-    dispatch action.on_show_history_group(task_id, group_id)
+    dispatch action.show_history_group(task_id, group_id)
   o
 
 O = connect(mapStateToProps, mapDispatchToProps)(Page)

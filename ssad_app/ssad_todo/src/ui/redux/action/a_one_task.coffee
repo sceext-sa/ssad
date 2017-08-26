@@ -4,6 +4,7 @@ n_action = require '../nav/n_action'
 a_common = require './a_common'
 a_edit_create_task = require './a_edit_create_task'
 a_change_status = require './a_change_status'
+a_task = require './a_task'
 
 
 # action types
@@ -135,13 +136,32 @@ load_more_history = (task_id) ->
 
 hide_history = (task_id, history_name) ->
   (dispatch, getState) ->
-    # TODO
-    await return
+    dispatch {  # for DEBUG
+      type: OT_HIDE_HISTORY
+      payload: {
+        task_id
+        history_name
+      }
+    }
+    # TODO error process ?
+    await dispatch a_task.hide_history(task_id, history_name)
+
+    dispatch update_history(task_id)
 
 show_history = (task_id, history_name) ->
   (dispatch, getState) ->
-    # TODO
-    await return
+    dispatch {
+      type: OT_SHOW_HISTORY
+      payload: {
+        task_id
+        history_name
+      }
+    }
+    # TODO error process ?
+    await dispatch a_task.show_history(task_id, history_name)
+
+    dispatch update_history(task_id)
+
 
 hide_history_group = (task_id, group_id) ->
   (dispatch, getState) ->
