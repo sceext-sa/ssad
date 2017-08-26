@@ -117,7 +117,7 @@ Page = cC {
       (cE MainButton, {
         text: 'OK'
         on_click: @props.edit_commit
-        })
+      })
 
   _render_help_block: (text) ->
     if text?

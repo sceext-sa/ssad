@@ -7,6 +7,7 @@ PropTypes = require 'prop-types'
 
 NavTop = require '../sub/nav_top'
 TaskItem = require '../sub/task_item'
+MainButton = require '../sub/main_button'
 
 
 Page = cC {
@@ -20,7 +21,7 @@ Page = cC {
     di: PropTypes.object.isRequired  # disabled index
 
     on_show_item: PropTypes.func.isRequired
-    on_load_more: PropTypes.func.isRequired  # TODO
+    on_load_more: PropTypes.func.isRequired
 
     on_nav_back: PropTypes.func.isRequired
   }
@@ -44,7 +45,7 @@ Page = cC {
         className: 'page_body'
         },
         @_render_body()
-        # TODO load more ?
+        @_render_load_more()
       )
     )
 
@@ -76,6 +77,15 @@ Page = cC {
           on_show_task: @props.on_show_item
         })
     o
+
+  _render_load_more: ->
+    if @props.count_loaded >= @props.count_all
+      return
+
+    (cE MainButton, {
+      text: 'load more'
+      on_click: @props.on_load_more
+    })
 }
 
 module.exports = Page
