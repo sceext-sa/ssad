@@ -27,6 +27,7 @@ Main = cC {
     init_load_task_done: PropTypes.bool.isRequired
     init_load_task_now: PropTypes.number.isRequired
     init_load_task_all: PropTypes.number.isRequired
+    init_load_task_id: PropTypes.string.isRequired
     op_doing: PropTypes.bool.isRequired
   }
 
@@ -57,6 +58,7 @@ Main = cC {
       (cE InitLoadTask, {
         now: @props.init_load_task_now
         all: @props.init_load_task_all
+        task_id: @props.init_load_task_id
       })
 
   _render_doing: ->

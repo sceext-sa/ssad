@@ -15,6 +15,8 @@
 #         - ISO_TIME..task.json
 #     - XXXX.uuid_namespace
 #
+#  FIX bug: ISO_TIME: replace char ':' -> '_' for filename
+#
 
 DIR_ROOT = 'td'
 DIR_TASK = 'task'

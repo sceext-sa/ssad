@@ -64,6 +64,7 @@ init_state = {  # with Immutable
       now: 0
       all: 0
       done: true  # load done  # NOTE: true for welcome page
+      task_id: null  # loading task_id, for DEBUG
     }
     # flag: doing operation
     op_doing: false

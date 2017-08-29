@@ -8,6 +8,14 @@ config = require '../config'
 td_tree = require './td_tree'
 
 
+# for fix filename
+escape_iso_time = (raw) ->
+  ("#{raw}").split(':').join('_')
+
+unescape_iso_time = (raw) ->
+  ("#{raw}").split('_').join(':')
+
+
 # td path (sub_path)
 
 path_root = ->
@@ -26,7 +34,7 @@ path_one_back = (task_id) ->
   path.join path_back(), task_id.toString()
 
 name_disabled_task = (_time, task_id, no_suffix) ->
-  o = "#{_time}..#{task_id}"
+  o = "#{escape_iso_time _time}..#{task_id}"
   if ! no_suffix
     o = "#{o}#{td_tree.SUFFIX_TASK}"
   o
@@ -36,11 +44,11 @@ name_task = (task_id) ->
 name_max_task_id = (max) ->
   "#{max}#{td_tree.SUFFIX_MAX_TASK_ID}"
 name_history = (_time) ->
-  "#{_time}.#{td_tree.SUFFIX_HISTORY}"
+  "#{escape_iso_time _time}.#{td_tree.SUFFIX_HISTORY}"
 name_history_hide = (_time) ->
-  "#{_time}.#{td_tree.SUFFIX_HISTORY_HIDE}"
+  "#{escape_iso_time _time}.#{td_tree.SUFFIX_HISTORY_HIDE}"
 name_back_task = (_time) ->
-  "#{_time}.#{td_tree.SUFFIX_TASK}"
+  "#{escape_iso_time _time}.#{td_tree.SUFFIX_TASK}"
 name_namespace = (uuid) ->
   "#{uuid}#{td_tree.SUFFIX_UUID_NAMESPACE}"
 
@@ -86,6 +94,9 @@ list_dir = (filename) ->
 
 
 module.exports = {
+  escape_iso_time
+  unescape_iso_time
+
   path_root
   path_task
   path_disabled

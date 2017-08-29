@@ -23,7 +23,7 @@ get_task_list = ->
     if i.endsWith td_tree.SUFFIX_TASK
       t = Number.parseInt i[...(i.length - td_tree.SUFFIX_TASK.length)]
       o.push t
-  o
+  o  # [ TASK_ID ]
 
 get_disabled_list = ->
   o = []
@@ -38,25 +38,29 @@ get_disabled_list = ->
 
   for i in l
     if i.endsWith td_tree.SUFFIX_TASK
-      o.push i[...(i.length - td_tree.SUFFIX_TASK.length)]
-  o
+      one = i[...(i.length - td_tree.SUFFIX_TASK.length)]
+      o.push td_file.unescape_iso_time(one)
+  o  # [ ISO_TIME..TASK_ID ]
 
 get_history_list = (task_id) ->
   # NOTE no history is a error
   l = await td_file.list_dir td_file.path_one_history(task_id)
 
+  _name = (raw) ->
+    td_file.unescape_iso_time(raw.split('..')[0])
+
   o = {}
   for i in l
     if i.endsWith td_tree.SUFFIX_HISTORY
-      name = i.split('..')[0]
+      name = _name i
       o[name] = false  # hide: false
   for i in l
     if i.endsWith td_tree.SUFFIX_HISTORY_HIDE
-      name = i.split('..')[0]
+      name = _name i
       if o[name]?
         o[name] = true  # hide: true
       # else: ignore error
-  o
+  o  # { ISO_TIME : HIDE }
 
 
 # load enabled/disabled task the same way

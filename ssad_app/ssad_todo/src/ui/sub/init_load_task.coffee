@@ -15,6 +15,7 @@ InitLoadTask = cC {
   propTypes: {
     now: PropTypes.number.isRequired
     all: PropTypes.number.isRequired
+    task_id: PropTypes.string.isRequired
   }
 
   _calc_now: ->
@@ -34,7 +35,7 @@ InitLoadTask = cC {
         className: 'text'
         },
         (cE 'span', null,
-          'SSAD_todo is loading tasks .. . '
+          "SSAD_todo is loading tasks .. . (task_id #{@props.task_id})"
         )
       )
       (cE ProgressBar, {

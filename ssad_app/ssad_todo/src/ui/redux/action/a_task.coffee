@@ -53,6 +53,11 @@ init_load = ->
     count_load = 0  # loaded tasks
     # load all enable tasks (with default number of history items)
     for task_id in enable_list
+      # update task_id before load
+      dispatch a_common.update_init_progress({
+        task_id
+      })
+
       await dispatch load_one_task(task_id)
       count_load += 1
       dispatch a_common.update_init_progress({
@@ -65,6 +70,10 @@ init_load = ->
       if i >= disabled_list.length
         break
       p = disabled_list[i].split '..'  # ISO_TIME..TASK_ID
+      # update task_id before load (for DEBUG)
+      dispatch a_common.update_init_progress({
+        task_id: disabled_list[i]
+      })
 
       task_name = td.make_disabled_task_name p[1], p[0]
       await dispatch a_td.load_task(task_name)
