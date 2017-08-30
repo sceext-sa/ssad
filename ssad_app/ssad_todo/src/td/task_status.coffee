@@ -15,6 +15,8 @@ CANCEL = 'cancel'
 
 # fake status
 READY = 'ready'
+DISABLED = 'disabled'
+
 
 ALL = [
   INIT
@@ -65,6 +67,8 @@ module.exports = {
   CANCEL
 
   READY
+  DISABLED
+
   ALL
 
   CLASS_BEFORE

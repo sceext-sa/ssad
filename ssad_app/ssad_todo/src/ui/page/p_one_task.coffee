@@ -137,8 +137,8 @@ Page = cC {
       @_render_history()
     )
 
-  _render_info_item: (name, value) ->
-    if ! value?
+  _render_info_item: (name, value, force) ->
+    if (! value?) and (! force)
       return null
 
     (cE 'div', {
@@ -228,6 +228,14 @@ Page = cC {
       that._render_info_item 'Time base', raw.data.time_base
 
     last_update = time.print_iso_time_short new Date(raw._time), true, true
+    # calc attr
+    calc = @props.data.calc
+    last_end = time.print_iso_time_short new Date(calc.last_end), true, true
+    planned_start = calc.planned_start
+    if planned_start?
+      date = new Date(planned_start)
+      if ! Number.isNaN(date.getTime())
+        planned_start = time.print_iso_time_short date, true, true
 
     (cE 'div', {
       className: 'detail'
@@ -240,6 +248,17 @@ Page = cC {
       @_render_time_attr 'Duration limit', raw.data.time.duration_limit
       # time_base for regular
       _time_base()
+
+      # FIXME only for DEBUG now
+      # calc attr
+      (@_render_info_item 'c.first_status', calc.first_status, true)
+      (@_render_info_item 'c.second_status', calc.second_status, true)
+      (@_render_info_item 'c.last_end', last_end, true)
+      (@_render_info_item 'c.planned_start', planned_start, true)
+      # FIXME only for DEBUG now
+      (@_render_info_item 'calc.ddl', calc.ddl, true)
+      (@_render_info_item 'calc.auto_ready', calc.auto_ready, true)  # only for auto_ready DEBUG
+      (@_render_info_item 'calc.is_ready', calc.is_ready, true)
 
       # last_update (edit_task)
       (cE 'span', {

@@ -24,7 +24,7 @@
 #    time: {
 #      interval: ''
 #    }
-#    time_base: 'last'  # 'last', 'fixed' (first)
+#    time_base: 'last'  # 'last', 'fixed'
 #  }
 #
 
@@ -33,6 +33,10 @@ td_json = require './td_json'
 
 TASK_TYPE_R = 'regular'
 TASK_TYPE_O = 'oneshot'
+
+TIME_BASE_FIXED = 'fixed'
+TIME_BASE_LAST = 'last'
+
 
 _gen_time = ->
   (new Date()).toISOString()
@@ -95,6 +99,9 @@ clean_task_o = (data) ->
 module.exports = {
   TASK_TYPE_R
   TASK_TYPE_O
+
+  TIME_BASE_FIXED
+  TIME_BASE_LAST
 
   create_task
 

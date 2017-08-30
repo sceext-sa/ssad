@@ -46,6 +46,14 @@ _offset_date = (raw) ->
   o.setTime t
   o
 
+_r_offset_date = (raw) ->
+  o = new Date raw
+  # TODO support other time-zone ?
+  t = o.getTime() - _TIME_UTC_8
+  o.setTime t
+  o
+
+
 # TODO support print without second ?
 _print_iso_time = (d) ->
   date = _print_iso_date d
@@ -109,9 +117,17 @@ _get_n_days_ago = (date) ->
   nd.setUTCMonth da.getUTCMonth()
   nd.setUTCDate da.getUTCDate()
   delta_ms = now.getTime() - nd.getTime()
-  Number.parseInt(delta_ms / 1e3 / 86400)
 
-print_iso_date_short = (date, print_days_ago) ->
+  _o = (x) ->
+    Number.parseInt(x / 1e3 / 86400)
+
+  if delta_ms < 0
+    o = - _o(- delta_ms)
+  else
+    o = _o delta_ms
+  o
+
+print_iso_date_short = (date, print_days) ->
   n_days_ago = _get_n_days_ago date
   d = _offset_date date
   now = _offset_date new Date()
@@ -121,6 +137,8 @@ print_iso_date_short = (date, print_days_ago) ->
   # yesterday
   if n_days_ago is 1
     return 'yesterday'
+  if n_days_ago is -1
+    return 'tomorrow'
   # print month-day
   month = _zero_len (d.getUTCMonth() + 1), 2
   day = _zero_len d.getUTCDate(), 2
@@ -130,8 +148,12 @@ print_iso_date_short = (date, print_days_ago) ->
     year = _zero_len d.getUTCFullYear(), 4
     o = "#{year}-#{o}"
   # add n-days-ago
-  if (n_days_ago < 32) and print_days_ago  # TODO change limit ?
-    o = "#{o} (#{n_days_ago} days ago)"
+  DAYS_LIMIT = 32  # TODO change limit ?
+  if (n_days_ago < DAYS_LIMIT) and (n_days_ago > - DAYS_LIMIT) and print_days
+    if n_days_ago < 0
+      o = "#{o} (#{- n_days_ago} days later)"
+    else
+      o = "#{o} (#{n_days_ago} days ago)"
   # add week
   week = _print_day_in_week d.getUTCDay()
   "#{o} #{week}"
@@ -142,7 +164,7 @@ print_iso_time_short = (date, print_days_ago, print_second) ->
   now = _offset_date new Date()
   o = ''
   # not today, print date first
-  if n_days_ago > 0
+  if n_days_ago != 0
     o = print_iso_date_short(date, print_days_ago) + ' '
   # just print time
   hour = _zero_len d.getUTCHours(), 2
@@ -160,4 +182,7 @@ module.exports = {
   print_time
   print_iso_date_short
   print_iso_time_short
+
+  offset_date: _offset_date
+  r_offset_date: _r_offset_date
 }

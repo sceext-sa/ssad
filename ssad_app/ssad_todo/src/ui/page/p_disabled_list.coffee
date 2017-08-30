@@ -5,6 +5,8 @@
 cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
+time = require '../../time/time'
+
 NavTop = require '../sub/nav_top'
 TaskItem = require '../sub/task_item'
 MainButton = require '../sub/main_button'
@@ -64,6 +66,9 @@ Page = cC {
     for i in @props.show_list
       one = @props.task[i]
       if one?
+        # use disabled time as time
+        last_time = time.print_iso_time_short new Date(@props.di[i])
+
         o.push (cE TaskItem, {
           key: i
 
@@ -72,7 +77,7 @@ Page = cC {
           status: one.calc.status
           title: one.raw.data.title
           text: one.calc.text
-          last_time: @props.di[i]  # use disabled time as time
+          last_time
 
           on_show_task: @props.on_show_item
         })

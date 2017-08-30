@@ -7,7 +7,6 @@ cC = require 'create-react-class'
 PropTypes = require 'prop-types'
 
 task = require '../../task/task'
-time = require '../../time/time'
 
 
 TaskItem = cC {
@@ -27,8 +26,6 @@ TaskItem = cC {
     @props.on_show_task @props.task_id
 
   render: ->
-    last_time = time.print_iso_time_short new Date(@props.last_time)
-
     (cE 'div', {
       className: 'sub_task_item'
       },
@@ -57,7 +54,7 @@ TaskItem = cC {
           (cE 'span', {
             className: 'time'
             },
-            "#{last_time}"
+            "#{@props.last_time}"
           )
         )
         (cE 'div', {

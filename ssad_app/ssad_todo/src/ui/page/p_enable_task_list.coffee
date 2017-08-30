@@ -9,7 +9,10 @@ PropTypes = require 'prop-types'
   Glyphicon
 } = require 'react-bootstrap'
 
+time = require '../../time/time'
+
 TaskItem = require '../sub/task_item'
+
 
 # css class: sub_task_top
 TaskTop = cC {
@@ -196,6 +199,17 @@ Page = cC {
     o = []
     for i in data[1]
       one = @props.task[i]
+
+      last_time = time.print_iso_time_short new Date(one.calc.last_time)
+      # check print planned_start
+      ps = one.calc.planned_start
+      if ps? and (ps.trim() != '')
+        d = new Date(ps)
+        if ! Number.isNaN d.getTime()  # good iso string
+          # print planned_start
+          last_time = "#{time.print_iso_time_short d} ~"
+      # TODO support ddl ?
+
       o.push (cE TaskItem, {
         key: i
 
@@ -204,7 +218,7 @@ Page = cC {
         status: one.calc.status
         title: one.raw.data.title
         text: one.calc.text
-        last_time: one.calc.last_time
+        last_time
 
         on_show_task: @props.on_show_item
       })
