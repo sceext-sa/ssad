@@ -88,7 +88,7 @@ edit_task = ->
     edit_task_id = $$state.getIn ['edit_task', 'task_id']
     task_id = $$state.getIn ['ot', 'task_id']
     # check task disabled
-    if getState().td.getIn(['task', task_id, 'disabled'])
+    if getState().td.getIn(['task', task_id, 'calc', 'disabled'])
       return  # disabled task can not edit
 
     if is_create_task or (edit_task_id != task_id)
@@ -120,8 +120,8 @@ change_status = ->
       dispatch a_change_status.set_task_id(task_id)
 
       task = getState().td.getIn(['task', task_id]).toJS()
-      dispatch a_change_status.set_status(task.status)
-      dispatch a_change_status.set_disabled(task.disabled)
+      dispatch a_change_status.set_status(task.calc.status)
+      dispatch a_change_status.set_disabled(task.calc.disabled)
     # go to that page
     dispatch n_action.go('page_change_status')
 

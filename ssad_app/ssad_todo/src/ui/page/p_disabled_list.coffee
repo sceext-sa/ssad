@@ -69,9 +69,9 @@ Page = cC {
 
           task_id: Number.parseInt i
           type: one.raw.data.type
-          status: one.status
+          status: one.calc.status
           title: one.raw.data.title
-          text: one.text
+          text: one.calc.text
           last_time: @props.di[i]  # use disabled time as time
 
           on_show_task: @props.on_show_item

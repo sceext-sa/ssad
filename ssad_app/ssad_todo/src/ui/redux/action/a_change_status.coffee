@@ -3,7 +3,8 @@
 n_action = require '../nav/n_action'
 a_task = require './a_task'
 
-# FIXME
+
+# fix `require` cycle
 _update_history = (task_id) ->
   a_one_task = require './a_one_task'
   a_one_task.update_history(task_id)
@@ -60,7 +61,7 @@ commit_status = ->
     task_id = $$state.getIn ['cs', 'task_id']
     status = $$state.getIn ['cs', 'status']
     # check status changed
-    old_status = getState().td.getIn ['task', task_id, 'status']
+    old_status = getState().td.getIn ['task', task_id, 'calc', 'status']
     if status == old_status
       return
 
@@ -80,7 +81,7 @@ commit_disabled = ->
     $$state = getState().main
     task_id = $$state.getIn ['cs', 'task_id']
     disabled = $$state.getIn ['cs', 'disabled']
-    old_disabled = getState().td.getIn ['task', task_id, 'disabled']
+    old_disabled = getState().td.getIn ['task', task_id, 'calc', 'disabled']
     if disabled == old_disabled
       return  # not changed
 

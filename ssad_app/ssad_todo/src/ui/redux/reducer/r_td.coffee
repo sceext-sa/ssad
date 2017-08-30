@@ -20,30 +20,11 @@ _calc_task = ($$o, task_id) ->
   $$data = $$o.getIn(['task', task_id])
   if ! $$data?
     return $$o
-  data = $$data.toJS()
 
-  status = task_calc.get_current_status data
-  $$o = $$o.setIn ['task', task_id, 'status'], status
-
-  text = task_calc.get_latest_text data
-  $$o = $$o.setIn ['task', task_id, 'text'], text
-
-  # last_time
-  text = task_calc.get_last_time data
-  $$o = $$o.setIn ['task', task_id, 'last_time'], text
-
-  # task disabled ?  (check)
   enable_list = $$o.get('task_list').toJS()
-  if enable_list.indexOf(task_id) != -1
-    disabled = false
-  else
-    disabled = true
-    # change current status
-    $$o = $$o.setIn ['task', task_id, 'status'], 'disabled'
-  $$o = $$o.setIn ['task', task_id, 'disabled'], disabled
+  calc = task_calc.calc_one_task task_id, $$data.toJS(), enable_list
 
-  # TODO task auto_ready ?
-
+  $$o = $$o.setIn ['task', task_id, 'calc'], Immutable.fromJS(calc)
   $$o
 
 
@@ -100,14 +81,13 @@ reducer = ($$state, action) ->
           raw
           history: {}
           history_list: {}
-          disabled: true  # disabled by default
-          status: 'disabled'
-          text: raw.data.desc  # no history by default
-          last_time: raw.data._time
+          calc: null  # null for check error
         }
+        # force init calc task
+        one_task.calc = task_calc.calc_one_task task_id, one_task, []
+
         $$data = Immutable.fromJS one_task
         $$o = $$o.setIn ['task', task_id], $$data
-
       $$o = _check_calc $$o, task_id
 
     when ac.TD_UPDATE_HISTORY

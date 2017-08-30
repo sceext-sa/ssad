@@ -52,7 +52,8 @@ Page = cC {
     long_status = ''
     if @props.data?
       task_type = task.get_short_task_type @props.data.raw.data.type
-      long_status = @props.data.status
+      if @props.data.calc?
+        long_status = @props.data.calc.status
       task_status = task.get_short_task_status long_status
 
     (cE 'div', {
@@ -259,7 +260,7 @@ Page = cC {
 
   _render_history: ->
     # check task disabled
-    if @props.data.disabled
+    if @props.data.calc? and @props.data.calc.disabled
       return @_render_no_history()
 
     groups = []

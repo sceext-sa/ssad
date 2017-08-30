@@ -15,8 +15,9 @@ mapStateToProps = (state, props) ->
   if task_id?
     task = state.td.getIn(['task', task_id]).toJS()
     task_title = task.raw.data.title
-    old_status = task.status
-    old_disabled = task.disabled
+    if task.calc?
+      old_status = task.calc.status
+      old_disabled = task.calc.disabled
 
   {
     task_id

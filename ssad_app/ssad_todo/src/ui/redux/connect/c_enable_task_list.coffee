@@ -32,7 +32,7 @@ _make_count_and_show_list = ($$main, $$td) ->
   for i in task_list
     if ! task[i]?
       continue
-    last_time = task[i].last_time
+    last_time = task[i].calc.last_time
     if last_time_index[last_time]?
       last_time_index[last_time].push i
     else
@@ -58,7 +58,7 @@ _make_count_and_show_list = ($$main, $$td) ->
   }
   for i in task_list
     if task[i]?
-      st = task[i].status
+      st = task[i].calc.status
       if st?
         set[st].push i
   count_before = set.wait.length + set.ready.length + set.init.length

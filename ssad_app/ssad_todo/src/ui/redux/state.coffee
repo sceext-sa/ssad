@@ -1,5 +1,8 @@
 # state.coffee, ssad/ssad_app/ssad_todo/src/ui/redux/
 
+# TODO for ssad_todo: calc with Immutable ?  (use .toJS() as less as possible)
+
+
 init_state = {  # with Immutable
   # navigation
   nav: {
@@ -17,7 +20,7 @@ init_state = {  # with Immutable
       error: null
     }
     # current time: for global time display/show (update)
-    now: null  # TODO update this value every 5 minute ?
+    now: null  # TODO update this value every 1 minute ?
     # TODO time-zone config ?
 
     # enable_task_list
@@ -63,7 +66,8 @@ init_state = {  # with Immutable
     init_load_progress: {
       now: 0
       all: 0
-      done: true  # load done  # NOTE: true for welcome page
+      done: true  # load done  # Note: true for welcome page
+      # TODO support multi-thread load ?
       task_id: null  # loading task_id, for DEBUG
     }
     # flag: doing operation
@@ -94,11 +98,22 @@ init_state = {  # with Immutable
       #   history_list: {  # _HISTORY_LIST
       #     # name: HIDE
       #   }
-      #   # calc attr of one task
-      #   disabled: false  # is task disabled
-      #   status: ''  # task current status
-      #   text: ''  # task latest text (note or desc)
-      #   last_time: ''  # last update time, used for sort tasks (task list)
+      #
+      #   # calc attr
+      #   calc: {
+      #     disabled: false  # is task disabled
+      #     status: ''  # task current status, include 'ready', 'disabled'
+      #     text: ''  # task latest text (note or desc)
+      #     last_time: ''  # last update time, use for sort tasks
+      #
+      #     first_status: null  # first status, not include 'ready' or 'disabled'
+      #     second_status: ''  # second status, 'in' or 'out'
+      #     last_end: ''  # last end status (iso_time 'str')
+      #
+      #     planned_start: null  # calc planned_start (iso_time 'str')
+      #     ddl: null  # calc ddl (iso_time 'str')
+      #     is_ready: false  # flag: for auto_ready
+      #   }
       # }
     }
   }

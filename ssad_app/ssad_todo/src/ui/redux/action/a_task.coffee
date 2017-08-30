@@ -4,6 +4,7 @@ config = require '../../../config'
 td = require '../../../td/td'
 one_task = require '../../../td/one_task'
 one_history = require '../../../td/one_history'
+task_status = require '../../../td/task_status'
 a_td = require './a_td'
 a_common = require './a_common'
 
@@ -24,6 +25,7 @@ T_HIDE_HISTORY = 't_hide_history'
 T_SHOW_HISTORY = 't_show_history'
 
 
+# TODO multi-thread load tasks
 init_load = ->
   (dispatch, getState) ->
     dispatch {
@@ -123,9 +125,13 @@ load_one_task = (task_id, limit_n) ->
       if h.data.status?
         status = h.data.status
       count += 1
+
+      _is_last_end = (status) ->
+        status? and (task_status.CLASS_END.indexOf(status) != -1)
+
       # check break
-      if (count > limit_n) and status?
-        break  # load until got first status
+      if (count > limit_n) and _is_last_end(status)
+        break  # load until last_end
     # load one task (and history) done
 
 
@@ -245,6 +251,7 @@ change_status = (task_id, status) ->
         status
       }
     }
+    # TODO check old status is same ?
 
     h = one_history.create_history task_id, one_history.TYPE_STATUS, status
     await td.create_history h

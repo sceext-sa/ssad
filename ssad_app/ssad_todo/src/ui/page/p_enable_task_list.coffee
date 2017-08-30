@@ -201,10 +201,10 @@ Page = cC {
 
         task_id: i
         type: one.raw.data.type
-        status: one.status
+        status: one.calc.status
         title: one.raw.data.title
-        text: one.text
-        last_time: one.last_time
+        text: one.calc.text
+        last_time: one.calc.last_time
 
         on_show_task: @props.on_show_item
       })
