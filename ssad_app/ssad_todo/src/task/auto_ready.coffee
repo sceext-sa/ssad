@@ -119,16 +119,17 @@ _st_rf_1d_hour_minute = (calc, a) ->
   o.setUTCHours a.hour
   o.setUTCMinutes a.minute
 
-  o = time_print.r_offset_date o
   # check last_end is today
   last_end = new Date calc.last_end
-  last_end = time_print.r_offset_date last_end
+  last_end = time_print.offset_date last_end
   if o.toISOString().split('T')[0] is last_end.toISOString().split('T')[0]
     in_today = true
   else
     in_today = false
   if in_today
     return false  # never ready when today done
+
+  o = time_print.r_offset_date o
   # check should ready  (today not done)
   if now.getTime() > o.getTime()
     return true

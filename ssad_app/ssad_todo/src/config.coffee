@@ -1,6 +1,6 @@
 # config.coffee, ssad/ssad_app/ssad_todo/src/
 
-P_VERSION = 'ssad_todo version 0.2.0-1 test20170831 0026'
+P_VERSION = 'ssad_todo version 0.2.0-2 test20170831 1222'
 
 # localStorage key
 LOCAL_STORAGE_KEY = 'ssad_todo_config'
@@ -14,6 +14,9 @@ DEFAULT_LOAD_HISTORY_N = 16
 DEFAULT_LOAD_DISABLED_N = 16
 # number of items to load of 'load more'
 LOAD_MORE_ONCE_N = 8
+
+# refresh task calc, every N second
+REFRESH_TASK_CALC_TIME_S = 10
 
 
 # global data
@@ -35,6 +38,8 @@ module.exports = {
   DEFAULT_LOAD_HISTORY_N
   DEFAULT_LOAD_DISABLED_N
   LOAD_MORE_ONCE_N
+
+  REFRESH_TASK_CALC_TIME_S
 
   store  # get/set
 }

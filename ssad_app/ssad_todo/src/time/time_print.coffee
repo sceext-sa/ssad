@@ -114,8 +114,13 @@ _get_n_days_ago = (date) ->
   now = _offset_date new Date()
   nd = new Date now
   nd.setUTCFullYear da.getUTCFullYear()
+
   nd.setUTCMonth da.getUTCMonth()
   nd.setUTCDate da.getUTCDate()
+  # FIX set month/date
+  nd.setUTCMonth da.getUTCMonth()
+  nd.setUTCDate da.getUTCDate()
+
   delta_ms = now.getTime() - nd.getTime()
 
   _o = (x) ->

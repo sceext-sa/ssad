@@ -171,7 +171,7 @@ _calc_psr_fixed = (task, calc, ps) ->
         if ps[0].type != time_parse.TYPE_HOUR_MINUTE
           return 'not support (regular fixed 1 day: ps not hour_minute)'
         # sub type check OK
-        return _sub_type_psr_fixed_one_day_hour_minute ps[0]
+        return _sub_type_psr_fixed_one_day_hour_minute calc, ps[0]
       when 'w'  # weeks
         # only support one week (everyweek)
         if i.value != 1
@@ -216,16 +216,24 @@ _calc_psr_last = (task, calc, ps) ->
 
 # calc.planned_start: sub types
 
-_sub_type_psr_fixed_one_day_hour_minute = (ps) ->
+_sub_type_psr_fixed_one_day_hour_minute = (calc, ps) ->
   now = new Date()
   o = time_print.offset_date now
   # make today's ps
   o.setUTCHours ps.hour
   o.setUTCMinutes ps.minute
 
+  # check last_end is today
+  last_end = new Date calc.last_end
+  last_end = time_print.offset_date last_end
+  if o.toISOString().split('T')[0] is last_end.toISOString().split('T')[0]
+    in_today = true
+  else
+    in_today = false
+
   o = time_print.r_offset_date o
   # check today passed
-  if now.getTime() > o.getTime()
+  if (now.getTime() > o.getTime()) and in_today  # if not today done, never use tomorrow
     # tomorrow
     t = o.getTime() + 86400 * 1e3
     o.setTime t

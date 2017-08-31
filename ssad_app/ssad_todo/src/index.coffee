@@ -22,6 +22,7 @@ util = require './util'
 reducer = require './ui/redux/root_reducer'
 n_action = require './ui/redux/nav/n_action'
 a_welcome = require './ui/redux/action/a_welcome'
+a_td = require './ui/redux/action/a_td'
 
 # use with redux
 MainHost = require './ui/redux/main_host'
@@ -46,14 +47,21 @@ _load_config = ->
   # goto welcome page
   store.dispatch n_action.go('page_welcome')
 
+_init_refresh_task_calc = ->
+  _refresh_once = ->
+    store.dispatch a_td.calc_all()
+    console.log "DEBUG: refresh task calc at #{new Date()}"
+  # refresh task calc
+  setInterval _refresh_once, config.REFRESH_TASK_CALC_TIME_S * 1e3
+
 _init = ->
   # goto  [ page_main_menu, page_enable_task_list ]  on init
   store.dispatch n_action.go('page_main_menu')
   store.dispatch n_action.go('page_enable_task_list')
   # load config from localStorage
   _load_config()
-  # TODO
-  await return
+  # other init
+  _init_refresh_task_calc()
 
 OM = cC {  # MainHost
   displayName: 'OM'
