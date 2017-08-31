@@ -10,6 +10,7 @@ r_edit_create_task = require './r_edit_create_task'
 r_enable_task_list = require './r_enable_task_list'
 r_one_task = require './r_one_task'
 r_change_status = require './r_change_status'
+r_config = require './r_config'
 
 
 _check_init_state = ($$state) ->
@@ -26,6 +27,10 @@ reducer = ($$state, action) ->
       $$data = Immutable.fromJS action.payload
       $$o = $$o.update 'init_load_progress', ($$p) ->
         $$p.merge $$data
+    when ac.COMMON_INIT_LOAD_ADD_ONE
+      $$o = $$o.updateIn ['init_load_progress', 'now'], (now) ->
+        now + 1
+
     when ac.COMMON_SET_OP_DOING
       $$o = $$o.set 'op_doing', action.payload
     when ac.COMMON_SET_TASK_ID
@@ -41,6 +46,8 @@ reducer = ($$state, action) ->
       $$o = r_one_task $$o, action
       $$o = $$o.update 'cs', ($$c) ->
         r_change_status $$c, action
+      $$o = $$o.update 'config', ($$c) ->
+        r_config $$c, action
   $$o
 
 module.exports = reducer

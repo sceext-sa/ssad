@@ -13,8 +13,9 @@ mapStateToProps = (state, props) ->
     init_load_task_done: $$i.get 'done'
     init_load_task_now: $$i.get 'now'
     init_load_task_all: $$i.get 'all'
-    init_load_task_id: "#{$$i.get 'task_id'}"
+
     op_doing: $$state.get 'op_doing'
+    init_load_error: $$i.get 'error'
   }
 
 mapDispatchToProps = (dispatch, props) ->

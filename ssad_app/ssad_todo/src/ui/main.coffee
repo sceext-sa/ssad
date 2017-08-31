@@ -27,7 +27,7 @@ Main = cC {
     init_load_task_done: PropTypes.bool.isRequired
     init_load_task_now: PropTypes.number.isRequired
     init_load_task_all: PropTypes.number.isRequired
-    init_load_task_id: PropTypes.string.isRequired
+    #init_load_error
     op_doing: PropTypes.bool.isRequired
   }
 
@@ -50,15 +50,14 @@ Main = cC {
       # show load-task / doing-operation
       @_render_load_task()
       @_render_doing()
-      # TODO show error ?
     )
 
   _render_load_task: ->
-    if ! @props.init_load_task_done
+    if (! @props.init_load_task_done) or (@props.init_load_error?)
       (cE InitLoadTask, {
         now: @props.init_load_task_now
         all: @props.init_load_task_all
-        task_id: @props.init_load_task_id
+        error: @props.init_load_error
       })
 
   _render_doing: ->

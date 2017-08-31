@@ -20,9 +20,11 @@ ReactDOM = require 'react-dom'
 config = require './config'
 util = require './util'
 reducer = require './ui/redux/root_reducer'
+
 n_action = require './ui/redux/nav/n_action'
 a_welcome = require './ui/redux/action/a_welcome'
 a_td = require './ui/redux/action/a_td'
+a_config = require './ui/redux/action/a_config'
 
 # use with redux
 MainHost = require './ui/redux/main_host'
@@ -36,6 +38,18 @@ config.store store  # save global store
 
 
 _load_config = ->
+  # load init_load_thread
+  n = Number.parseInt util.get_config_init_load_thread()
+  if (! Number.isNaN(n)) and (n > 0)
+    # update config value
+    config.INIT_LOAD_THREAD_N = n
+    # update state
+    store.dispatch a_config.set_init_load_thread_n(n)
+    # DEBUG
+    console.log "DEBUG: _load_config: init_load_thread #{n}"
+  else
+    store.dispatch a_config.set_init_load_thread_n(config.INIT_LOAD_THREAD_N)
+  # load app_id/ssad_key
   c = util.get_config()
   if c?
     if c.app_id?

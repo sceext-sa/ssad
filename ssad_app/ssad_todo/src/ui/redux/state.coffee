@@ -23,6 +23,12 @@ init_state = {  # with Immutable
     now: null  # TODO update this value every 1 minute ?
     # TODO time-zone config ?
 
+    # config page
+    config: {
+      init_load_thread_n: ''
+      init_load_time_s: 0
+    }
+
     # enable_task_list
     show_list: 'current'  # 'before', 'current', 'err', 'ok'
     # p_one_task
@@ -67,12 +73,11 @@ init_state = {  # with Immutable
       now: 0
       all: 0
       done: true  # load done  # Note: true for welcome page
-      # TODO support multi-thread load ?
-      task_id: null  # loading task_id, for DEBUG
+
+      error: null  # save multi-thread load error
     }
     # flag: doing operation
     op_doing: false
-    # TODO show error ?
   }
   # td: loaded td data (cache)
   td: {

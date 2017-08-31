@@ -1,12 +1,15 @@
 # a_task.coffee, ssad/ssad_app/ssad_todo/src/ui/redux/action/
 
 config = require '../../../config'
+thread_pool = require '../../../task/thread_pool'
+
 td = require '../../../td/td'
 one_task = require '../../../td/one_task'
 one_history = require '../../../td/one_history'
 task_status = require '../../../td/task_status'
 a_td = require './a_td'
 a_common = require './a_common'
+a_config = require './a_config'
 
 # action types
 
@@ -25,13 +28,16 @@ T_HIDE_HISTORY = 't_hide_history'
 T_SHOW_HISTORY = 't_show_history'
 
 
-# TODO multi-thread load tasks
 init_load = ->
   (dispatch, getState) ->
     dispatch {
       type: T_INIT_LOAD
     }
     # `no_calc` is enabled by default
+
+    # DEBUG load time
+    start = new Date()
+    console.log "DEBUG: init_load start at #{start.toISOString()}"
 
     # load (enabled) task list and disabled (task) list first
     await dispatch a_td.load_task_list()
@@ -50,40 +56,65 @@ init_load = ->
       all: count_to_load
       done: false
       now: 0
+      error: null  # reset error
     })
+    # TODO more error progress ?
 
-    count_load = 0  # loaded tasks
+    # multi-thread load enable tasks
+    console.log "DEBUG: init_load with #{config.INIT_LOAD_THREAD_N} threads"
+    pool = thread_pool config.INIT_LOAD_THREAD_N
+
+    _worker_enable = (task_id) ->
+      try
+        await dispatch load_one_task(task_id)
+        # load OK, +1
+        dispatch a_common.init_load_add_one()
+      catch e
+        error = "load task #{task_id}, #{e}  #{e.stack}"
+        dispatch a_common.update_init_progress({
+          error
+        })
     # load all enable tasks (with default number of history items)
-    for task_id in enable_list
-      # update task_id before load
-      dispatch a_common.update_init_progress({
-        task_id
-      })
+    await pool.run enable_list, _worker_enable
 
-      await dispatch load_one_task(task_id)
-      count_load += 1
-      dispatch a_common.update_init_progress({
-        now: count_load
-      })
     # sort disabled tasks
     disabled_list.sort()  # ISO_TIME..TASK_ID
     disabled_list.reverse()  # load latest items first
+    # make todo_list
+    todo_list = []
     for i in [0... config.DEFAULT_LOAD_DISABLED_N]
       if i >= disabled_list.length
         break
       p = disabled_list[i].split '..'  # ISO_TIME..TASK_ID
-      # update task_id before load (for DEBUG)
-      dispatch a_common.update_init_progress({
-        task_id: disabled_list[i]
-      })
-
       task_name = td.make_disabled_task_name p[1], p[0]
-      await dispatch a_td.load_task(task_name)
 
-      count_load += 1
-      dispatch a_common.update_init_progress({
-        now: count_load
-      })
+      todo_list.push task_name
+    # multi-thread load disabled tasks
+    console.log "DEBUG: init_load: load #{todo_list.length} disabled tasks"
+    pool = thread_pool config.INIT_LOAD_THREAD_N
+
+    _worker_disabled = (task_name) ->
+      try
+        await dispatch a_td.load_task(task_name)
+        # load OK, +1
+        dispatch a_common.init_load_add_one()
+      catch e
+        error = "load task #{task_name}: #{e}  #{e.stack}"
+        dispatch a_common.update_init_progress({
+          error
+        })
+    # load disabled tasks
+    await pool.run todo_list, _worker_disabled
+
+    # DEBUG init load time
+    end = new Date()
+    console.log "DEBUG: init_load end at #{end.toISOString()}"
+    time_used = end.getTime() - start.getTime()
+    console.log "DEBUG: init_load used time #{time_used / 1e3}s"
+    # update config
+    dispatch a_config.set_init_load_thread_n(config.INIT_LOAD_THREAD_N)
+    dispatch a_config.set_init_load_time_s(time_used / 1e3)
+
     # turn-off no_calc
     dispatch a_td.set_no_calc(false)
     dispatch a_td.calc_all()  # update all data

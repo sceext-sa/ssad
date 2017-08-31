@@ -7,6 +7,7 @@ PropTypes = require 'prop-types'
 
 {
   ProgressBar
+  Alert
 } = require 'react-bootstrap'
 
 
@@ -15,7 +16,7 @@ InitLoadTask = cC {
   propTypes: {
     now: PropTypes.number.isRequired
     all: PropTypes.number.isRequired
-    task_id: PropTypes.string.isRequired
+    #error
   }
 
   _calc_now: ->
@@ -28,6 +29,18 @@ InitLoadTask = cC {
     "#{@props.now} / #{@props.all}"
 
   render: ->
+    # load error
+    e = null
+    if @props.error?
+      e = (cE Alert, {
+        bsStyle: 'danger'
+        },
+        (cE 'strong', null,
+          'ERROR '
+        )
+        "#{@props.error}"
+      )
+
     (cE 'div', {
       className: 'sub_init_load_task'
       },
@@ -35,9 +48,10 @@ InitLoadTask = cC {
         className: 'text'
         },
         (cE 'span', null,
-          "SSAD_todo is loading tasks .. . (task_id #{@props.task_id})"
+          "SSAD_todo is loading tasks .. . "
         )
       )
+      e
       (cE ProgressBar, {
         active: true
         now: @_calc_now()
