@@ -9,12 +9,14 @@ action = require '../action/a_config_core'
 mapStateToProps = (state, props) ->
   $$state = state.main
   {
-    # TODO
+    core_editor: $$state.getIn ['config', 'core_editor']
+    doc_clean: $$state.get 'doc_clean'
   }
 
 mapDispatchToProps = (dispatch, props) ->
-  o = props  # pass all props
-  # TODO
+  o = Object.assign {}, props  # pass all props
+  o.on_set_core = (core_name) ->
+    dispatch action.set_core(core_name)
   o
 
 O = connect(mapStateToProps, mapDispatchToProps)(PConfigCore)

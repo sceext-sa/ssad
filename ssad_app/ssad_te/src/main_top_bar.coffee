@@ -15,6 +15,7 @@ MainTopBar = cC {
   propTypes: {
     filename: PropTypes.string
     is_clean: PropTypes.bool.isRequired
+    count: PropTypes.number.isRequired
 
     on_save: PropTypes.func.isRequired
     on_nav: PropTypes.func.isRequired
@@ -55,7 +56,7 @@ MainTopBar = cC {
         className: 'count'
         onClick: @_on_nav_count
         },
-        'TODO'  # TODO
+        @props.count.toString()
       )
       (cE 'span', {
         className: 'title'

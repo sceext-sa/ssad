@@ -7,7 +7,7 @@ ac = require '../action/a_file'
 r_file_select = require './r_file_select'
 
 
-# $$o = action.main
+# $$o = state.main
 reducer = ($$o, action) ->
   switch action.type
     #when ac.FILE_SAVE  # TODO

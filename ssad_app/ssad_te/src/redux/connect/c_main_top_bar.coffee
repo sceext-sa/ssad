@@ -14,10 +14,13 @@ mapStateToProps = (state, props) ->
   filename = r_util.get_filename $$state
   if filename?
     filename = $$state.get 'filename'
+  count_main = $$state.getIn ['count', 'main']
+  count = $$state.getIn ['count', 'info', count_main]
 
   {
     filename
     is_clean: $$state.get 'doc_clean'
+    count
   }
 
 mapDispatchToProps = (dispatch, props) ->
