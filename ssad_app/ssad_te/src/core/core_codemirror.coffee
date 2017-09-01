@@ -1,4 +1,4 @@
-# core_codemirror.coffee, ssad/ssad_app/ssad_te/
+# core_codemirror.coffee, ssad/ssad_app/ssad_te/src/core/
 # use global:
 #   CodeMirror
 
@@ -14,13 +14,18 @@ DEFAULT_OPTIONS = {
   theme: 'blackboard'
 
   lineWrapping: true
-  lineNumbers: true
+  lineNumbers: false
+
+  scrollbarStyle: 'native'
 
   matchBrackets: true
   highlightSelectionMatches: true
   styleActiveLine: true
   placeholder: '  CodeMirror editor'
   rulers: [ { column: 80 } ]
+
+  showInvisibles: true
+  maxInvisibles: 255
 }
 
 _load_mode = (m) ->
@@ -32,7 +37,7 @@ _load_theme = (theme_name) ->
   await return
 
 
-class CMCore extends EventEmitter
+class CMcore extends EventEmitter
   constructor: (cm) ->
     super()
     @_cm = cm
@@ -74,6 +79,9 @@ class CMCore extends EventEmitter
   set_placeholder: (text) ->
     @_cm.setOption 'placeholder', text
 
+  set_scrollbar_style: (style) ->
+    @_cm.setOption 'scrollbarStyle', style
+
   # operations
   get_text: ->
     @_cm.getValue()
@@ -96,6 +104,9 @@ class CMCore extends EventEmitter
   set_overwrite: (enable) ->
     @_cm.toggleOverwrite enable
 
+  set_show_invisibles: (enable) ->
+    @_cm.setOption 'showInvisibles', enable
+
   get_clean_mark: ->
     @_cm.changeGeneration()
 
@@ -110,7 +121,7 @@ class CMCore extends EventEmitter
 
 init_editor = (e_root) ->
   cm = CodeMirror(e_root, DEFAULT_OPTIONS)
-  o = new CMCore cm
+  o = new CMcore cm
   o
 
 get_version = ->

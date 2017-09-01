@@ -81,5 +81,40 @@
     }
   }
 
+  // sub_check_item
+  .sub_check_item {
+    flex: initial;
+    flex-shrink: 0;
+
+    height: @nav_top_height;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    background-color: @co_bg_btn;
+    cursor: pointer;
+
+    transition-property: background-color;
+    transition-duration: @trans_t;
+    &.selected, &:hover {
+      transition-duration: 0s;
+      background-color: mix(@co_bg_btn_touch, @co_bg_btn, @btn_touch_mix);
+    }
+
+    .text {
+      color: @co_text_btn;
+      flex: 1;
+    }
+    .right {
+      color: @co_text_sec;
+    }
+
+    border-bottom-style: solid;
+    border-bottom-width: 0.1rem;
+    border-bottom-color: @co_bg_sec;
+  }
+
   // TODO
 }

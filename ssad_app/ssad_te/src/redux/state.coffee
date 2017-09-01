@@ -1,5 +1,7 @@
 # state.coffee, ssad/ssad_app/ssad_te/src/redux/
 
+core_editor = require '../core_editor'
+
 init_state = {  # with Immutable
   # navigation part
   nav: {
@@ -26,9 +28,43 @@ init_state = {  # with Immutable
     filename: null  # global show filename (after open)
     # editor page
     editor: {
-      mode: null  # TODO
-      theme: null  # TODO
-      font_size: null  # TODO
+      # different core use different config
+      codemirror: {
+        # TODO
+        mode: null
+        theme: null
+        font_size: null
+
+        show_line_number: false
+        line_wrap: true
+        read_only: false
+        tab_size: 4  # TODO
+        overwrite: false  # TODO
+        show_invisibles: true
+
+        # only for CodeMirror
+        cm_scrollbar_style: 'native'  # 'native', 'overlay', 'null', 'simple'
+        cm_right_ruler: 80  # TODO
+      }
+      ACE: {
+        # TODO
+        mode: null
+        theme: null
+        font_size: null
+
+        show_line_number: false
+        line_wrap: true
+        read_only: false
+        tab_size: 4  # TODO
+        overwrite: false  # TODO
+        show_invisibles: true
+
+        # only for ACE
+        ace_scroll_past_end: true
+        ace_cursor_style: 'ace'  # 'ace', 'slim', 'smooth', 'wide'
+        ace_show_scrollbar_h: false  # TODO
+        ace_show_scrollbar_v: false  # TODO
+      }
       # TODO advanced ?
     }
     # TODO edit part
@@ -40,12 +76,32 @@ init_state = {  # with Immutable
       ssad_key: ''
       # app_id/ssad_key error
       error: null
-      # core editor type  (TODO ACE)
-      core_editor: 'codemirror'  # 'codemirror', 'ace'
+      # core editor type
+      core_editor: core_editor.CORE_EDITOR_CODEMIRROR  # 'codemirror', 'ACE'
     }
     # count page
     count: {
-      # TODO
+      # count values
+      info: {
+        chars: 0
+        lines: 0
+        no_empty_lines: 0
+        no_empty_chars: 0
+        no_ascii_chars: 0
+        # words
+        words: 0
+        words_ascii: 0
+        words_no_ascii: 0
+        words_mix: 0
+        # more counts
+        empty_lines: 0
+        empty_chars: 0
+        ascii_chars: 0
+        'words+no_ascii_chars': 0
+        'words_ascii+no_ascii_chars': 0
+      }
+      # main count to display (on main_top_bar)
+      main: 'words+no_ascii_chars'
     }
   }
 }

@@ -22,6 +22,7 @@ util = require './util'
 core_editor = require './core_editor'
 reducer = require './redux/root_reducer'
 a_config_id_key = require './redux/action/a_config_id_key'
+a_count = require './redux/action/a_count'
 
 # use with redux
 MainHost = require './redux/main_host'
@@ -44,12 +45,51 @@ _load_config = ->
         store.dispatch a_config_id_key.change_key(c.ssad_key)
         store.dispatch a_config_id_key.key_ok()
 
+_init_auto_count = ->
+  # init count
+  store.dispatch a_count.refresh()
+  sleep_time = config.AUTO_COUNT_SLEEP_S * 1e3
+
+  last_mark = null  # TODO only for codemirror
+  # TODO improve performance (for ACE)
+  _update_clean_mark = ->
+    c = core_editor.get_current_core_name()
+    if c == core_editor.CORE_EDITOR_CODEMIRROR
+      core = core_editor.get_core()
+      last_mark = core.get_clean_mark()
+  _update_clean_mark()
+
+  _check_count = ->
+    is_clean = false
+    c = core_editor.get_current_core_name()
+    if c == core_editor.CORE_EDITOR_CODEMIRROR
+      core = core_editor.get_core()
+      if core.is_clean(last_mark)
+        is_clean = true
+    if ! is_clean
+      # should count
+      store.dispatch a_count.refresh()
+      _update_clean_mark()
+    setTimeout _check_count, sleep_time
+  # start auto count
+  setTimeout _check_count, sleep_time
+
+_init_auto_save = ->
+  # TODO
+
 _init = ->
   # TODO support switch between codemirror / ace core_editor ?
   # init core_editor
-  core_editor.init document.getElementById('root_core_editor')
+  core_editor.set_core_root_element core_editor.CORE_EDITOR_CODEMIRROR, document.getElementById('root_core_editor_cm')
+  core_editor.set_core_root_element core_editor.CORE_EDITOR_ACE, document.getElementById('root_core_editor_ace')
+  # TODO init core is codemirror
+  core_editor.set_core core_editor.CORE_EDITOR_CODEMIRROR
+  util.set_core_active_cm()
+
   # load config from localStorage
   _load_config()
+  # auto count
+  _init_auto_count()
   # TODO load config from ssad_server (app/etc file ?)
   await return
 

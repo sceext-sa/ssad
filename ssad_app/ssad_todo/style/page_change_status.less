@@ -1,0 +1,52 @@
+// page_change_status.less, ssad/ssad_app/ssad_todo/style/
+.ssad_todo {
+  .p_change_status {
+    // nav_top
+    .task_id {
+      margin-right: 1rem;
+    }
+
+    .title {
+      display: block;
+      margin: 1rem;
+      color: @co_title;
+    }
+
+    .status, .disabled, .comment {
+      margin-top: 2rem;
+    }
+    // main_button font-size
+    .sub_main_button {
+      font-size: 1.5rem;
+    }
+
+    // input textarea style
+    .form-control {
+      background-color: @co_bg_input;
+      color: @co_text_input;
+      border-color: @co_bg_sec;
+    }
+    .body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    // comment: textarea's style
+    .comment {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .form-group {
+        margin: 1rem;
+
+        // TODO auto-grow textarea ?
+        textarea {
+          resize: vertical;
+          max-width: 100%;
+          min-height: 15em;
+        }
+      }
+    }
+  }
+}
