@@ -132,7 +132,7 @@ _get_n_days_ago = (date) ->
     o = _o delta_ms
   o
 
-print_iso_date_short = (date, print_days) ->
+print_iso_date_short = (date, print_days, print_days_short) ->
   n_days_ago = _get_n_days_ago date
   d = _offset_date date
   now = _offset_date new Date()
@@ -153,24 +153,30 @@ print_iso_date_short = (date, print_days) ->
     year = _zero_len d.getUTCFullYear(), 4
     o = "#{year}-#{o}"
   # add n-days-ago
-  DAYS_LIMIT = 32  # TODO change limit ?
+  DAYS_LIMIT = 100  # TODO change limit ?
   if (n_days_ago < DAYS_LIMIT) and (n_days_ago > - DAYS_LIMIT) and print_days
     if n_days_ago < 0
-      o = "#{o} (#{- n_days_ago} days later)"
+      if print_days_short
+        o = "#{o} (+#{- n_days_ago} d)"
+      else
+        o = "#{o} (#{- n_days_ago} days later)"
     else
-      o = "#{o} (#{n_days_ago} days ago)"
+      if print_days_short
+        o = "#{o} (-#{n_days_ago} d)"
+      else
+        o = "#{o} (#{n_days_ago} days ago)"
   # add week
   week = _print_day_in_week d.getUTCDay()
   "#{o} #{week}"
 
-print_iso_time_short = (date, print_days_ago, print_second) ->
+print_iso_time_short = (date, print_days_ago, print_second, print_days_ago_short) ->
   n_days_ago = _get_n_days_ago date
   d = _offset_date date
   now = _offset_date new Date()
   o = ''
   # not today, print date first
   if n_days_ago != 0
-    o = print_iso_date_short(date, print_days_ago) + ' '
+    o = print_iso_date_short(date, print_days_ago, print_days_ago_short) + ' '
   # just print time
   hour = _zero_len d.getUTCHours(), 2
   minute = _zero_len d.getUTCMinutes(), 2

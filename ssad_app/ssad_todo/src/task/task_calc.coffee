@@ -11,9 +11,14 @@ auto_ready = require './auto_ready'
 
 _make_history_index = (task) ->
   history_name = Object.keys task.history
-  history_name.sort()
-  history_name.reverse()  # latest history first
-  history_name
+  # ignore all hide history
+  o = []
+  for h in history_name
+    if ! task.history_list[h]
+      o.push h
+  o.sort()
+  o.reverse()  # latest history first
+  o
 
 # get current status of one task from history items
 _get_current_status = (task) ->
@@ -40,12 +45,17 @@ _get_latest_text = (task) ->
 _get_last_time = (task) ->
   # get all history time
   ht = Object.keys task.history_list
+  # check history hide: ignore all hide history
+  o = []
+  for h in ht
+    if ! task.history_list[h]
+      o.push h
   # add one: task raw last_update time
-  ht.push task.raw._time
+  o.push task.raw._time
   # sort time
-  ht.sort()
-  ht.reverse()  # use latest one
-  ht[0]
+  o.sort()
+  o.reverse()  # use latest one
+  o[0]
 
 
 _is_task_disabled = (task_id, enable_list) ->
@@ -76,11 +86,16 @@ calc_one_task = (task_id, task, enable_list) ->
     # last_end
     o.last_end = _get_last_end task
     # planned_start
-    o.planned_start = _calc_planned_start task, o
-    # FIXME
+    rd = task.raw.data
+    ps = rd.time.planned_start
+    o.planned_start = _calc_planned_start task, o, ps
     if o.planned_start? and o.planned_start.toISOString?
       o.planned_start = o.planned_start.toISOString()
-    # TODO ddl ?
+    # FIXME calc ddl the same as planned_start
+    o.ddl = _calc_planned_start task, o, rd.time.ddl
+    if o.ddl? and o.ddl.toISOString?
+      o.ddl = o.ddl.toISOString()
+
     # TODO fix planned_start / ddl ?
 
     # is_ready
@@ -113,10 +128,10 @@ _get_last_end = (task) ->
   task.raw._time
 
 # directly planned_start from task config (task.raw)
-_calc_planned_start = (task, calc) ->
+_calc_planned_start = (task, calc, ps) ->
   rd = task.raw.data
   # check time.planned_start
-  ps = rd.time.planned_start
+
   # check task type
   if rd.type != one_task.TASK_TYPE_R  # oneshot, not regular
     if (! ps?) or (ps.trim() is '')

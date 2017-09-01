@@ -194,21 +194,33 @@ Page = cC {
       )
     )
 
+  _get_last_time: (group_name, one) ->
+    o = time.print_iso_time_short new Date(one.calc.last_time)
+    switch group_name
+      when 'wait', 'ready'  # show planned_start
+        ps = one.calc.planned_start
+        if ps? and (ps.trim() != '')
+          d = new Date(ps)
+          if ! Number.isNaN d.getTime()  # good iso string
+            # print planned_start
+            o = "#{time.print_iso_time_short d} ~"
+      when 'doing', 'paused'  # show ddl
+        ddl = one.calc.ddl
+        if ddl? and (ddl.trim() != '')
+          d = new Date(ddl)
+          if ! Number.isNaN d.getTime()
+            o = "~ #{time.print_iso_time_short d}"
+      when 'cancel', 'fail', 'done'  # show last_end
+        o = ":: #{time.print_iso_time_short new Date(one.calc.last_end), true, false, true}"
+      #else: show default: last_time
+    o
+
   _render_one_list: (data) ->
+    group_name = data[0]
     # render each task item
     o = []
     for i in data[1]
       one = @props.task[i]
-
-      last_time = time.print_iso_time_short new Date(one.calc.last_time)
-      # check print planned_start
-      ps = one.calc.planned_start
-      if ps? and (ps.trim() != '')
-        d = new Date(ps)
-        if ! Number.isNaN d.getTime()  # good iso string
-          # print planned_start
-          last_time = "#{time.print_iso_time_short d} ~"
-      # TODO support ddl ?
 
       o.push (cE TaskItem, {
         key: i
@@ -218,19 +230,19 @@ Page = cC {
         status: one.calc.status
         title: one.raw.data.title
         text: one.calc.text
-        last_time
+        last_time: @_get_last_time group_name, one
 
         on_show_task: @props.on_show_item
       })
     # one list
     (cE 'div', {
       className: 'show_list'
-      key: data[0]
+      key: group_name
       },
       (cE 'span', {
         className: 'name'
         },
-        "#{data[0]}"
+        "#{group_name}"
       )
       o  # task_item list
     )

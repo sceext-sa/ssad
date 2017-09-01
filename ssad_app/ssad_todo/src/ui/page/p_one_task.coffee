@@ -236,6 +236,11 @@ Page = cC {
       date = new Date(planned_start)
       if ! Number.isNaN(date.getTime())
         planned_start = time.print_iso_time_short date, true, true
+    calc_ddl = calc.ddl
+    if calc_ddl?
+      date = new Date(calc_ddl)
+      if ! Number.isNaN(date.getTime())
+        calc_ddl = time.print_iso_time_short date, true, true
 
     (cE 'div', {
       className: 'detail'
@@ -255,8 +260,8 @@ Page = cC {
       (@_render_info_item 'c.second_status', calc.second_status, true)
       (@_render_info_item 'c.last_end', last_end, true)
       (@_render_info_item 'c.planned_start', planned_start, true)
+      (@_render_info_item 'calc.ddl', calc_ddl, true)
       # FIXME only for DEBUG now
-      (@_render_info_item 'calc.ddl', calc.ddl, true)
       (@_render_info_item 'calc.auto_ready', calc.auto_ready, true)  # only for auto_ready DEBUG
       (@_render_info_item 'calc.is_ready', calc.is_ready, true)
 
