@@ -1,6 +1,6 @@
-// nav.less, ssad/ssad_app/ssad_te/style/
+// nav.less, ssad/ssad_app/ssad_todo/style/
 
-.ssad_te {
+.ssad_todo {
   .nav_host {
     position: absolute;
     width: 100%;
@@ -17,13 +17,13 @@
       transition-property: left;
       transition-duration: @trans_t;
       &.current {
-        left: -100%;
-      }
-      &.right {
         left: 0;
       }
+      &.right {
+        left: 100%;
+      }
       &.left {
-        left: -200%;
+        left: -100%;
       }
     }
   }

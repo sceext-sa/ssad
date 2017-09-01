@@ -1,0 +1,142 @@
+// page_one_task.less, ssad/ssad_app/ssad_todo/style/
+.ssad_todo {
+  .p_one_task {
+    .one_task_top {
+      flex: 1;
+      height: @nav_top_height;
+      display: flex;
+      flex-direction: row;
+
+      .left {
+        flex: 1;
+        color: @co_text;
+
+        .long_status {
+          padding-left: 1rem;
+          color: @co_text_sec;
+        }
+      }
+      .right {
+        min-width: 4rem;
+        box-sizing: border-box;
+        flex-shrink: 0;
+
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        color: @co_text_sec;
+        .edit {
+          padding-left: 0.5rem;
+          color: @co_bg_sec;
+        }
+      }
+
+      .left, .right {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        cursor: pointer;
+        transition-property: background-color;
+        transition-duration: @trans_t;
+        &:hover {
+          background-color: mix(@co_bg_btn_touch, @co_bg_nav, @btn_touch_mix);
+          transition-duration: 0s;
+        }
+      }
+    }
+
+    .task {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .common, .detail_button, .detail {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+
+      .detail_button {
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+          color: @co_bg_sec;
+        }
+        font-size: 1rem;
+        height: 2rem;
+        border-bottom-style: solid;
+        border-width: 0.05rem;
+        border-color: @co_bg_sec;
+
+        cursor: pointer;
+        transition-duration: @trans_t;
+        transition-property: background-color;
+        &:hover {
+          background-color: mix(@co_bg_btn, @co_bg_btn_touch, @btn_touch_mix);
+          transition-duration: 0s;
+        }
+      }
+
+      .common {
+        .title, .desc {
+          display: block;
+          margin: 1rem;
+        }
+
+        .title {
+          color: @co_title;
+          margin-bottom: 0;
+        }
+        .desc {
+          color: @co_text_sec;
+          font-size: 0.85em;
+
+          white-space: pre;
+          word-break: break-all;
+          word-wrap: break-word;
+        }
+      }
+
+      .detail {
+        .last_update {
+          display: block;
+          color: @co_bg_sec;
+          text-align: right;
+          margin: 0.5rem;
+          margin-right: 1rem;
+          font-size: 1.3rem;
+        }
+      }
+
+      .item {
+        display: flex;
+        flex-direction: row;
+        margin: 1rem;
+        margin-bottom: 0;
+
+        .name {
+          color: @co_text_sec;
+          width: 10rem;  // TODO
+          flex-shrink: 0;
+          font-size: 1rem;
+          line-height: 2.5rem;
+          text-align: right;
+        }
+        .value {
+          color: @co_text;
+          padding-left: 1rem;
+          flex: 1;
+        }
+      }
+
+      .no_history {
+        padding: 1rem;
+        font-size: 1.3rem;
+        text-align: center;
+        color: @co_text_sec;
+      }
+    }
+  }
+}

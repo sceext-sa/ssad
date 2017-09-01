@@ -1,0 +1,40 @@
+// main.less, ssad/ssad_app/ssad_todo/style/
+
+@import "config";
+@import "color";
+@import "reset";
+
+@import "nav";
+@import "sub";
+@import "sub_task";
+@import "page";
+@import "page_welcome";
+@import "page_about";
+@import "page_main_menu";
+@import "page_edit_create_task";
+@import "page_enable_task_list";
+@import "page_one_task";
+@import "page_change_status";
+
+
+// global
+html, body {
+  background-color: @co_bg_default;
+  color: @co_text_default;
+}
+
+body {
+  font-size: @rem_size;
+  font-family: @font_default;
+}
+
+
+.ssad_todo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  bottom: 0;
+}

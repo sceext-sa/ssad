@@ -1,0 +1,267 @@
+// sub_task.less, ssad/ssad_app/ssad_todo/style/
+
+.ssad_todo {
+
+  .sub_task_item {
+    box-sizing: border-box;
+    border-bottom-style: solid;
+    border-bottom-width: 0.05rem;
+    border-bottom-color: @co_bg_sec;
+
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 0.5rem;
+      background-color: @co_light;
+    }
+
+    .left, .right {
+      box-sizing: border-box;
+    }
+    .left {
+      flex: 1;
+      padding: 1rem;
+      padding-right: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      .up, .down {
+        width: 100%;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: row;
+      }
+      .up {
+        .type, .status {
+          color: @co_text_sec;
+        }
+        .title {
+          padding-left: 0.5em;
+          color: @co_title;
+          flex: 1;
+          // TODO support too-long title hide ?
+        }
+        .time {
+          color: @co_text_sec;
+          font-size: 0.7em;
+          position: absolute;
+          top: 0;
+          right: 0;
+          pointer-events: none;
+          padding-top: 0.5rem;
+          padding-right: 1rem;
+          padding-left: 1rem;
+          background-color: @co_bg;
+        }
+      }
+      .down {
+        padding-top: 0.5rem;
+        color: @co_text_default;
+        font-size: 0.85em;
+      }
+    }
+    .right {
+      width: 3.5rem;
+      padding-left: 0.5rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text-align: center;
+      cursor: pointer;
+      color: @co_bg_sec;
+
+      transition-property: background-color;
+      transition-duration: @trans_t;
+      &:hover {
+        background-color: mix(@co_bg_btn_touch, @co_bg_nav, @btn_touch_mix);
+        transition-duration: 0s;
+      }
+
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .sub_task_history_item {
+    @left_width: 1.7rem;
+    @left_line_width: 0.1rem;
+    @border_width: 1rem;
+    @left_button_size: 1.5rem;
+
+    flex-shrink: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+
+    .mode {
+      margin-left: @left_width;
+      border-left-style: solid;
+      border-left-width: @left_line_width;
+      border-left-color: @co_text_sec;
+      padding: @border_width;
+      padding-left: 2rem;
+
+      min-height: 5rem;
+
+      .left_button {
+        @button_padding: 1rem;
+
+        position: absolute;
+        left: (@left_width - (@left_button_size / 2) + (@left_line_width / 2) - @button_padding);
+        top: (@border_width - @button_padding + 0rem);
+
+        padding: @button_padding;
+        cursor: pointer;
+        transition-duration: @trans_t;
+        transition-property: background-color;
+        &:hover {
+          transition-duration: 0s;
+          background-color: mix(@co_bg, @co_bg_btn_touch, @btn_touch_mix);
+        }
+
+        span {
+          display: block;
+          width: @left_button_size;
+          height: @left_button_size;
+          border-radius: (@left_button_size / 2);
+
+          background-color: @co_light;
+        }
+      }
+
+      &.hide_group {
+        @left_button_size: 2.7rem;
+        @button_padding: 0.4rem;
+
+        .left_button {
+          padding: @button_padding;
+
+          span {
+            width: @left_button_size;
+            height: @left_button_size;
+            border-radius: (@left_button_size / 2);
+
+            background-color: @co_btn_primary;
+            text-align: center;
+            line-height: @left_button_size;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: @co_title;
+          }
+        }
+
+        @line_height: 0.5rem;
+        padding-left: 1rem;
+        padding-top: ((3.5rem - @line_height) / 2);
+        &:after {
+          content: '';
+          display: block;
+          height: @line_height;
+          background-color: @co_bg_sec;
+          border-radius: (@line_height / 2);
+        }
+      }
+      &.hide_show {
+        .left_button {
+          span {
+            background-color: @co_btn_primary;
+            text-align: center;
+            font-size: 1rem;
+            line-height: @left_button_size;
+            color: @co_bg;
+          }
+        }
+      }
+
+      .time {
+        font-size: 1.2rem;
+        color: @co_text_sec;
+
+        margin-bottom: 0.5rem;
+      }
+
+      .content {
+        .status {
+          font-size: 2rem;
+          color: @co_title;
+        }
+        .comment {
+          font-size: 1.5rem;
+          color: @co_text_default;
+          // pre style
+          white-space: pre-wrap;
+          word-break: break-all;
+          word-wrap: break-word;
+        }
+      }
+
+      &.last_item {
+        min-height: auto;
+        margin: (@border_width / 2);
+        margin-top: @border_width;
+
+        border-left-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+
+        &:before {
+          content: '';
+          display: block;
+          width: 0;
+          height: @border_width;
+          border-left-style: solid;
+          border-left-width: @left_line_width;
+          border-left-color: @co_text_sec;
+          position: absolute;
+          top: (@border_width * -1);
+          left: @left_width;
+        }
+
+        span {
+          padding: 1rem 2rem;
+
+          border-style: solid;
+          border-width: @left_line_width;
+          border-color: @co_light;
+          border-radius: (@border_width / 2);
+
+          background-color: @co_light;
+          font-size: 1.2rem;
+          color: @co_bg_sec;
+        }
+
+        &.load_more {
+          span {
+            background-color: @co_btn_primary;
+            border-color: @co_btn_primary;
+            text-align: center;
+            flex: 1;
+            color: @co_title;
+            font-size: 1.5rem;
+
+            cursor: pointer;
+            transition-duration: @trans_t;
+            transition-property: background-color, border-color;
+          }
+          &:hover {
+            span {
+              transition-duration: 0s;
+              background-color: mix(@co_btn_primary, @co_bg_btn_touch, @btn_touch_mix);
+              border-color: mix(@co_btn_primary, @co_bg_btn_touch, @btn_touch_mix);
+            }
+          }
+        }
+      }
+    }
+  }
+}

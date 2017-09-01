@@ -1,0 +1,58 @@
+// page_edit_create_task.less, ssad/ssad_app/ssad_todo/style/
+.ssad_todo {
+  .p_edit_create_task {
+    .right_text {
+      margin-right: 1.5rem;
+    }
+
+    .task_common, .task_oneshot, .task_regular {
+      margin: 1rem;
+    }
+
+    .select_type, .select_time_base {
+      display: flex;
+      flex-direction: row;
+
+      > span {
+        flex: 1;
+      }
+    }
+
+    // override bootstrap's theme style
+    .btn-default {
+      background-color: @co_bg_btn;
+      color: @co_text_btn;
+      border-color: @co_text_sec;
+
+      background-image: none;
+      text-shadow: none;
+
+      &.active {
+        background-color: mix(@co_bg_btn, @co_bg_btn_touch, @btn_touch_mix);
+        text-decoration: underline;
+      }
+    }
+    .form-control {
+      background-color: @co_bg_input;
+      color: @co_text_input;
+      border-color: @co_bg_sec;
+    }
+
+    // desc: textarea's style
+    .task_common {
+      flex: 1;
+      flex-grow: 1;
+      flex-shrink: 0;
+      .desc_text {
+        .form-group {
+          // TODO auto-grow textarea ?
+          textarea {
+            resize: vertical;
+            max-width: 100%;
+            min-height: 15em;
+          }
+        }
+      }
+    }
+  }
+}
